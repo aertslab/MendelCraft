@@ -1,18 +1,25 @@
 package com.quintenlauwers.backend;
 
+import java.util.HashMap;
+
 /**
  * Created by quinten on 6/08/16.
  */
 public class DNAData {
     int nbGenes;
+    private HashMap<String, String> chromosomeNames = new HashMap<String, String>();
 
 
     public DNAData() {
         this.nbGenes = 5;
     }
 
-    public boolean isActiveGene(int geneNb) {
+    public boolean isActiveGene(int chromosomeNumber, int geneNb) {
         return true;
+    }
+
+    public String getNucleobase(int chromosomeNumber, int geneNb){
+        return byteNucleobaseToString((byte) (chromosomeNumber * 10 + geneNb));
     }
 
     public int getNbOfGenes(int chromosomeNumber) {
@@ -24,7 +31,14 @@ public class DNAData {
     }
 
     public String getChromosmeDescription(int id) {
-        return "lalala";
+        if (chromosomeNames.containsKey(Integer.toString(id))) {
+            return chromosomeNames.get(Integer.toString(id));
+        }
+        return "Gene Nb. " + Integer.toString(id);
+    }
+
+    public void setChromosomeDescription(int id, String description){
+        chromosomeNames.put(Integer.toString(id), description);
     }
 
     public String byteNucleobaseToString(byte nucleobase) {

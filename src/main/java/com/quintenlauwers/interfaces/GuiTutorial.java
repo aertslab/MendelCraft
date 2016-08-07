@@ -1,15 +1,16 @@
 package com.quintenlauwers.interfaces;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import com.quintenlauwers.backend.DNAData;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
 public class GuiTutorial extends GuiScreen {
@@ -19,55 +20,58 @@ public class GuiTutorial extends GuiScreen {
     private GuiButton nextGene;
     private GuiButton prevChromosome;
     private GuiButton nextChromosome;
-    private GuiButton c;
-    private GuiButton d;
+    private GuiButton doneBtn;
 
     /**
      * The X size of the DNA window in pixels.
      */
-    protected int xWindowSize = 176;
+    private int xWindowSize = 176;
     /**
      * The Y size of the DNA window in pixels.
      */
-    protected int yWindowSize = 166;
+    private int yWindowSize = 166;
     /**
      * The X size of the DNA button in pixels.
      */
-    protected int xButtonSize = 34;
+    private int xButtonSize = 34;
     /**
      * The Y size of the DNA button in pixels.
      */
-    protected int yButtonSize = 20;
+    private int yButtonSize = 20;
     /**
      * The Y position of the first DNA row in pixels.
      */
-    protected int yDNARowPosition = 70;
+    private int yDNARowPosition = 70;
+    /**
+     * The Y posoition of the nucleobase row in pixels.
+     */
+    private int yNucleobasePosition = 130;
     /**
      * The X size of the chromosome button in pixels.
      */
-    protected int xChromosomeSize = 20;
+    private int xChromosomeSize = 20;
     /**
      * The Y size of the chromosome button in pixels.
      */
-    protected int yChromosomeSize = 20;
+    private int yChromosomeSize = 20;
     /**
      * The maximum number of genes showed in a row at once.
      */
-    protected int nbVisibleGenes;
+    private int nbVisibleGenes;
     /**
      * The first shown gene.
      */
-    protected int geneIndex = 0;
-    protected int lastGeneIndex = 1;
+    private int geneIndex = 0;
+    private int lastGeneIndex = 1;
     /**
      * The maximum number of chromosomes showed in a row at once.
      */
-    protected int nbVisibleChromosomes;
+    private int nbVisibleChromosomes;
     /**
      * The first shown chromosome.
      */
-    protected int chromosomeIndex = 0;
-    protected int lastChromosomeIndex = 1;
+    private int chromosomeIndex = 0;
+    private int lastChromosomeIndex = 1;
     /**
      * The number of ticks since the last mouse movement.
      */
@@ -78,14 +82,24 @@ public class GuiTutorial extends GuiScreen {
     private int lastMouseX = 0;
     private int lastMouseY = 0;
     /**
-     * The current active chromosme
+     * The current active chromosme.
      */
     private int activeChromosome;
     private GuiClickableImage activeChromosomeButton = null;
+    /**
+     * The current active gene.
+     */
+    private boolean geneIsActive = false;
+    private int activeGene;
+    private GuiImageButton activeGeneButton = null;
+
+    private GuiTextField text = null;
 
 
-    protected ArrayList<GuiButton> visibleChromosomes = new ArrayList<GuiButton>();
-    protected ArrayList<GuiButton> visibleGenes = new ArrayList<GuiButton>();
+    private ArrayList<GuiButton> visibleChromosomes = new ArrayList<GuiButton>();
+    private ArrayList<GuiButton> visibleGenes = new ArrayList<GuiButton>();
+
+    private ArrayList<GuiTextField> textboxList = new ArrayList<GuiTextField>();
 
     /**
      * Textures used.
@@ -136,6 +150,7 @@ public class GuiTutorial extends GuiScreen {
 
     /**
      * Draw the button of the given chromosomeNumber if it should be visible.
+     *
      * @param chromosomeNumber
      */
     public GuiButton drawChromosomeButton(int chromosomeNumber) {
@@ -147,11 +162,18 @@ public class GuiTutorial extends GuiScreen {
         int yPosition = toWorldy(20 + 25 * (j / this.nbVisibleChromosomes));
         int xInTexture = (chromosomeNumber % NUMBEROFCHROMOSOMES) * 20;
         this.buttonList.add(tempButton = new GuiClickableImage(chromosomeNumber, xPosition, yPosition, xInTexture, 0, xChromosomeSize, yChromosomeSize, 600, 40, CHROMOSOMETEXTURE));
+        if (this.activeChromosomeButton != null) {
+            if (this.activeChromosome == chromosomeNumber) {
+                this.activeChromosomeButton = (GuiClickableImage) tempButton;
+                this.activeChromosomeButton.hold();
+            }
+        }
         return tempButton;
     }
 
     /**
      * Function to check if the button of the given chromosomeNumber should be visible.
+     *
      * @param chromosomeNumber
      * @return Chromosome button should be visible
      */
@@ -166,6 +188,19 @@ public class GuiTutorial extends GuiScreen {
         this.drawChromosomes();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.hoverText(mouseX, mouseY, partialTicks);
+        if (this.geneIsActive)
+            drawNucleobasesOfGene();
+        for (GuiTextField textbox : textboxList) {
+            textbox.drawTextBox();
+        }
+    }
+
+    @Override
+    public void updateScreen() {
+        super.updateScreen();
+        for (GuiTextField textbox : textboxList) {
+            textbox.updateCursorCounter();
+        }
     }
 
     /**
@@ -178,8 +213,9 @@ public class GuiTutorial extends GuiScreen {
 
     /**
      * Draw the name of a chromosome if the mouse stays still for over 10 ticks over a chromosomeButton.
-     * @param mouseX The x position of the mouse.
-     * @param mouseY The y position of the mouse.
+     *
+     * @param mouseX       The x position of the mouse.
+     * @param mouseY       The y position of the mouse.
      * @param partialTicks The number of ticks passed since last calling this method.
      */
     private void hoverText(int mouseX, int mouseY, float partialTicks) {
@@ -225,6 +261,18 @@ public class GuiTutorial extends GuiScreen {
                 yWindowSize, xWindowSize, yWindowSize);
     }
 
+    /**
+     * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
+     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
+     */
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+        for (GuiTextField textbox : textboxList) {
+            textbox.textboxKeyTyped(typedChar, keyCode);
+        }
+    }
+
     @Override
     public boolean doesGuiPauseGame() {
         return true;
@@ -255,20 +303,87 @@ public class GuiTutorial extends GuiScreen {
                 this.drawGenesOfChromosome(activeChromosome);
             }
         }
-        if (visibleChromosomes.contains(button)) {
-            if (this.activeChromosomeButton != null) {
-                this.activeChromosomeButton.releaseHold();
-            }
-            this.geneIndex = 0;
-            this.lastGeneIndex = this.geneIndex + 1;
-            this.activeChromosome = button.id;
-            this.activeChromosomeButton = (GuiClickableImage) button;
-            this.activeChromosomeButton.hold();
-            this.drawGenesOfChromosome(activeChromosome);
+        if (button == this.doneBtn) {
+            handleDoneButton(button);
         }
-        if (visibleGenes.contains(button)){
+        if (visibleChromosomes.contains(button)) {
+            handleChromosomeButton(button);
+        }
+        if (visibleGenes.contains(button)) {
+            handleGeneButton(button);
+        }
+
+    }
+
+    /**
+     * Handles the proper chromosome button and activates the genes.
+     *
+     * @param button The chromosome button pressed.
+     */
+    private void handleChromosomeButton(GuiButton button) {
+        if (this.activeChromosomeButton != null) {
+            this.activeChromosomeButton.releaseHold();
+            if (this.activeGeneButton != null) {
+                this.activeGeneButton.releaseHold();
+                geneIsActive = false;
+            }
+        }
+        this.geneIndex = 0;
+        this.lastGeneIndex = this.geneIndex + 1;
+        this.activeChromosome = button.id;
+        this.activeChromosomeButton = (GuiClickableImage) button;
+        this.activeChromosomeButton.hold();
+        this.drawGenesOfChromosome(activeChromosome);
+        drawTextbox();
+    }
+
+    private void drawTextbox() {
+        if (this.text == null) {
+            this.textboxList.add(this.text = new GuiTextField(0, this.fontRendererObj, toWorldx((this.xWindowSize - 130) / 2), yNucleobasePosition, 130, 20));
+            this.text.setMaxStringLength(23);
+            this.text.setText(DNA.getChromosmeDescription(this.activeChromosome));
+            this.text.setFocused(true);
+            this.buttonList.add(this.doneBtn = new GuiButton(0, toWorldx((this.xWindowSize - 100) / 2), yNucleobasePosition + 25, 100, 20, I18n.format("gui.write")));
+        }
+        else {
+            this.text.setText(DNA.getChromosmeDescription(this.activeChromosome));
         }
     }
+
+    /**
+     * Highlights the proper gene button and activates the nucleobases.
+     *
+     * @param button The gene button pressed.
+     */
+    private void handleGeneButton(GuiButton button) {
+        this.removeTextBox();
+        if (this.activeGeneButton != null) {
+            this.activeGeneButton.releaseHold();
+        }
+        this.activeGeneButton = (GuiImageButton) button;
+        this.geneIsActive = true;
+        this.activeGene = button.id;
+        this.activeGeneButton.hold();
+    }
+
+    private void handleDoneButton(GuiButton button) {
+        DNA.setChromosomeDescription(this.activeChromosome, this.text.getText());
+        this.text.setFocused(false);
+    }
+
+    private void removeTextBox() {
+        System.out.println("Remove textbox");
+        if (this.text != null) {
+            this.text.setFocused(false);
+            this.textboxList.remove(this.text);
+            this.text = null;
+        }
+        if (this.doneBtn != null) {
+            this.buttonList.remove(doneBtn);
+            this.doneBtn = null;
+        }
+    }
+
 
     public void drawGenesOfChromosome(int chromosomeNumber) {
         this.nbVisibleGenes = Math.min(4, DNA.getNbOfGenes(chromosomeNumber));
@@ -292,9 +407,25 @@ public class GuiTutorial extends GuiScreen {
         this.lastGeneIndex = this.geneIndex;
     }
 
-    public void drawNucleobasesOfGene(int chromosomeNumber, int geneNumber) {
-
+    public void drawNucleobasesOfGene() {
+        String nubleobases = DNA.getNucleobase(this.activeChromosome, this.activeGene);
+        int yPosition = toWorldy(this.yNucleobasePosition);
+        int xBegin = toWorldx((this.xWindowSize - 10 * nubleobases.length() - 10 * (nubleobases.length() - 1)) / 2);
+        for (int i = 0; i < nubleobases.length(); i++) {
+            String letter = Character.toString(nubleobases.charAt(i));
+            int xPosition = xBegin + i * 20;
+            this.fontRendererObj.drawString(letter, xPosition, yPosition, 0x000000);
+        }
     }
+
+    @Override
+    protected void mouseClicked(int x, int y, int btn) throws IOException {
+        super.mouseClicked(x, y, btn);
+        for (GuiTextField textbox : this.textboxList) {
+            textbox.mouseClicked(x, y, btn);
+        }
+    }
+
 
     /**
      * Convert the given coordinates in the DNA window to world coordinates. Dna coordinates are given as:

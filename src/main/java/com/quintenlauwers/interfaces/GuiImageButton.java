@@ -20,7 +20,11 @@ public class GuiImageButton extends GuiButton implements holdable{
     }
 
     public GuiImageButton(int buttonId, int x, int y, int widthIn, int heightIn, ResourceLocation image) {
-        super(buttonId, x, y, widthIn, heightIn, "");
+        this(buttonId, x, y, widthIn, heightIn, image, "");
+    }
+
+    public GuiImageButton(int buttonId, int x, int y, int widthIn, int heightIn, ResourceLocation image, String text) {
+        super(buttonId, x, y, widthIn, heightIn, text);
         this.imageLocation = image;
 
     }
@@ -38,8 +42,8 @@ public class GuiImageButton extends GuiButton implements holdable{
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            this.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, (i - 1) * 20, this.width / 2, this.height, 50, 40);
-            this.drawModalRectWithCustomSizedTexture(this.xPosition + this.width / 2, this.yPosition, 50 - this.width / 2, (i - 1) * 20, this.width / 2, this.height, 50, 40);
+            drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, (i - 1) * 20, this.width / 2, this.height, 50, 40);
+            drawModalRectWithCustomSizedTexture(this.xPosition + this.width / 2, this.yPosition, 50 - this.width / 2, (i - 1) * 20, this.width / 2, this.height, 50, 40);
             this.mouseDragged(mc, mouseX, mouseY);
         }
         if (this.inHold) {
@@ -49,8 +53,8 @@ public class GuiImageButton extends GuiButton implements holdable{
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            this.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, 20, this.width / 2, this.height, 50, 40);
-            this.drawModalRectWithCustomSizedTexture(this.xPosition + this.width / 2, this.yPosition, 50 - this.width / 2, 20, this.width / 2, this.height, 50, 40);
+            drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, 0, 20, this.width / 2, this.height, 50, 40);
+            drawModalRectWithCustomSizedTexture(this.xPosition + this.width / 2, this.yPosition, 50 - this.width / 2, 20, this.width / 2, this.height, 50, 40);
         }
     }
 
