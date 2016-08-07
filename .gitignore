@@ -24,9 +24,10 @@ run
 CREDITS-fml.txt
 LICENSE-new.txt
 MinecraftForge-Credits.txt
-Pauluscode IBXM Library License.txt
-Pauluscode SoundSystem CodecIBXM License.txt
+Pauluscode\ IBXM Library\ License.txt
+Pauluscode\ SoundSystem\ CodecIBXM\ License.txt
 README.txt
+*.gradle
 forge-*
 gradlew
 gradle/
