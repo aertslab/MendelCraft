@@ -45,7 +45,7 @@ public class GuiTutorial extends GuiScreen {
     /**
      * The Y posoition of the nucleobase row in pixels.
      */
-    private int yNucleobasePosition = 130;
+    private int yNucleobasePosition = 140;
     /**
      * The X size of the chromosome button in pixels.
      */
@@ -409,7 +409,7 @@ public class GuiTutorial extends GuiScreen {
 
     public void drawNucleobasesOfGene() {
         String nubleobases = DNA.getNucleobase(this.activeChromosome, this.activeGene);
-        int yPosition = toWorldy(this.yNucleobasePosition);
+        int yPosition = toWorldy(this.yNucleobasePosition - 20);
         int xBegin = toWorldx((this.xWindowSize - 10 * nubleobases.length() - 10 * (nubleobases.length() - 1)) / 2);
         for (int i = 0; i < nubleobases.length(); i++) {
             String letter = Character.toString(nubleobases.charAt(i));

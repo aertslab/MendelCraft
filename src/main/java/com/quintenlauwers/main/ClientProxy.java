@@ -1,16 +1,20 @@
 package com.quintenlauwers.main;
 
-import com.quintenlauwers.interfaces.ModGuiHandler;
 import com.quintenlauwers.item.ObsidianStick;
+import com.quintenlauwers.lib.RefStrings;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
 
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
+public class ClientProxy extends CommonProxy {
+    @Override
+    public void registerRenderInfo() {
+        ObsidianStick.registerRenders();
+        super.registerRenderInfo();
+    }
 
-public class ClientProxy extends ServerProxy {
-	@Override
-	public void registerRenderInfo(){
-		ObsidianStick.registerRenders();
-		NetworkRegistry.INSTANCE.registerGuiHandler(TestMod.instance, new ModGuiHandler());
-	}
+    @Override
+    public void registerItemRenderer(Item item, int meta, String id) {
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(RefStrings.MODID + ":" + id, "inventory"));
+    }
 }

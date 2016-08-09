@@ -1,3 +1,4 @@
 item.oStick.name=Obsidian Stick
-tile.ComStone.name=Compressed Stone
+tile.comStone.name=Compressed Stone
 gui.write=Write Name
+entity.testmod.dnaChicken.name=Dna Chicken

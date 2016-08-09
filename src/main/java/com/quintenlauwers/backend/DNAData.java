@@ -27,7 +27,7 @@ public class DNAData {
     }
 
     public int getNbOfChromosomes() {
-        return 80;
+        return 5;
     }
 
     public String getChromosmeDescription(int id) {

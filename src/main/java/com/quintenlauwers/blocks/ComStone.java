@@ -1,16 +1,21 @@
 package com.quintenlauwers.blocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.creativetab.CreativeTabs;
 
 public class
-ComStone extends Block{
+ComStone extends BlockBase {
 	
-	public ComStone(Material material) {
-		super(material);
+	public ComStone(String name) {
+		super(Material.ROCK, name);
 	}
+
+	@Override
+	public ComStone setCreativeTab(CreativeTabs tab) {
+		super.setCreativeTab(tab);
+		return  this;
+	}
+
+
 
 }
