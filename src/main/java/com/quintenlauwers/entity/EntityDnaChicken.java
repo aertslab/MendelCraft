@@ -1,5 +1,6 @@
 package com.quintenlauwers.entity;
 
+import com.quintenlauwers.main.TestMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
@@ -7,19 +8,33 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.nio.ByteBuffer;
+import java.util.Random;
 
 public class EntityDnaChicken extends EntityChicken
 {
+
+    private static final ResourceLocation CHICKEN_TEXTURE_GREEN = new ResourceLocation("testmod:textures/entity/dnaChickenGreen.png");
+    private static final ResourceLocation CHICKEN_TEXTURE_RED = new ResourceLocation("testmod:textures/entity/dnaChickenRed.png");
+
+    private boolean color;
+    private boolean isColorSet = false;
+
     public EntityDnaChicken(World worldIn)
     {
         super(worldIn);
         this.setSize(0.4F, 0.7F); // Only sets the hitbox
         this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         this.setPathPriority(PathNodeType.WATER, 0.0F);
+        if (!isColorSet) {
+            this.color = new Random().nextBoolean();
+        }
+        System.out.println("Chicken made!");
     }
 
     @Override
@@ -27,7 +42,6 @@ public class EntityDnaChicken extends EntityChicken
     {
         super.initEntityAI();
     }
-
 
 
     /**
@@ -65,11 +79,23 @@ public class EntityDnaChicken extends EntityChicken
     {
         super.readEntityFromNBT(compound);
         this.chickenJockey = compound.getBoolean("IsChickenJockey");
+        this.color = compound.getBoolean("color");
+        this.isColorSet = true;
+        System.out.println("Getting color??");
 
         if (compound.hasKey("EggLayTime"))
         {
             this.timeUntilNextEgg = compound.getInteger("EggLayTime");
         }
+    }
+
+    private void getDnaDataToClient() {
+        ByteBuffer b = ByteBuffer.allocate(4);
+        b.putInt(this.getEntityId());
+        byte[] idBytes = b.array();
+        byte[] color = { isColorSet ? (byte) 1: (byte) 0 };
+        // TODO: Append byte[]'s and send them
+        TestMod.proxy.sendDnaPacketData(idBytes);
     }
 
     /**
@@ -81,6 +107,8 @@ public class EntityDnaChicken extends EntityChicken
         super.writeEntityToNBT(compound);
         compound.setBoolean("IsChickenJockey", this.chickenJockey);
         compound.setInteger("EggLayTime", this.timeUntilNextEgg);
+        compound.setBoolean("color", this.color);
+        System.out.println("Setting color!!");
     }
 
     public void updatePassenger(Entity passenger)
@@ -95,6 +123,17 @@ public class EntityDnaChicken extends EntityChicken
         if (passenger instanceof EntityLivingBase)
         {
             ((EntityLivingBase)passenger).renderYawOffset = this.renderYawOffset;
+        }
+    }
+
+    public ResourceLocation getTexture(){
+        if (!isColorSet)
+            System.out.println("This might be the problem");
+        if (this.color) {
+            return CHICKEN_TEXTURE_GREEN;
+        }
+        else {
+            return CHICKEN_TEXTURE_RED;
         }
     }
 }

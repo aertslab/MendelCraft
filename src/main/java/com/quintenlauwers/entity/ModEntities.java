@@ -10,7 +10,8 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 public class ModEntities {
 
     public static void init() {
-        EntityRegistry.registerModEntity(EntityDnaChicken.class, "dnaChicken", 45345, TestMod.instance, 12, 1, false, 230, 78 );
+
         RenderingRegistry.registerEntityRenderingHandler(EntityDnaChicken.class, new ModRenderFactory(new ModelDnaChicken(), 0.3F));
+        EntityRegistry.registerModEntity(EntityDnaChicken.class, "dnaChicken", 1351, TestMod.instance, 12, 1, false, 230, 78 );
     }
 }

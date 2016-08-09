@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = RefStrings.MODID, name = RefStrings.NAME, version = RefStrings.VERSION)
@@ -29,9 +31,11 @@ public class TestMod {
     static ItemStack obsidianStack = new ItemStack(Blocks.OBSIDIAN);
 
     static com.quintenlauwers.events.EventHandler eventHandler = new com.quintenlauwers.events.EventHandler();
+    static SimpleNetworkWrapper network;
 
     @EventHandler
     public static void preLoad(FMLPreInitializationEvent preEvent) {
+        network = NetworkRegistry.INSTANCE.newSimpleChannel(RefStrings.MODID);
         ObsidianStick.mainRegistry();
         ModBlocks.init();
         ModEntities.init();

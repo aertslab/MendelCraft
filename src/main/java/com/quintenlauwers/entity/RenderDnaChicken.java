@@ -23,7 +23,7 @@ public class RenderDnaChicken extends RenderLiving<EntityDnaChicken> {
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
     protected ResourceLocation getEntityTexture(EntityDnaChicken entity) {
-        return CHICKEN_TEXTURES;
+        return entity.getTexture();
     }
 
     /**
