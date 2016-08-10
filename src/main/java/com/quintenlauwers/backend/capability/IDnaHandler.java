@@ -1,4 +1,4 @@
-package com.quintenlauwers.backend;
+package com.quintenlauwers.backend.capability;
 
 /**
  * Created by quinten on 9/08/16.

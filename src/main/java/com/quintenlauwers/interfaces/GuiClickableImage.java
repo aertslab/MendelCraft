@@ -2,13 +2,9 @@ package com.quintenlauwers.interfaces;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.ArrayList;
 
 /**
  * Created by quinten on 6/08/16.
@@ -39,14 +35,14 @@ public class GuiClickableImage extends GuiButton implements holdable {
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             int i = this.getHoverState(this.hovered);
-            this.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, this.u, this.v + (i - 1) * this.height, this.width, this.height, this.textureWidth, this.textureHeight);
+            drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, this.u, this.v + (i - 1) * this.height, this.width, this.height, this.textureWidth, this.textureHeight);
             this.mouseDragged(mc, mouseX, mouseY);
         }
         if (this.inHold){
             FontRenderer fontrenderer = mc.fontRendererObj;
             mc.getTextureManager().bindTexture(this.imageLocation);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, this.u, this.v + this.height, this.width, this.height, this.textureWidth, this.textureHeight);
+            drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, this.u, this.v + this.height, this.width, this.height, this.textureWidth, this.textureHeight);
         }
     }
 

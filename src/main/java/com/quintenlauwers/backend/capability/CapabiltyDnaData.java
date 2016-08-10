@@ -1,4 +1,4 @@
-package com.quintenlauwers.backend;
+package com.quintenlauwers.backend.capability;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagList;

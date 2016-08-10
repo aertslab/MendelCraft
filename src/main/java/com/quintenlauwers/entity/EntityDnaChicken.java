@@ -1,5 +1,6 @@
 package com.quintenlauwers.entity;
 
+import com.quintenlauwers.backend.util.UtilDna;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -13,10 +14,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.nio.ByteBuffer;
 import java.util.Random;
 
-public class EntityDnaChicken extends EntityChicken
+public class EntityDnaChicken extends EntityChicken implements DnaEntity
 {
 
     private static final ResourceLocation CHICKEN_TEXTURE_GREEN = new ResourceLocation("testmod:textures/entity/dnaChickenGreen.png");
@@ -34,7 +34,6 @@ public class EntityDnaChicken extends EntityChicken
         if (!isColorSet) {
             this.color = new Random().nextBoolean();
         }
-        System.out.println("Chicken made!");
     }
 
     @Override
@@ -71,6 +70,21 @@ public class EntityDnaChicken extends EntityChicken
     }
 
 
+    @Override
+    public void setEntityId(int id){
+        super.setEntityId(id);
+        this.getInformationFromServer();
+        this.resetEntityId();
+    }
+
+
+
+    public void getInformationFromServer() {
+        if (this.getEntityWorld().isRemote) {
+            TestMod.networkHelper.sendDnaRequest(this);
+        }
+    }
+
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
@@ -81,7 +95,6 @@ public class EntityDnaChicken extends EntityChicken
         this.chickenJockey = compound.getBoolean("IsChickenJockey");
         this.color = compound.getBoolean("color");
         this.isColorSet = true;
-        System.out.println("Getting color??");
 
         if (compound.hasKey("EggLayTime"))
         {
@@ -89,13 +102,19 @@ public class EntityDnaChicken extends EntityChicken
         }
     }
 
-    private void getDnaDataToClient() {
-        ByteBuffer b = ByteBuffer.allocate(4);
-        b.putInt(this.getEntityId());
-        byte[] idBytes = b.array();
-        byte[] color = { isColorSet ? (byte) 1: (byte) 0 };
-        // TODO: Append byte[]'s and send them
-        TestMod.proxy.sendDnaPacketData(idBytes);
+    @Override
+    public byte[] getDnaData() {
+        byte[] color = { UtilDna.boolToByte(this.color)};
+        byte[] packetData = UtilDna.appendByteArrays(color);
+        return packetData;
+    }
+
+    @Override
+    public void setDnaData(byte[] dnaData) {
+        if (dnaData != null){
+            this.color = UtilDna.byteToBool(dnaData[0]);
+            this.isColorSet = true;
+        }
     }
 
     /**
@@ -108,7 +127,6 @@ public class EntityDnaChicken extends EntityChicken
         compound.setBoolean("IsChickenJockey", this.chickenJockey);
         compound.setInteger("EggLayTime", this.timeUntilNextEgg);
         compound.setBoolean("color", this.color);
-        System.out.println("Setting color!!");
     }
 
     public void updatePassenger(Entity passenger)
@@ -127,8 +145,6 @@ public class EntityDnaChicken extends EntityChicken
     }
 
     public ResourceLocation getTexture(){
-        if (!isColorSet)
-            System.out.println("This might be the problem");
         if (this.color) {
             return CHICKEN_TEXTURE_GREEN;
         }

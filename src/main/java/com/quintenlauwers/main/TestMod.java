@@ -1,5 +1,7 @@
 package com.quintenlauwers.main;
 
+import com.quintenlauwers.backend.network.NetworkHelper;
+import com.quintenlauwers.backend.util.Storage;
 import com.quintenlauwers.blocks.ModBlocks;
 import com.quintenlauwers.entity.ModEntities;
 import com.quintenlauwers.item.ObsidianStick;
@@ -27,15 +29,17 @@ public class TestMod {
     @SidedProxy(clientSide = RefStrings.CLIENTSIDE, serverSide = RefStrings.SERVERSIDE)
     public static CommonProxy proxy;
 
-    static ItemStack dirtStack = new ItemStack(Blocks.DIRT);
-    static ItemStack obsidianStack = new ItemStack(Blocks.OBSIDIAN);
-
     static com.quintenlauwers.events.EventHandler eventHandler = new com.quintenlauwers.events.EventHandler();
-    static SimpleNetworkWrapper network;
+    public static SimpleNetworkWrapper network;
+    public static NetworkHelper networkHelper;
+    public static Storage storage;
 
     @EventHandler
     public static void preLoad(FMLPreInitializationEvent preEvent) {
         network = NetworkRegistry.INSTANCE.newSimpleChannel(RefStrings.MODID);
+        networkHelper = new NetworkHelper();
+        networkHelper.registerMessages();
+        storage = new Storage();
         ObsidianStick.mainRegistry();
         ModBlocks.init();
         ModEntities.init();

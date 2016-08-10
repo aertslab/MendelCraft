@@ -12,6 +12,6 @@ public class ModEntities {
     public static void init() {
 
         RenderingRegistry.registerEntityRenderingHandler(EntityDnaChicken.class, new ModRenderFactory(new ModelDnaChicken(), 0.3F));
-        EntityRegistry.registerModEntity(EntityDnaChicken.class, "dnaChicken", 1351, TestMod.instance, 12, 1, false, 230, 78 );
+        EntityRegistry.registerModEntity(EntityDnaChicken.class, "dnaChicken", 121, TestMod.instance, 12, 1, false, 230, 78 );
     }
 }
