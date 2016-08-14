@@ -1,5 +1,6 @@
 package com.quintenlauwers.main;
 
+import com.quintenlauwers.backend.DnaConfig;
 import com.quintenlauwers.backend.network.NetworkHelper;
 import com.quintenlauwers.backend.util.Storage;
 import com.quintenlauwers.blocks.ModBlocks;
@@ -33,6 +34,7 @@ public class TestMod {
     public static SimpleNetworkWrapper network;
     public static NetworkHelper networkHelper;
     public static Storage storage;
+    public static DnaConfig dnaConfig;
 
     @EventHandler
     public static void preLoad(FMLPreInitializationEvent preEvent) {
@@ -40,6 +42,7 @@ public class TestMod {
         networkHelper = new NetworkHelper();
         networkHelper.registerMessages();
         storage = new Storage();
+        dnaConfig = new DnaConfig("mainConfig.json");
         ObsidianStick.mainRegistry();
         ModBlocks.init();
         ModEntities.init();

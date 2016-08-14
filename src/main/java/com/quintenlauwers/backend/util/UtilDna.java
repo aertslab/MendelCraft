@@ -36,7 +36,6 @@ public class UtilDna {
     }
 
     public static byte[] intToByte(int integer){
-        System.out.println(integer);
         ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.putInt(integer);
         return buffer.array();

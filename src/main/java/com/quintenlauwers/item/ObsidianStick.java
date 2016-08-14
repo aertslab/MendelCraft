@@ -17,8 +17,6 @@ public class ObsidianStick {
 
     public static void initializeItem() {
         oStick = new ObsStick();
-        oStick.setUnlocalizedName("oStick");
-        oStick.setRegistryName("oStick");
 
     }
 

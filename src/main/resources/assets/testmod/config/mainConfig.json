@@ -1,0 +1,15 @@
+{
+  "name": "jsonConfig",
+  "chromosomes": 18,
+  "genesPerChromosme": 6,
+  "geneNbExceptions": {
+    "chromosome4": 12,
+    "chromosome12": 1
+  },
+  "amimals": [
+    {
+      "name": "chicken",
+      "geneFile": "chickenConfig.json"
+    }
+  ]
+}

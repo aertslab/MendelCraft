@@ -1,6 +1,6 @@
 package com.quintenlauwers.entity;
 
-import com.quintenlauwers.backend.util.UtilDna;
+import com.quintenlauwers.backend.DnaProperties;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -22,8 +22,9 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     private static final ResourceLocation CHICKEN_TEXTURE_GREEN = new ResourceLocation("testmod:textures/entity/dnaChickenGreen.png");
     private static final ResourceLocation CHICKEN_TEXTURE_RED = new ResourceLocation("testmod:textures/entity/dnaChickenRed.png");
 
-    private boolean color;
-    private boolean isColorSet = false;
+    private byte[] dnaData = new byte[1];
+    private DnaProperties properties;
+
 
     public EntityDnaChicken(World worldIn)
     {
@@ -31,9 +32,8 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
         this.setSize(0.4F, 0.7F); // Only sets the hitbox
         this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         this.setPathPriority(PathNodeType.WATER, 0.0F);
-        if (!isColorSet) {
-            this.color = new Random().nextBoolean();
-        }
+        new Random().nextBytes(dnaData);
+        properties = new DnaProperties("chicken", dnaData);
     }
 
     @Override
@@ -86,6 +86,17 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     }
 
     /**
+     * (abstract) Protected helper method to write subclass entity data to NBT.
+     */
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        compound.setBoolean("IsChickenJockey", this.chickenJockey);
+        compound.setInteger("EggLayTime", this.timeUntilNextEgg);
+        compound.setByteArray("dnaData", this.getDnaData());
+    }
+
+    /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
@@ -93,40 +104,26 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     {
         super.readEntityFromNBT(compound);
         this.chickenJockey = compound.getBoolean("IsChickenJockey");
-        this.color = compound.getBoolean("color");
-        this.isColorSet = true;
 
         if (compound.hasKey("EggLayTime"))
         {
             this.timeUntilNextEgg = compound.getInteger("EggLayTime");
         }
+        if (compound.hasKey("dnaData")) {
+            this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"));
+        }
     }
 
     @Override
     public byte[] getDnaData() {
-        byte[] color = { UtilDna.boolToByte(this.color)};
-        byte[] packetData = UtilDna.appendByteArrays(color);
-        return packetData;
+        return this.properties.getDnaData();
     }
 
     @Override
     public void setDnaData(byte[] dnaData) {
         if (dnaData != null){
-            this.color = UtilDna.byteToBool(dnaData[0]);
-            this.isColorSet = true;
+            this.properties = new DnaProperties("chicken", dnaData);
         }
-    }
-
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
-    {
-        super.writeEntityToNBT(compound);
-        compound.setBoolean("IsChickenJockey", this.chickenJockey);
-        compound.setInteger("EggLayTime", this.timeUntilNextEgg);
-        compound.setBoolean("color", this.color);
     }
 
     public void updatePassenger(Entity passenger)
@@ -145,11 +142,24 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     }
 
     public ResourceLocation getTexture(){
-        if (this.color) {
+        if (this.properties.getColor()) {
             return CHICKEN_TEXTURE_GREEN;
         }
         else {
             return CHICKEN_TEXTURE_RED;
         }
     }
+
+    @Override
+    public void despawnEntity() {
+        TestMod.storage.removeById(this.getEntityId());
+        super.despawnEntity();
+    }
+
+    @Override
+    public void finalize() throws Throwable {
+        TestMod.storage.removeById(this.getEntityId());
+        super.finalize();
+    }
+
 }

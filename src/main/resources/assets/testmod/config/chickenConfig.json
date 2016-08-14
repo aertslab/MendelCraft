@@ -1,0 +1,34 @@
+{
+  "color": {
+    "genesInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 2,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 2,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG",
+        "CTA"
+      ],
+      "B": [
+        "GTA",
+        "TGA"
+      ]
+    },
+    "effects": {
+      "green": [
+        "A"
+      ],
+      "red": [
+        "B"
+      ]
+    }
+  }
+}

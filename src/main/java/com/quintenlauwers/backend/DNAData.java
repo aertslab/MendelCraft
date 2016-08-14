@@ -10,7 +10,7 @@ public class DNAData {
     private HashMap<String, String> chromosomeNames = new HashMap<String, String>();
 
 
-    public DNAData() {
+    public DNAData(String animal) {
         this.nbGenes = 5;
     }
 

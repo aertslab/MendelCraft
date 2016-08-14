@@ -32,13 +32,6 @@ public class EventHandler {
         if (event != null) {
             if (event.getPlacedBlock() != null) {
                 if (event.getPlacedBlock().getClass() != null) {
-                    System.out.println(event.getPlacedBlock().getClass());
-                    try {
-                        System.out.println(event.getPlacedBlock().getBlock().getClass() == ComStone.class);
-                    } catch (NullPointerException e) {
-                        System.out.println(e.toString());
-                    }
-                    System.out.println("Block placed!!");
                 }
             }
         }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @SideOnly(Side.CLIENT)
 public class GuiTutorial extends GuiScreen {
 
-    DNAData DNA = new DNAData();
+    DNAData DNA = new DNAData("chicken");
     private GuiButton prevGene;
     private GuiButton nextGene;
     private GuiButton prevChromosome;
@@ -230,7 +230,6 @@ public class GuiTutorial extends GuiScreen {
         if (this.ticksSinceMovement > 10) {
             for (GuiButton button : visibleChromosomes) {
                 if (button.isMouseOver()) {
-                    System.out.println(button.id);
                     String text = DNA.getChromosmeDescription(button.id);
                     ArrayList<String> stringList = new ArrayList<String>();
                     stringList.add(text);
@@ -372,7 +371,6 @@ public class GuiTutorial extends GuiScreen {
     }
 
     private void removeTextBox() {
-        System.out.println("Remove textbox");
         if (this.text != null) {
             this.text.setFocused(false);
             this.textboxList.remove(this.text);
