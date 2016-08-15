@@ -11,10 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by quinten on 13/08/16.
@@ -23,7 +20,7 @@ public class DnaConfig {
 
     private JsonObject mainConfig;
     private HashMap<String, JsonObject> animalConfigs = new HashMap<String, JsonObject>();
-    private static String CONFIGFOLDER = "/assets/config/";
+    private static String CONFIGFOLDER = "/assets/testmod/config/";
 
     public DnaConfig(String configFile) {
         String fileName = CONFIGFOLDER + configFile;
@@ -89,7 +86,7 @@ public class DnaConfig {
      *
      * @param animal   chicken, ...
      * @param property color, ...
-     * @return {{chrom1, gene1}; {chrom2, gene2}, ...}
+     * @return DnaAsset of property. Null if error.
      */
     public DnaAsset getDnaAsset(String animal, String property) {
         JsonObject animalConfig = this.animalConfigs.get(animal.toLowerCase());
@@ -102,19 +99,27 @@ public class DnaConfig {
             return null;
         }
         JsonObject currentProperty = animalConfig.getAsJsonObject(property.toLowerCase());
-        if (currentProperty.has("genesInvolved")) {
+        if (currentProperty.has("genesInvolved") && currentProperty.has("allelesInvolved")) {
+            DnaAsset dnaAsset = new DnaAsset(property);
             JsonArray genesInvolved = currentProperty.getAsJsonArray("genesInvolved");
-            ArrayList<int[]> tempRelevantPositions = new ArrayList<int[]>();
             for (int i = 0; i < genesInvolved.size(); i++) {
                 JsonObject propertyPosition = genesInvolved.get(i).getAsJsonObject();
-                if (propertyPosition.has("chromosome") && propertyPosition.has("gene")) {
+                if (propertyPosition.has("chromosome") && propertyPosition.has("gene") && propertyPosition.has("allele")) {
                     int[] position = {propertyPosition.get("chromosome").getAsInt(), propertyPosition.get("gene").getAsInt()};
-                    if (!isInList(tempRelevantPositions, position)) {
-                        tempRelevantPositions.add(position);
-                    }
+                    String allele = propertyPosition.get("allele").getAsString();
+                    dnaAsset.addFromPosition(position, allele);
                 }
             }
-//            return tempRelevantPositions.toArray(new int[tempRelevantPositions.size()][2]);
+            Set<Map.Entry<String, JsonElement>> entries = currentProperty.getAsJsonObject("allelesInvolved").entrySet();
+            for (Map.Entry<String, JsonElement> entry : entries) {
+                JsonArray codeStringJsonArray = entry.getValue().getAsJsonArray();
+                String[] codeArray = new String[codeStringJsonArray.size()];
+                for (int i = 0; i < codeStringJsonArray.size(); i++) {
+                    codeArray[i] = codeStringJsonArray.get(i).getAsString();
+                }
+                dnaAsset.addAlleleInfo(entry.getKey(), codeArray);
+            }
+            return dnaAsset;
         }
         return null;
     }

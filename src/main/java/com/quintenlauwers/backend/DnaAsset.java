@@ -8,10 +8,15 @@ import java.util.*;
 class DnaAsset {
 
     private HashMap<String, AlleleInfo> allelesKey = new HashMap<String, AlleleInfo>();
-    private HashMap<GenePosition, ArrayList<AlleleInfo>> positonKey = new HashMap<GenePosition, ArrayList<AlleleInfo>>();
+    private HashMap<GenePosition, ArrayList<AlleleInfo>> positionKey = new HashMap<GenePosition, ArrayList<AlleleInfo>>();
+    private String property;
+
+    DnaAsset(String property) {
+        this.property = property;
+    }
 
     public String[] getPossibleGenesOnPosition(int[] position) {
-        ArrayList<AlleleInfo> templist = positonKey.get(new GenePosition(position));
+        ArrayList<AlleleInfo> templist = positionKey.get(new GenePosition(position));
         ArrayList<String> possibleList = new ArrayList<String>();
         for (AlleleInfo allele : templist) {
             possibleList.addAll(allele.getPossibleCodesAsList());
@@ -46,9 +51,47 @@ class DnaAsset {
         return "color";
     }
 
-    public String[] getPossibleAllelesOnPosition() {
-        return null;
+    public String[] getPossibleAllelesOnPosition(int[] positionCoordinate) {
+        GenePosition position = new GenePosition(positionCoordinate);
+        ArrayList<AlleleInfo> tempList = this.positionKey.get(position);
+        String[] returnArray = new String[tempList.size()];
+        for (int i = 0; i < tempList.size(); i++) {
+            returnArray[i] = tempList.get(i).name;
+        }
+        return returnArray;
     }
+
+    public void addFromPosition(int[] positionCoordinate, String alleleName) {
+        if (positionCoordinate.length < 2) {
+            return;
+        }
+        GenePosition position = new GenePosition(positionCoordinate);
+        AlleleInfo allele = new AlleleInfo(alleleName);
+        if (allelesKey.containsKey(alleleName)) {
+            allele = this.allelesKey.get(alleleName);
+        }
+        allele.addPosition(position);
+        if (this.positionKey.containsKey(position)) {
+            if (!this.positionKey.get(position).contains(allele)) {
+                this.positionKey.get(position).add(allele);
+            }
+        } else {
+            ArrayList<AlleleInfo> value = new ArrayList<AlleleInfo>();
+            value.add(allele);
+            this.positionKey.put(position, value);
+        }
+    }
+
+    public void addAlleleInfo(String alleleName, String[] genes) {
+        if (genes == null || !this.allelesKey.containsKey(alleleName)) {
+            return;
+        }
+        AlleleInfo allele = this.allelesKey.get(alleleName);
+        for (String gene : genes) {
+            allele.addCode(gene);
+        }
+    }
+
 
     class AlleleInfo {
         String name;
