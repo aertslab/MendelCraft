@@ -62,6 +62,21 @@ public class DnaConfig {
         return 0;
     }
 
+    public int getNucleobaseIndex(int chromosomeNumber, int geneNumber) {
+        int total = 0;
+        for (int i = 0; i < chromosomeNumber; i++) {
+            total += getNbOfGenes(i);
+        }
+        return total + geneNumber + 1;
+    }
+
+    public int getNucleobaseIndex(int[] position) {
+        if (position.length < 2) {
+            throw new IllegalArgumentException("Position does not contain enough information.");
+        }
+        return getNucleobaseIndex(position[0], position[1]);
+    }
+
     public int getNbOfGenes(int chromosomeNumber) {
         String chromosomeName = "chromosome" + Integer.toString(chromosomeNumber);
         if (mainConfig.has("geneNbExceptions")) {
@@ -118,6 +133,15 @@ public class DnaConfig {
                     codeArray[i] = codeStringJsonArray.get(i).getAsString();
                 }
                 dnaAsset.addAlleleInfo(entry.getKey(), codeArray);
+            }
+            if (currentProperty.has("effects")) {
+                entries = currentProperty.getAsJsonObject("effects").entrySet();
+                for (Map.Entry<String, JsonElement> entry : entries) {
+                    JsonArray alleleCombinationArray = entry.getValue().getAsJsonArray();
+                    for (int i = 0; i < alleleCombinationArray.size(); i++) {
+                        dnaAsset.addPropertyValue(alleleCombinationArray.get(i).getAsString(), entry.getKey());
+                    }
+                }
             }
             return dnaAsset;
         }

@@ -9,6 +9,7 @@ class DnaAsset {
 
     private HashMap<String, AlleleInfo> allelesKey = new HashMap<String, AlleleInfo>();
     private HashMap<GenePosition, ArrayList<AlleleInfo>> positionKey = new HashMap<GenePosition, ArrayList<AlleleInfo>>();
+    private HashMap<AlleleCombination, String> propertyValueFromAlleles = new HashMap<AlleleCombination, String>();
     private String property;
 
     DnaAsset(String property) {
@@ -23,6 +24,25 @@ class DnaAsset {
         }
         String[] returnArray = new String[possibleList.size()];
         return possibleList.toArray(returnArray);
+    }
+
+    public String getAlleleOnPosition(int[] position, String code) {
+        GenePosition genePosition = new GenePosition(position);
+        ArrayList<AlleleInfo> templist = positionKey.get(genePosition);
+        Set<String> tempSet = new LinkedHashSet<String>();
+        for (AlleleInfo allele : templist) {
+            String[] possibleCodes = allele.getPossibleCodes();
+            for (String possibleCode : possibleCodes) {
+                if (possibleCode != null && possibleCode.toUpperCase().equals(code.toUpperCase())) {
+                    tempSet.add(allele.getName());
+                }
+            }
+        }
+        String returnString = "";
+        for (String alleleLetter : tempSet) {
+            returnString += alleleLetter;
+        }
+        return returnString;
     }
 
     public int[][] getRelevantPositions() {
@@ -90,6 +110,18 @@ class DnaAsset {
         for (String gene : genes) {
             allele.addCode(gene);
         }
+    }
+
+    public void addPropertyValue(String alleleCombination, String value) {
+        AlleleCombination cleaned = new AlleleCombination(alleleCombination);
+        if (!this.propertyValueFromAlleles.containsKey(cleaned)) {
+            this.propertyValueFromAlleles.put(cleaned, value);
+        }
+    }
+
+    public String getPropertyValue(String alleleCombination) {
+        AlleleCombination cleaned = new AlleleCombination(alleleCombination);
+        return this.propertyValueFromAlleles.get(cleaned);
     }
 
 
@@ -183,6 +215,37 @@ class DnaAsset {
         @Override
         public int hashCode() {
             return this.getChromosomeNb() * 100000 + this.getGeneNb();
+        }
+    }
+
+    final class AlleleCombination {
+
+        String combination;
+
+        AlleleCombination(String alleleCombination) {
+            Set<String> unique = new TreeSet<String>(Arrays.asList(alleleCombination.split("")));
+            for (String element : unique) {
+                combination += element;
+            }
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 0;
+            for (char c : this.combination.toCharArray()) {
+                hash += ((int) c) * ((int) c);
+            }
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof AlleleCombination) {
+                if (this.combination.equals(((AlleleCombination) obj).combination)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

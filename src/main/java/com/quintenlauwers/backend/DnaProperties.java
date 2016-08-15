@@ -1,6 +1,7 @@
 package com.quintenlauwers.backend;
 
 import com.quintenlauwers.backend.util.UtilDna;
+import com.quintenlauwers.main.TestMod;
 
 /**
  * Created by quinten on 11/08/16.
@@ -9,21 +10,44 @@ public class DnaProperties {
     boolean color;
     byte[] dnaData;
     String animal;
+    public static DnaConfig dnaConfig = TestMod.dnaConfig;
 
     public DnaProperties(String animal, byte[] dnaData) {
-        if (dnaData != null) {
+        if (dnaData != null && dnaData.length >= dnaConfig.getTotalNbOfGenes()) {
             this.animal = animal;
             this.color = UtilDna.byteToBool((byte) (dnaData[0] & (byte) 1));
             this.dnaData = dnaData.clone();
+        } else {
+            if (dnaData == null) {
+                throw new IllegalArgumentException("dnaData is nonexistent.");
+            } else {
+                throw new IllegalArgumentException("dnaData only has lenght: " + dnaData.length);
+            }
         }
     }
 
     public boolean getBoolProperty(String property) {
-        return false;
+        String finalValue = getGenericProperty(property);
+        return finalValue != null && "true".equals(finalValue.toLowerCase());
     }
 
     public int getIntProperty(String property) {
         return 0;
+    }
+
+    public String getGenericProperty(String property) {
+        DnaAsset asset = dnaConfig.getDnaAsset(this.animal.toLowerCase(), property);
+        int[][] positions = asset.getRelevantPositions();
+        String allAlleles = "";
+        for (int[] position : positions) {
+            byte rawCode = dnaData[dnaConfig.getNucleobaseIndex(position)];
+            String code = UtilDna.byteNucleobaseToString(rawCode);
+            System.out.println("Now checking: " + code);
+            allAlleles += asset.getAlleleOnPosition(position, code);
+        }
+        String finalValue = asset.getPropertyValue(allAlleles);
+        System.out.println("Final value is: " + finalValue);
+        return finalValue;
     }
 
     public boolean getColor() {
@@ -31,6 +55,8 @@ public class DnaProperties {
     }
 
     public byte[] getDnaData() {
-        return dnaData.clone();
+        if (dnaData != null)
+            return dnaData.clone();
+        return null;
     }
 }

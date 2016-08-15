@@ -25,6 +25,7 @@ public class NetworkDnaDataPacket implements IMessage {
     public void fromBytes(ByteBuf buf) {
         if (buf != null) {
             byte[] totalData = new byte[5];
+            // TODO: is to short (make variable).
             buf.readBytes(totalData);
             if (totalData.length >= 4) {
                 this.entityId = UtilDna.byteToInt(Arrays.copyOf(totalData, 4));
