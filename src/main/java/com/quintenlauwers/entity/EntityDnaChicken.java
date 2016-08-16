@@ -142,7 +142,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     }
 
     public ResourceLocation getTexture(){
-        if (this.properties.getColor()) {
+        if (this.properties.getBoolProperty("color")) {
             return CHICKEN_TEXTURE_GREEN;
         }
         else {

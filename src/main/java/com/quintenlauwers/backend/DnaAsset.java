@@ -89,6 +89,8 @@ class DnaAsset {
         AlleleInfo allele = new AlleleInfo(alleleName);
         if (allelesKey.containsKey(alleleName)) {
             allele = this.allelesKey.get(alleleName);
+        } else {
+            this.allelesKey.put(alleleName, allele);
         }
         allele.addPosition(position);
         if (this.positionKey.containsKey(position)) {
@@ -126,16 +128,16 @@ class DnaAsset {
 
 
     class AlleleInfo {
-        String name;
-        ArrayList<String> possibleCodes;
-        ArrayList<GenePosition> possiblePositions;
+        private String name;
+        private ArrayList<String> possibleCodes;
+        private ArrayList<GenePosition> possiblePositions;
 
         AlleleInfo(String Allele) {
-            new AlleleInfo(Allele, new ArrayList<String>(), new ArrayList<GenePosition>());
+            this(Allele, new ArrayList<String>(), new ArrayList<GenePosition>());
         }
 
         AlleleInfo(String Allele, ArrayList<String> code) {
-            new AlleleInfo(Allele, code, new ArrayList<GenePosition>());
+            this(Allele, code, new ArrayList<GenePosition>());
         }
 
         AlleleInfo(String Allele, ArrayList<String> code, ArrayList<GenePosition> positions) {
@@ -146,13 +148,13 @@ class DnaAsset {
 
         void addCode(String code) {
             if (code != null) {
-                possibleCodes.add(code);
+                this.possibleCodes.add(code);
             }
         }
 
         void addPosition(GenePosition position) {
             if (position != null) {
-                possiblePositions.add(position);
+                this.possiblePositions.add(position);
             }
         }
 

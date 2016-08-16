@@ -27,7 +27,6 @@ public class DnaConfig {
         URL location = getClass().getResource(fileName);
         mainConfig = DnaConfig.convertFileToJSON(location);
         loadAnimals();
-        System.out.println(getNbOfGenes(4));
     }
 
     public static JsonObject convertFileToJSON(URL fileName) {
@@ -75,6 +74,22 @@ public class DnaConfig {
             throw new IllegalArgumentException("Position does not contain enough information.");
         }
         return getNucleobaseIndex(position[0], position[1]);
+    }
+
+    public int[] positionFromNucleobaseIndex(int nucleobaseIndex) {
+        int chromosomeNb = 0;
+        int geneNb = 0;
+        for (int i = 0; i < getNbOfChromosomes(); i++) {
+            int currentChromosome = getNbOfGenes(i);
+            if (currentChromosome > nucleobaseIndex) {
+                chromosomeNb = i;
+                break;
+            }
+            nucleobaseIndex -= currentChromosome;
+        }
+        geneNb = nucleobaseIndex;
+        int[] position = {chromosomeNb, geneNb};
+        return position;
     }
 
     public int getNbOfGenes(int chromosomeNumber) {
@@ -146,6 +161,22 @@ public class DnaConfig {
             return dnaAsset;
         }
         return null;
+    }
+
+    public String[] getPossibleProperties(String animal) {
+        String[] properties = new String[0];
+        JsonObject animalConfig = this.animalConfigs.get(animal.toLowerCase());
+        if (animalConfig == null) {
+            System.err.println("Config file is wrong, missing animal: " + animal);
+            return properties;
+        }
+        Set<Map.Entry<String, JsonElement>> propertieSet = animalConfig.entrySet();
+        ArrayList<String> propertyList = new ArrayList<String>();
+        for (Map.Entry<String, JsonElement> entry : propertieSet) {
+            propertyList.add(entry.getKey());
+        }
+        properties = new String[propertyList.size()];
+        return propertyList.toArray(properties);
     }
 
 

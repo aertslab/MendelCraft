@@ -3,6 +3,9 @@ package com.quintenlauwers.backend;
 import com.quintenlauwers.backend.util.UtilDna;
 import com.quintenlauwers.main.TestMod;
 
+import java.util.HashMap;
+import java.util.Set;
+
 /**
  * Created by quinten on 11/08/16.
  */
@@ -10,6 +13,8 @@ public class DnaProperties {
     boolean color;
     byte[] dnaData;
     String animal;
+    HashMap<DnaAsset.GenePosition, Set<String>> restrictedEntries = null;
+    String[] possibleProperties = null;
     public static DnaConfig dnaConfig = TestMod.dnaConfig;
 
     public DnaProperties(String animal, byte[] dnaData) {
@@ -48,6 +53,34 @@ public class DnaProperties {
         String finalValue = asset.getPropertyValue(allAlleles);
         System.out.println("Final value is: " + finalValue);
         return finalValue;
+    }
+
+    public void filterDna() {
+        if (restrictedEntries == null) {
+            fillRestrictedEntries();
+        }
+
+    }
+
+    private void fillRestrictedEntries() {
+        restrictedEntries = new HashMap<DnaAsset.GenePosition, Set<String>>();
+        if (this.possibleProperties == null) {
+            loadPossibleProperties();
+        }
+        for (String property : this.possibleProperties) {
+            DnaAsset asset = dnaConfig.getDnaAsset(this.animal, property);
+            int[][] positions = asset.getRelevantPositions();
+            for (int[] position : positions) {
+                String[] codons = asset.getPossibleGenesOnPosition(position);
+//                TODO: Hier verder werken.
+            }
+        }
+
+
+    }
+
+    private void loadPossibleProperties() {
+        this.possibleProperties = dnaConfig.getPossibleProperties(this.animal);
     }
 
     public boolean getColor() {
