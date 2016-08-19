@@ -4,6 +4,8 @@ import com.quintenlauwers.backend.network.dnadata.NetworkDnaDataHandler;
 import com.quintenlauwers.backend.network.dnadata.NetworkDnaDataPacket;
 import com.quintenlauwers.backend.network.dnarequest.NetworkDnaRequestHandler;
 import com.quintenlauwers.backend.network.dnarequest.NetworkDnaRequestPacket;
+import com.quintenlauwers.backend.network.entityinteraction.EntityInteractionHandler;
+import com.quintenlauwers.backend.network.entityinteraction.EntityInteractionPackage;
 import com.quintenlauwers.entity.DnaEntity;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.entity.Entity;
@@ -29,5 +31,6 @@ public class NetworkHelper {
         TestMod.network.registerMessage(NetworkDnaDataHandler.class, NetworkDnaDataPacket.class, 0, Side.SERVER);
         TestMod.network.registerMessage(NetworkDnaDataHandler.class, NetworkDnaDataPacket.class, 0, Side.CLIENT);
         TestMod.network.registerMessage(NetworkDnaRequestHandler.class, NetworkDnaRequestPacket.class, 1, Side.SERVER);
+        TestMod.network.registerMessage(EntityInteractionHandler.class, EntityInteractionPackage.class, 2, Side.SERVER);
     }
 }

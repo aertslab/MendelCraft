@@ -1,6 +1,5 @@
 package com.quintenlauwers.blocks;
 
-import com.quintenlauwers.item.ItemModelProvider;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -1,6 +1,5 @@
 package com.quintenlauwers.blocks;
 
-import com.quintenlauwers.item.ItemModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemBlock;

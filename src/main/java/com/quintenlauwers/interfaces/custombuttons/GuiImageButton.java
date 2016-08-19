@@ -1,4 +1,4 @@
-package com.quintenlauwers.interfaces;
+package com.quintenlauwers.interfaces.custombuttons;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 /**
  * Created by quinten on 5/08/16.
  */
-public class GuiImageButton extends GuiButton implements holdable{
+public class GuiImageButton extends GuiButton implements holdable {
 
 
     private ResourceLocation imageLocation;

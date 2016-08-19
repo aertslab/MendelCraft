@@ -1,4 +1,4 @@
-package com.quintenlauwers.interfaces;
+package com.quintenlauwers.interfaces.custombuttons;
 
 /**
  * Created by quinten on 7/08/16.

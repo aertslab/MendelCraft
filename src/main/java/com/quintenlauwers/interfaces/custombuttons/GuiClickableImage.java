@@ -1,4 +1,4 @@
-package com.quintenlauwers.interfaces;
+package com.quintenlauwers.interfaces.custombuttons;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

@@ -1,5 +1,6 @@
-package com.quintenlauwers.item;
+package com.quintenlauwers.backend.inventory;
 
+import com.quintenlauwers.item.dnaSyringe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -107,7 +108,7 @@ public class InventoryItem implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int indstackex, ItemStack stack) {
-        return (stack != null && stack.getItem() instanceof ObsStick);
+        return (stack != null && stack.getItem() instanceof dnaSyringe);
     }
 
     @Override

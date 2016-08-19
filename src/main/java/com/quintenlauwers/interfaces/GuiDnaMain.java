@@ -1,6 +1,12 @@
 package com.quintenlauwers.interfaces;
 
-import com.quintenlauwers.item.ObsidianStick;
+import com.quintenlauwers.backend.inventory.ContainerDna;
+import com.quintenlauwers.backend.inventory.RestrictedSlot;
+import com.quintenlauwers.backend.inventory.TakeOnlySlot;
+import com.quintenlauwers.interfaces.pages.GuiContainerPage;
+import com.quintenlauwers.interfaces.pages.GuiEditDna;
+import com.quintenlauwers.interfaces.pages.GuiPage;
+import com.quintenlauwers.item.ModItems;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -23,9 +29,11 @@ public class GuiDnaMain extends GuiContainer {
 
     Tab[] tabs;
     Tab activeTab;
+    private ContainerDna container;
 
     public GuiDnaMain(ContainerDna dna) {
         super(dna);
+        this.container = dna;
         tabs = new Tab[3];
         tabs[0] = new Tab(0, new GuiContainerPage(this));
         tabs[1] = new Tab(1, new GuiEditDna(this));
@@ -65,6 +73,7 @@ public class GuiDnaMain extends GuiContainer {
             super.drawScreen(mouseX, mouseY, partialTicks);
             currentPage.drawScreen(mouseX, mouseY, partialTicks);
         } else {
+            drawDefaultBackground();
             this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
             currentPage.drawScreen(mouseX, mouseY, partialTicks);
         }
@@ -83,6 +92,19 @@ public class GuiDnaMain extends GuiContainer {
         super.actionPerformed(button);
     }
 
+    public RestrictedSlot getInputSlot() {
+        if (this.activeTab != null) {
+            System.out.println("tabcolumn");
+            System.out.println(this.activeTab.getTabColumn());
+            return container.getInputSlot(this.activeTab.getTabColumn());
+        }
+        return null;
+    }
+
+    public TakeOnlySlot getOutputSlot() {
+        return container.getOutputSlot();
+    }
+
     void drawButtons(int mouseX, int mouseY, float partialTicks) {
         for (int i = 0; i < this.buttonList.size(); ++i) {
             this.buttonList.get(i).drawButton(this.mc, mouseX, mouseY);
@@ -91,11 +113,11 @@ public class GuiDnaMain extends GuiContainer {
 
 
     /**
-     * Draws the given tab and its background, deciding whether to highlight the tab or not based off of the selected
-     * index.
+     * Draws the given tab and its background, deciding whether to highlight the tab or not based off of the active tab.
      */
     protected void drawTab(Tab tab) {
-        this.mc.getTextureManager().bindTexture(new ResourceLocation("minecraft:textures/gui/container/creative_inventory/tabs.png"));
+        this.mc.getTextureManager().bindTexture(
+                new ResourceLocation("minecraft:textures/gui/container/creative_inventory/tabs.png"));
         boolean isactive = tab == this.activeTab;
         boolean inFirstRow = true;
         int i = tab.getTabColumn();
@@ -180,29 +202,29 @@ public class GuiDnaMain extends GuiContainer {
         return mouseX >= j && mouseX <= j + 28 && mouseY >= k && mouseY <= k + 32;
     }
 
-    void pubDrawHoveringText(List<String> textLines, int x, int y) {
+    public void pubDrawHoveringText(List<String> textLines, int x, int y) {
         super.drawHoveringText(textLines, x, y);
     }
 
-    int getStringWidth(String text) {
+    public int getStringWidth(String text) {
         return this.fontRendererObj.getStringWidth(text);
     }
 
-    void drawString(String text, int x, int y, int color) {
+    public void drawString(String text, int x, int y, int color) {
         this.fontRendererObj.drawString(text, x, y, color);
     }
 
-    void drawRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth,
-                                        float textureHeight, ResourceLocation texture) {
+    public void drawRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth,
+                                               float textureHeight, ResourceLocation texture) {
         this.mc.getTextureManager().bindTexture(texture);
         drawModalRectWithCustomSizedTexture(x, y, u, v, width, height, textureWidth, textureHeight);
     }
 
-    int getWidth() {
+    public int getWidth() {
         return this.width;
     }
 
-    int getHeight() {
+    public int getHeight() {
         return this.height;
     }
 
@@ -211,10 +233,11 @@ public class GuiDnaMain extends GuiContainer {
      *
      * @return this.fontRenderObj
      */
-    FontRenderer getFontRendererObj() {
+    public FontRenderer getFontRendererObj() {
         return this.fontRendererObj;
     }
 }
+
 
 class Tab {
     private ItemStack iconItemStack;
@@ -244,7 +267,7 @@ class Tab {
 
     @SideOnly(Side.CLIENT)
     public Item getTabIconItem() {
-        return ObsidianStick.oStick;
+        return ModItems.dnaSyringe;
     }
 
     int getTabColumn() {

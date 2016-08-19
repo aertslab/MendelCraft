@@ -1,6 +1,8 @@
 package com.quintenlauwers.interfaces;
 
 import com.quintenlauwers.backend.DNAData;
+import com.quintenlauwers.interfaces.custombuttons.GuiClickableImage;
+import com.quintenlauwers.interfaces.custombuttons.GuiImageButton;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;

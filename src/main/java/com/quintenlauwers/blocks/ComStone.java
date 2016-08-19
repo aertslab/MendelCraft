@@ -1,6 +1,6 @@
 package com.quintenlauwers.blocks;
 
-import com.quintenlauwers.item.ObsStick;
+import com.quintenlauwers.item.dnaSyringe;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -32,14 +32,14 @@ ComStone extends BlockBase {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack equipped = playerIn.getHeldItemMainhand();
-        if (equipped != null && !(equipped.getItem() instanceof ObsStick)) {
-            if (playerIn.getHeldItemOffhand() != null && playerIn.getHeldItemOffhand().getItem() instanceof ObsStick) {
+        if (equipped != null && !(equipped.getItem() instanceof dnaSyringe)) {
+            if (playerIn.getHeldItemOffhand() != null && playerIn.getHeldItemOffhand().getItem() instanceof dnaSyringe) {
                 equipped = playerIn.getHeldItemOffhand();
             } else {
                 return side == EnumFacing.UP;
             }
         }
-        if (equipped.hasTagCompound()) {
+        if (equipped != null && equipped.hasTagCompound()) {
             NBTTagCompound compound = equipped.getTagCompound();
             if (compound.hasKey("dnaData")) {
                 try {

@@ -1,6 +1,5 @@
-package com.quintenlauwers.interfaces;
+package com.quintenlauwers.backend.inventory;
 
-import com.quintenlauwers.item.InventoryItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,17 +13,38 @@ public class ContainerDna extends Container {
 
     protected InventoryItem inventory;
 
+    private RestrictedSlot inputSlot1;
+    private RestrictedSlot inputSlot2;
+    private TakeOnlySlot outputSlot;
+
     public ContainerDna(EntityPlayer player, InventoryPlayer inventoryPlayer, InventoryItem te) {
         inventory = te;
 
         //the Slot constructor takes the IInventory and the slot number in that it binds to
         // and the x-y coordinates it resides on-screen
 
-        addSlotToContainer(new Slot(inventory, 0, 62, 17));
+        addSlotToContainer(this.inputSlot1 = new RestrictedSlot(inventory, 0, 26, 31));
+        addSlotToContainer(this.inputSlot2 = new RestrictedSlot(inventory, 1, 75, 31));
+        addSlotToContainer(this.outputSlot = new TakeOnlySlot(inventory, 2, 133, 31));
 
 
         //commonly used vanilla code that adds the player's inventory
         bindPlayerInventory(inventoryPlayer);
+    }
+
+    public RestrictedSlot getInputSlot(int nb) {
+        switch (nb) {
+            case 1:
+                return inputSlot1;
+            case 2:
+                return inputSlot2;
+            default:
+                return null;
+        }
+    }
+
+    public TakeOnlySlot getOutputSlot() {
+        return outputSlot;
     }
 
     @Override

@@ -1,7 +1,8 @@
 package com.quintenlauwers.interfaces;
 
-import com.quintenlauwers.item.InventoryItem;
-import com.quintenlauwers.item.ObsStick;
+import com.quintenlauwers.backend.inventory.ContainerDna;
+import com.quintenlauwers.backend.inventory.InventoryItem;
+import com.quintenlauwers.item.dnaSyringe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
@@ -14,12 +15,12 @@ public class ModGuiHandler implements IGuiHandler {
 
     @Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if (ID == DNA_GUI) {
+        if (ID == DNA_GUI && player.getHeldItem(EnumHand.MAIN_HAND) != null) {
             // Use the player's held item to create the inventory
             return new ContainerDna(player,
                     player.inventory,
                     new InventoryItem(
-                            (player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ObsStick ?
+                            (player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof dnaSyringe ?
                                     player.getHeldItem(EnumHand.MAIN_HAND)
                                     : player.getHeldItem(EnumHand.OFF_HAND))));
         }
@@ -30,13 +31,13 @@ public class ModGuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 	    if (ID == TUTORIAL_GUI)
 	        return new GuiTutorial();
-        if (ID == DNA_GUI) {
+        if (ID == DNA_GUI && player.getHeldItem(EnumHand.MAIN_HAND) != null) {
             // We have to cast the new container as our custom class
             // and pass in currently held item for the inventory
             return new GuiDnaMain(new ContainerDna(player,
                     player.inventory,
                     new InventoryItem(
-                            (player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ObsStick ?
+                            (player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof dnaSyringe ?
                                     player.getHeldItem(EnumHand.MAIN_HAND)
                                     : player.getHeldItem(EnumHand.OFF_HAND)))));
         }

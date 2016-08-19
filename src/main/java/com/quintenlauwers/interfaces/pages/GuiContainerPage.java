@@ -1,5 +1,6 @@
-package com.quintenlauwers.interfaces;
+package com.quintenlauwers.interfaces.pages;
 
+import com.quintenlauwers.interfaces.GuiDnaMain;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class GuiContainerPage extends GuiPage {
 
-    public static ResourceLocation CONTAINERBACKGROUND = new ResourceLocation("testmod:textures/gui/background.png");
+    public static ResourceLocation CONTAINERBACKGROUND = new ResourceLocation("testmod:textures/gui/container.png");
 
 
     public GuiContainerPage(GuiDnaMain screen) {

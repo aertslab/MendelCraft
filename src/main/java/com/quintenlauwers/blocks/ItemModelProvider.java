@@ -1,4 +1,4 @@
-package com.quintenlauwers.item;
+package com.quintenlauwers.blocks;
 
 import net.minecraft.item.Item;
 

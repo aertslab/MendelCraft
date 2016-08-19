@@ -1,5 +1,6 @@
-package com.quintenlauwers.interfaces;
+package com.quintenlauwers.interfaces.pages;
 
+import com.quintenlauwers.interfaces.GuiDnaMain;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;

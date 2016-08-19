@@ -5,7 +5,7 @@ import com.quintenlauwers.backend.network.NetworkHelper;
 import com.quintenlauwers.backend.util.Storage;
 import com.quintenlauwers.blocks.ModBlocks;
 import com.quintenlauwers.entity.ModEntities;
-import com.quintenlauwers.item.ObsidianStick;
+import com.quintenlauwers.item.ModItems;
 import com.quintenlauwers.lib.RefStrings;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -46,7 +46,7 @@ public class TestMod {
         networkHelper.registerMessages();
         storage = new Storage();
         dnaConfig = new DnaConfig("mainConfig.json");
-        ObsidianStick.mainRegistry();
+        ModItems.mainRegistry();
         ModBlocks.init();
         ModEntities.init();
         MinecraftForge.EVENT_BUS.register(eventHandler);
@@ -56,7 +56,7 @@ public class TestMod {
     @EventHandler
     public static void load(FMLInitializationEvent event) {
         System.err.println("Actual load");
-		GameRegistry.addShapelessRecipe(new ItemStack(ObsidianStick.oStick), new ItemStack(Blocks.OBSIDIAN));
+        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dnaSyringe), new ItemStack(Blocks.OBSIDIAN));
         proxy.registerRenderInfo();
     }
 
