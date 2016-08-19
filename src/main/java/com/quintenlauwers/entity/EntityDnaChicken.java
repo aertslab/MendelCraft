@@ -22,7 +22,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     private static final ResourceLocation CHICKEN_TEXTURE_GREEN = new ResourceLocation("testmod:textures/entity/dnaChickenGreen.png");
     private static final ResourceLocation CHICKEN_TEXTURE_RED = new ResourceLocation("testmod:textures/entity/dnaChickenRed.png");
 
-    private byte[] dnaData = new byte[TestMod.dnaConfig.getTotalNbOfGenes() + 1];
+    private byte[] dnaData = new byte[TestMod.dnaConfig.getTotalNbOfCodons()];
     private DnaProperties properties;
 
 
@@ -142,7 +142,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     }
 
     public ResourceLocation getTexture(){
-        if (this.properties.getBoolProperty("color")) {
+        if ("green".equals(this.properties.getStringProperty("color"))) {
             return CHICKEN_TEXTURE_GREEN;
         }
         else {

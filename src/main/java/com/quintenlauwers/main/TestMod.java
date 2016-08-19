@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import java.util.Random;
+
 @Mod(modid = RefStrings.MODID, name = RefStrings.NAME, version = RefStrings.VERSION)
 public class TestMod {
 
@@ -35,6 +37,7 @@ public class TestMod {
     public static NetworkHelper networkHelper;
     public static Storage storage;
     public static DnaConfig dnaConfig;
+    public static Random random = new Random();
 
     @EventHandler
     public static void preLoad(FMLPreInitializationEvent preEvent) {

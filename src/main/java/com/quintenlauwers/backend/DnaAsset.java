@@ -16,7 +16,7 @@ class DnaAsset {
         this.property = property;
     }
 
-    public String[] getPossibleGenesOnPosition(int[] position) {
+    public String[] getPossibleCodonValuesOnPosition(int[] position) {
         ArrayList<AlleleInfo> templist = positionKey.get(new GenePosition(position));
         ArrayList<String> possibleList = new ArrayList<String>();
         for (AlleleInfo allele : templist) {
@@ -61,7 +61,7 @@ class DnaAsset {
         for (GenePosition genePosition : positions) {
             postionsAsCoordinates.add(genePosition.getCoordinate());
         }
-        int[][] returnArray = new int[postionsAsCoordinates.size()][2];
+        int[][] returnArray = new int[postionsAsCoordinates.size()][3];
         postionsAsCoordinates.toArray(returnArray);
 //        int[][] returnArray = (int[][]) positions.stream().map(GenePosition::getCoordinate).toArray();
         return returnArray;
@@ -82,7 +82,7 @@ class DnaAsset {
     }
 
     public void addFromPosition(int[] positionCoordinate, String alleleName) {
-        if (positionCoordinate.length < 2) {
+        if (positionCoordinate.length < 3) {
             return;
         }
         GenePosition position = new GenePosition(positionCoordinate);
@@ -177,48 +177,6 @@ class DnaAsset {
         }
     }
 
-    final class GenePosition {
-        int chromosome;
-        int gene;
-
-        GenePosition(int[] position) {
-            if (position.length < 2) {
-                throw new IllegalArgumentException("Position should at least have lenght 2 (chromosome, gene).");
-            }
-            this.chromosome = position[0];
-            this.gene = position[1];
-        }
-
-        GenePosition(int chromosome, int gene) {
-            this.chromosome = chromosome;
-            this.gene = gene;
-        }
-
-        public int getChromosomeNb() {
-            return this.chromosome;
-        }
-
-        public int getGeneNb() {
-            return this.gene;
-        }
-
-        public int[] getCoordinate() {
-            int[] returnArray = {this.getChromosomeNb(), this.getGeneNb()};
-            return returnArray;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return (obj instanceof GenePosition
-                    && ((GenePosition) obj).getChromosomeNb() == this.getChromosomeNb()
-                    && ((GenePosition) obj).getGeneNb() == this.getGeneNb());
-        }
-
-        @Override
-        public int hashCode() {
-            return this.getChromosomeNb() * 100000 + this.getGeneNb();
-        }
-    }
 
     final class AlleleCombination {
 
@@ -249,5 +207,58 @@ class DnaAsset {
             }
             return false;
         }
+    }
+}
+
+final class GenePosition {
+    int chromosome;
+    int gene;
+    int codon;
+
+    GenePosition(int[] position) {
+        if (position.length < 3) {
+            throw new IllegalArgumentException("Position should at least have lenght 3 (chromosome, gene, codon).");
+        }
+        this.chromosome = position[0];
+        this.gene = position[1];
+        this.codon = position[2];
+    }
+
+    GenePosition(int chromosome, int gene, int codon) {
+        this.chromosome = chromosome;
+        this.gene = gene;
+        this.codon = codon;
+    }
+
+    public int getChromosomeNb() {
+        return this.chromosome;
+    }
+
+    public int getGeneNb() {
+        return this.gene;
+    }
+
+    public int getCodonNb() {
+        return this.codon;
+    }
+
+    public int[] getCoordinate() {
+        int[] returnArray = {this.getChromosomeNb(), this.getGeneNb(), this.getCodonNb()};
+        return returnArray;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof GenePosition
+                && ((GenePosition) obj).getChromosomeNb() == this.getChromosomeNb()
+                && ((GenePosition) obj).getGeneNb() == this.getGeneNb()
+                && ((GenePosition) obj).getCodonNb() == this.getCodonNb());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getChromosomeNb() * 1024 * 1024
+                + this.getGeneNb() * 1024
+                + this.getCodonNb();
     }
 }

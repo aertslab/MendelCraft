@@ -1,14 +1,16 @@
 {
   "color": {
-    "genesInvolved": [
+    "codonsInvolved": [
       {
         "chromosome": 3,
         "gene": 2,
+        "codon": 1,
         "allele": "A"
       },
       {
         "chromosome": 3,
         "gene": 2,
+        "codon": 1,
         "allele": "B"
       }
     ],
@@ -23,7 +25,8 @@
         "GTA",
         "TGA",
         "AAT",
-        "TAA"
+        "TAA",
+        "ATA"
       ]
     },
     "effects": {

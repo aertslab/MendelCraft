@@ -1,7 +1,8 @@
 {
   "name": "jsonConfig",
-  "chromosomes": 18,
+  "chromosomes": 5,
   "genesPerChromosme": 6,
+  "codonsPerGene": 3,
   "geneNbExceptions": {
     "chromosome4": 12,
     "chromosome12": 1

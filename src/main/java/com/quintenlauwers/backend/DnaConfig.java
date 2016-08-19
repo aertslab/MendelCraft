@@ -61,34 +61,62 @@ public class DnaConfig {
         return 0;
     }
 
-    public int getNucleobaseIndex(int chromosomeNumber, int geneNumber) {
+    private int getNbOfCodonsInChromosome(int chromosomeNumber) {
+        int total = 0;
+        for (int i = 0; i < getNbOfGenes(chromosomeNumber); i++) {
+            total += getNbOfCodons(chromosomeNumber, i);
+        }
+        return total;
+    }
+
+    private int getNbOfCodons(int chromosomeNumber, int geneNumber) {
+        if (mainConfig.has("codonsPerGene")) {
+            return mainConfig.get("codonsPerGene").getAsInt();
+        }
+        return 0;
+        // TODO: Exceptions for number of codons on gene.
+    }
+
+    public int getCodonIndex(int chromosomeNumber, int geneNumber, int codonNumber) {
         int total = 0;
         for (int i = 0; i < chromosomeNumber; i++) {
-            total += getNbOfGenes(i);
+            total += getNbOfCodonsInChromosome(i);
         }
-        return total + geneNumber + 1;
+        for (int i = 0; i < geneNumber; i++) {
+            total += getNbOfCodons(chromosomeNumber, i);
+        }
+        return total + codonNumber;
     }
 
-    public int getNucleobaseIndex(int[] position) {
-        if (position.length < 2) {
+    public int getCodonIndex(int[] position) {
+        if (position.length < 3) {
             throw new IllegalArgumentException("Position does not contain enough information.");
         }
-        return getNucleobaseIndex(position[0], position[1]);
+        return getCodonIndex(position[0], position[1], position[2]);
     }
 
-    public int[] positionFromNucleobaseIndex(int nucleobaseIndex) {
+    public int[] positionFromCodonIndex(int nucleobaseIndex) {
         int chromosomeNb = 0;
         int geneNb = 0;
+        int codonNb = 0;
         for (int i = 0; i < getNbOfChromosomes(); i++) {
-            int currentChromosome = getNbOfGenes(i);
+            int currentChromosome = getNbOfCodonsInChromosome(i);
             if (currentChromosome > nucleobaseIndex) {
                 chromosomeNb = i;
                 break;
             }
             nucleobaseIndex -= currentChromosome;
         }
-        geneNb = nucleobaseIndex;
-        int[] position = {chromosomeNb, geneNb};
+        for (int i = 0; i < getNbOfGenes(chromosomeNb); i++) {
+            int currentGene = getNbOfCodons(chromosomeNb, i);
+            if (currentGene > nucleobaseIndex) {
+                geneNb = i;
+                break;
+            }
+            nucleobaseIndex -= currentGene;
+        }
+        codonNb = nucleobaseIndex;
+        int[] position = {chromosomeNb, geneNb, codonNb};
         return position;
     }
 
@@ -111,6 +139,14 @@ public class DnaConfig {
         return total;
     }
 
+    public int getTotalNbOfCodons() {
+        int total = 0;
+        for (int i = 0; i < getNbOfChromosomes(); i++) {
+            total += getNbOfCodonsInChromosome(i);
+        }
+        return total;
+    }
+
     /**
      * Returns the relevant positions for the given property as chromosomeposition, genepositon pairs.
      *
@@ -129,13 +165,16 @@ public class DnaConfig {
             return null;
         }
         JsonObject currentProperty = animalConfig.getAsJsonObject(property.toLowerCase());
-        if (currentProperty.has("genesInvolved") && currentProperty.has("allelesInvolved")) {
+        if (currentProperty.has("codonsInvolved") && currentProperty.has("allelesInvolved")) {
             DnaAsset dnaAsset = new DnaAsset(property);
-            JsonArray genesInvolved = currentProperty.getAsJsonArray("genesInvolved");
+            JsonArray genesInvolved = currentProperty.getAsJsonArray("codonsInvolved");
             for (int i = 0; i < genesInvolved.size(); i++) {
                 JsonObject propertyPosition = genesInvolved.get(i).getAsJsonObject();
-                if (propertyPosition.has("chromosome") && propertyPosition.has("gene") && propertyPosition.has("allele")) {
-                    int[] position = {propertyPosition.get("chromosome").getAsInt(), propertyPosition.get("gene").getAsInt()};
+                if (propertyPosition.has("chromosome") && propertyPosition.has("gene")
+                        && propertyPosition.has("codon") && propertyPosition.has("allele")) {
+                    int[] position = {propertyPosition.get("chromosome").getAsInt(),
+                            propertyPosition.get("gene").getAsInt(),
+                            propertyPosition.get("codon").getAsInt()};
                     String allele = propertyPosition.get("allele").getAsString();
                     dnaAsset.addFromPosition(position, allele);
                 }

@@ -33,11 +33,11 @@ public class DnaConfigTest {
     public void positionFromNucleobaseIndex() throws Exception {
         DnaConfig dnaConfig = new DnaConfig("testConfig.json");
         int[] arrayZero = {0, 0};
-        assertArrayEquals(arrayZero, dnaConfig.positionFromNucleobaseIndex(0));
+        assertArrayEquals(arrayZero, dnaConfig.positionFromCodonIndex(0));
         int[] arraySix = {1, 0};
-        assertArrayEquals(arraySix, dnaConfig.positionFromNucleobaseIndex(6));
+        assertArrayEquals(arraySix, dnaConfig.positionFromCodonIndex(6));
         int[] arrayThirtyFive = {4, 11};
-        assertArrayEquals(arrayThirtyFive, dnaConfig.positionFromNucleobaseIndex(35));
+        assertArrayEquals(arrayThirtyFive, dnaConfig.positionFromCodonIndex(35));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class DnaConfigTest {
         dnaConfig.loadAnimals();
         DnaAsset dnaAsset = dnaConfig.getDnaAsset("chicken", "color");
         int[] coordinates = {3, 2};
-        System.out.println(Arrays.toString(dnaAsset.getPossibleGenesOnPosition(coordinates)));
+        System.out.println(Arrays.toString(dnaAsset.getPossibleCodonValuesOnPosition(coordinates)));
     }
 
     @Test

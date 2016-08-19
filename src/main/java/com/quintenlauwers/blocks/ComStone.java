@@ -52,7 +52,7 @@ ComStone extends BlockBase {
 
 
         }
-        playerIn.openGui(TestMod.instance, 0, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
+        playerIn.openGui(TestMod.instance, 1, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
 
         return side == EnumFacing.UP;
     }
