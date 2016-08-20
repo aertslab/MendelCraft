@@ -10,6 +10,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by quinten on 18/08/16.
@@ -37,9 +39,11 @@ public class InventoryItem implements IInventory {
         return (contains.length);
     }
 
-    @Nullable
-    @Override        // 1.7.2+ change to compound.getTagList("ItemInventory", Constants.NBT.TAG_COMPOUND);
+    @Override
     public ItemStack getStackInSlot(int index) {
+        if (index >= 100) {
+            index = index % 100;
+        }
         return contains[index];
     }
 
@@ -63,6 +67,9 @@ public class InventoryItem implements IInventory {
 
     @Override
     public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
+        if (index >= 100) {
+            index = index % 100;
+        }
         if (index >= SIZE) {
             return;
         }
@@ -186,5 +193,9 @@ public class InventoryItem implements IInventory {
     @Override
     public ITextComponent getDisplayName() {
         return null;
+    }
+
+    public List<ItemStack> toList() {
+        return Arrays.asList(contains);
     }
 }

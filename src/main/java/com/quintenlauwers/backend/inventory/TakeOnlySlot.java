@@ -19,4 +19,9 @@ public class TakeOnlySlot extends Slot {
     public boolean isItemValid(@Nullable ItemStack stack) {
         return false;
     }
+
+    @Override
+    public void putStack(@Nullable ItemStack stack) {
+        super.putStack(stack);
+    }
 }

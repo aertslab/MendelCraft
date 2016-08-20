@@ -5,6 +5,7 @@ import com.quintenlauwers.backend.inventory.RestrictedSlot;
 import com.quintenlauwers.backend.inventory.TakeOnlySlot;
 import com.quintenlauwers.interfaces.pages.GuiContainerPage;
 import com.quintenlauwers.interfaces.pages.GuiEditDna;
+import com.quintenlauwers.interfaces.pages.GuiEggPage;
 import com.quintenlauwers.interfaces.pages.GuiPage;
 import com.quintenlauwers.item.ModItems;
 import net.minecraft.client.gui.FontRenderer;
@@ -29,15 +30,21 @@ public class GuiDnaMain extends GuiContainer {
 
     Tab[] tabs;
     Tab activeTab;
+
+    public ContainerDna getContainer() {
+        return container;
+    }
+
     private ContainerDna container;
 
     public GuiDnaMain(ContainerDna dna) {
         super(dna);
         this.container = dna;
-        tabs = new Tab[3];
+        tabs = new Tab[4];
         tabs[0] = new Tab(0, new GuiContainerPage(this));
         tabs[1] = new Tab(1, new GuiEditDna(this));
         tabs[2] = new Tab(2, new GuiEditDna(this));
+        tabs[3] = new Tab(3, new GuiEggPage(this));
         activeTab = tabs[0];
         this.currentPage = activeTab.getDisplayPage();
     }
@@ -94,11 +101,14 @@ public class GuiDnaMain extends GuiContainer {
 
     public RestrictedSlot getInputSlot() {
         if (this.activeTab != null) {
-            System.out.println("tabcolumn");
-            System.out.println(this.activeTab.getTabColumn());
             return container.getInputSlot(this.activeTab.getTabColumn());
         }
         return null;
+    }
+
+    public RestrictedSlot[] getCombinedInputSlots() {
+        RestrictedSlot[] returnArray = {container.getInputSlot(1), container.getInputSlot(2)};
+        return returnArray;
     }
 
     public TakeOnlySlot getOutputSlot() {
@@ -173,8 +183,11 @@ public class GuiDnaMain extends GuiContainer {
 
             for (Tab tab : this.tabs) {
                 if (tab != null && this.isMouseOverTab(tab, i, j)) {
-                    this.activeTab = tab;
                     this.currentPage = tab.getDisplayPage();
+                    if (tab != this.activeTab) {
+                        currentPage.commingFromOtherTab();
+                    }
+                    this.activeTab = tab;
                     buttonList = currentPage.getButtonList();
                     return;
                 }

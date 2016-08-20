@@ -19,7 +19,6 @@ public class EventHandler {
         if (tile != null) {
             if (tile.getTileEntity() != null) {
                 if (tile.getTileEntity().getBlockType() != null) {
-                    System.out.println(tile.getTileEntity().getBlockType().getClass());
                     if (tile.getTileEntity().getBlockType().getClass() == ComStone.class)
                         System.out.println("Block placed!!");
                 }

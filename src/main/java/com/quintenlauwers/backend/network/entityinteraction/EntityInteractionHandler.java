@@ -18,7 +18,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class EntityInteractionHandler implements IMessageHandler<EntityInteractionPackage, IMessage> {
     @Override
     public IMessage onMessage(final EntityInteractionPackage message, MessageContext ctx) {
-        System.out.println("Got message");
         Minecraft minecraft = Minecraft.getMinecraft();
         IThreadListener mainThread;
         mainThread = minecraft.getIntegratedServer();
@@ -27,11 +26,9 @@ public class EntityInteractionHandler implements IMessageHandler<EntityInteracti
             public void run() {
                 Minecraft innerMinecraft = Minecraft.getMinecraft();
                 Entity possiblePlayer = innerMinecraft.getIntegratedServer().getEntityFromUuid(message.getPlayerUUID());
-                System.out.println("player? " + possiblePlayer);
                 if (possiblePlayer != null && possiblePlayer instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) possiblePlayer;
                     Entity animalFrom = innerMinecraft.getIntegratedServer().getEntityFromUuid(message.getAnimalId());
-                    System.out.println("Animal from? " + animalFrom);
                     if (animalFrom != null && animalFrom instanceof DnaEntity && animalFrom instanceof EntityLivingBase) {
                         ItemStack stack = player.getHeldItem(message.getHand());
                         ModItems.dnaSyringe.itemInteractionForEntity(stack, player, (EntityLivingBase) animalFrom, message.getHand());

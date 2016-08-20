@@ -16,7 +16,6 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,13 +24,13 @@ import java.util.List;
 public class GuiEditDna extends GuiPage {
     DNAData DNA = new DNAData("chicken");
 
-    private List<GuiButton> buttonList = new ArrayList<GuiButton>();
+    protected List<GuiButton> buttonList = new ArrayList<GuiButton>();
 
-    private GuiButton prevGene;
-    private GuiButton nextGene;
-    private GuiButton prevChromosome;
-    private GuiButton nextChromosome;
-    private GuiButton doneBtn;
+    protected GuiButton prevGene;
+    protected GuiButton nextGene;
+    protected GuiButton prevChromosome;
+    protected GuiButton nextChromosome;
+    protected GuiButton doneBtn;
 
     /**
      * The current active chromosme.
@@ -48,10 +47,10 @@ public class GuiEditDna extends GuiPage {
     private GuiTextField text = null;
 
 
-    private ArrayList<GuiButton> visibleChromosomes = new ArrayList<GuiButton>();
-    private ArrayList<GuiButton> visibleGenes = new ArrayList<GuiButton>();
+    protected ArrayList<GuiButton> visibleChromosomes = new ArrayList<GuiButton>();
+    protected ArrayList<GuiButton> visibleGenes = new ArrayList<GuiButton>();
 
-    private ArrayList<GuiTextField> textboxList = new ArrayList<GuiTextField>();
+    protected ArrayList<GuiTextField> textboxList = new ArrayList<GuiTextField>();
 
     /**
      * Textures used.
@@ -362,18 +361,9 @@ public class GuiEditDna extends GuiPage {
         String nubleobases = "";
         int codonIndex = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeGene, 0);
         RestrictedSlot slot = getContainer().getInputSlot();
-        System.out.println(slot);
-        if (slot != null) {
-            System.out.println(slot.getHasStack());
-            if (slot.getHasStack()) {
-                System.out.println(slot.getStack().getItem());
-            }
-        }
         if (slot != null && slot.getHasStack() && slot.getStack().getItem() instanceof dnaSyringe) {
-            System.out.println("Got something");
             dnaSyringe dnaSample = (dnaSyringe) slot.getStack().getItem();
             byte[] dnaData = dnaSample.getDnaData(slot.getStack());
-            System.out.println(Arrays.toString(dnaData));
             if (dnaData != null && dnaData.length > codonIndex) {
                 nubleobases = UtilDna.byteNucleobaseToString(dnaData[codonIndex]);
             }

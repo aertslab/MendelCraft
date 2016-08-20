@@ -50,7 +50,6 @@ public class dnaSyringe extends Item {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
-        System.out.println("Client only?");
         if (playerIn.getEntityWorld().isRemote) {
             TestMod.network.sendToServer(new EntityInteractionPackage(target, playerIn, hand));
         }

@@ -1,4 +1,6 @@
 item.dnaSyringe.name=Dna Syringe
 tile.comStone.name=Compressed Stone
 gui.write=Write Name
+gui.makeEgg=Make Egg
+gui.remakeEgg=New Random Egg
 entity.testmod.dnaChicken.name=Dna Chicken

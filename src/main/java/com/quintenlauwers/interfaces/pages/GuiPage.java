@@ -98,6 +98,9 @@ public abstract class GuiPage {
 
     public abstract void initGui();
 
+    public void commingFromOtherTab() {
+    }
+
     public abstract void actionPerformed(GuiButton button);
 
     /**

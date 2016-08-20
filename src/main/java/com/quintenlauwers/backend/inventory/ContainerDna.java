@@ -11,25 +11,24 @@ import net.minecraft.item.ItemStack;
  */
 public class ContainerDna extends Container {
 
-    protected InventoryItem inventory;
+    protected InventoryItem dnaInventory;
 
     private RestrictedSlot inputSlot1;
     private RestrictedSlot inputSlot2;
     private TakeOnlySlot outputSlot;
 
     public ContainerDna(EntityPlayer player, InventoryPlayer inventoryPlayer, InventoryItem te) {
-        inventory = te;
-
-        //the Slot constructor takes the IInventory and the slot number in that it binds to
-        // and the x-y coordinates it resides on-screen
-
-        addSlotToContainer(this.inputSlot1 = new RestrictedSlot(inventory, 0, 26, 31));
-        addSlotToContainer(this.inputSlot2 = new RestrictedSlot(inventory, 1, 75, 31));
-        addSlotToContainer(this.outputSlot = new TakeOnlySlot(inventory, 2, 133, 31));
+        dnaInventory = te;
 
 
         //commonly used vanilla code that adds the player's inventory
         bindPlayerInventory(inventoryPlayer);
+        //the Slot constructor takes the IInventory and the slot number in that it binds to
+        // and the x-y coordinates it resides on-screen
+
+        addSlotToContainer(this.inputSlot1 = new RestrictedSlot(dnaInventory, 0, 26, 31));
+        addSlotToContainer(this.inputSlot2 = new RestrictedSlot(dnaInventory, 1, 75, 31));
+        addSlotToContainer(this.outputSlot = new TakeOnlySlot(dnaInventory, 2, 133, 31));
     }
 
     public RestrictedSlot getInputSlot(int nb) {
@@ -49,7 +48,7 @@ public class ContainerDna extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return inventory.isUseableByPlayer(player);
+        return dnaInventory.isUseableByPlayer(player);
     }
 
 
@@ -65,25 +64,49 @@ public class ContainerDna extends Container {
         }
     }
 
+//    @Override
+//    public List<ItemStack> getInventory() {
+//        return dnaInventory.toList();
+//    }
+
+    @Override
+    public Slot getSlot(int slotId) {
+        if (slotId >= 100) {
+            switch (slotId) {
+                case 100:
+                case 101:
+                    return this.getInputSlot(slotId - 100);
+                case 102:
+                    return this.getOutputSlot();
+            }
+        }
+        return super.getSlot(slotId);
+    }
+
+    @Override
+    public void putStackInSlot(int slotID, ItemStack stack) {
+        this.getSlot(slotID).putStack(stack);
+    }
+
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
         ItemStack stack = null;
         Slot slotObject = inventorySlots.get(slot);
 
-//null checks and checks if the item can be stacked (maxStackSize > 1)
+        //null checks and checks if the item can be stacked (maxStackSize > 1)
         if (slotObject != null && slotObject.getHasStack()) {
             ItemStack stackInSlot = slotObject.getStack();
             stack = stackInSlot.copy();
 
-//merges the item into player inventory since its in the tileEntity
-            if (slot < inventory.getSizeInventory()) {
-                if (!this.mergeItemStack(stackInSlot, inventory.getSizeInventory(), 36 + inventory.getSizeInventory(), true)) {
+            //merges the item into player inventory since its in the tileEntity
+            if (slot < dnaInventory.getSizeInventory()) {
+                if (!this.mergeItemStack(stackInSlot, dnaInventory.getSizeInventory(), 36 + dnaInventory.getSizeInventory(), true)) {
                     return null;
                 }
             }
 
             //places it into the tileEntity is possible since its in the player inventory
-            else if (!this.mergeItemStack(stackInSlot, 0, inventory.getSizeInventory(), false)) {
+            else if (!this.mergeItemStack(stackInSlot, 0, dnaInventory.getSizeInventory(), false)) {
                 return null;
             }
 
@@ -100,4 +123,5 @@ public class ContainerDna extends Container {
         }
         return stack;
     }
+
 }
