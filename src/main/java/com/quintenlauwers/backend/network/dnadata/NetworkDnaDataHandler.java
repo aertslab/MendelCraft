@@ -4,9 +4,11 @@ import com.quintenlauwers.entity.DnaEntity;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IThreadListener;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by quinten on 9/08/16.
@@ -16,7 +18,11 @@ public class NetworkDnaDataHandler implements IMessageHandler<NetworkDnaDataPack
     @Override
     public IMessage onMessage(final NetworkDnaDataPacket message, MessageContext ctx) {
         IThreadListener mainThread;
-        mainThread = Minecraft.getMinecraft().getIntegratedServer();
+        if (ctx.side.equals(Side.SERVER)) {
+            mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
+        } else {
+            mainThread = Minecraft.getMinecraft();
+        }
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {

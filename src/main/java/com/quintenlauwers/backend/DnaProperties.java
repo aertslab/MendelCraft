@@ -22,8 +22,7 @@ public class DnaProperties {
         if (dnaData != null && dnaData.length >= dnaConfig.getTotalNbOfGenes()) {
             this.animal = animal;
             this.color = UtilDna.byteToBool((byte) (dnaData[0] & (byte) 1));
-            this.dnaData = dnaData.clone();
-            filterDna();
+            setDna(dnaData);
         } else {
             if (dnaData == null) {
                 throw new IllegalArgumentException("dnaData is nonexistent.");
@@ -31,6 +30,29 @@ public class DnaProperties {
                 throw new IllegalArgumentException("dnaData only has lenght: " + dnaData.length);
             }
         }
+    }
+
+    public String[] getPossibleCodons(int[] position) {
+        GenePosition pos = new GenePosition(position);
+        if (pos == null || !getRestrictedEntries().containsKey(pos)) {
+            return null;
+        }
+        Set<String> possibleSet = getRestrictedEntries().get(pos);
+        String[] returnArray = new String[possibleSet.size()];
+        possibleSet.toArray(returnArray);
+        return returnArray;
+    }
+
+    private HashMap<GenePosition, Set<String>> getRestrictedEntries() {
+        if (restrictedEntries == null) {
+            fillRestrictedEntries();
+        }
+        return restrictedEntries;
+    }
+
+    public boolean isEditablePosition(int[] position) {
+        GenePosition pos = new GenePosition(position);
+        return (pos != null && getRestrictedEntries().containsKey(pos));
     }
 
     public boolean getBoolProperty(String property) {
@@ -115,6 +137,11 @@ public class DnaProperties {
         }
 
 
+    }
+
+    public void setDna(byte[] dnaData) {
+        this.dnaData = dnaData;
+        filterDna();
     }
 
     private void loadPossibleProperties() {

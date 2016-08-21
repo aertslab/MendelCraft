@@ -2,15 +2,15 @@
   "color": {
     "codonsInvolved": [
       {
-        "chromosome": 3,
-        "gene": 2,
-        "codon": 1,
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
         "allele": "A"
       },
       {
-        "chromosome": 3,
-        "gene": 2,
-        "codon": 1,
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
         "allele": "B"
       }
     ],

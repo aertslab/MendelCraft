@@ -50,6 +50,7 @@ public class TestMod {
         ModBlocks.init();
         ModEntities.init();
         MinecraftForge.EVENT_BUS.register(eventHandler);
+        proxy.preRender();
         System.err.println("Preload");
     }
 

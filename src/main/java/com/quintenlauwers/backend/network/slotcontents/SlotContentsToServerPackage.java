@@ -4,13 +4,10 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by quinten on 15/08/16.
  */
-@SideOnly(Side.CLIENT)
 public class SlotContentsToServerPackage implements IMessage {
 
     ItemStack contents;

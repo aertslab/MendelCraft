@@ -28,41 +28,6 @@ public abstract class GuiPage {
      */
     protected int yButtonSize = 20;
     /**
-     * The Y position of the first DNA row in pixels.
-     */
-    protected int yDNARowPosition = 70;
-    /**
-     * The Y posoition of the nucleobase row in pixels.
-     */
-    protected int yNucleobasePosition = 140;
-    /**
-     * The X size of the chromosome button in pixels.
-     */
-    protected int xChromosomeSize = 20;
-    /**
-     * The Y size of the chromosome button in pixels.
-     */
-    protected int yChromosomeSize = 20;
-    /**
-     * The maximum number of genes showed in a row at once.
-     */
-    protected int nbVisibleGenes;
-    /**
-     * The first shown gene.
-     */
-    protected int geneIndex = 0;
-    protected int lastGeneIndex = 1;
-    /**
-     * The maximum number of chromosomes showed in a row at once.
-     */
-    protected int nbVisibleChromosomes;
-    /**
-     * inventorySlotsIn
-     * The first shown chromosome.
-     */
-    protected int chromosomeIndex = 0;
-    protected int lastChromosomeIndex = 1;
-    /**
      * The number of ticks since the last mouse movement.
      */
     protected float ticksSinceMovement = 0;

@@ -17,6 +17,10 @@ public class ContainerDna extends Container {
     private RestrictedSlot inputSlot2;
     private TakeOnlySlot outputSlot;
 
+    int inputSlot1Nb;
+    int inputSlot2Nb;
+    int outputSlotNb;
+
     public ContainerDna(EntityPlayer player, InventoryPlayer inventoryPlayer, InventoryItem te) {
         dnaInventory = te;
 
@@ -26,20 +30,21 @@ public class ContainerDna extends Container {
         //the Slot constructor takes the IInventory and the slot number in that it binds to
         // and the x-y coordinates it resides on-screen
 
-        addSlotToContainer(this.inputSlot1 = new RestrictedSlot(dnaInventory, 0, 26, 31));
-        addSlotToContainer(this.inputSlot2 = new RestrictedSlot(dnaInventory, 1, 75, 31));
-        addSlotToContainer(this.outputSlot = new TakeOnlySlot(dnaInventory, 2, 133, 31));
+        addSlotToContainer(this.inputSlot1 = new RestrictedSlot(dnaInventory, inputSlot1Nb = inventorySlots.size(), 26, 31));
+        addSlotToContainer(this.inputSlot2 = new RestrictedSlot(dnaInventory, inputSlot2Nb = inventorySlots.size(), 75, 31));
+        addSlotToContainer(this.outputSlot = new TakeOnlySlot(dnaInventory, outputSlotNb = inventorySlots.size(), 133, 31));
     }
 
     public RestrictedSlot getInputSlot(int nb) {
-        switch (nb) {
-            case 1:
-                return inputSlot1;
-            case 2:
-                return inputSlot2;
-            default:
-                return null;
+        System.out.println(nb);
+        System.out.println(inputSlot1Nb);
+        if (nb == inputSlot1Nb) {
+            return inputSlot1;
         }
+        if (nb == inputSlot2Nb) {
+            return inputSlot2;
+        }
+        return null;
     }
 
     public TakeOnlySlot getOutputSlot() {
@@ -71,15 +76,6 @@ public class ContainerDna extends Container {
 
     @Override
     public Slot getSlot(int slotId) {
-        if (slotId >= 100) {
-            switch (slotId) {
-                case 100:
-                case 101:
-                    return this.getInputSlot(slotId - 100);
-                case 102:
-                    return this.getOutputSlot();
-            }
-        }
         return super.getSlot(slotId);
     }
 

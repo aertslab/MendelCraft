@@ -1,6 +1,6 @@
 {
   "name": "jsonConfig",
-  "chromosomes": 5,
+  "chromosomes": 7,
   "genesPerChromosme": 6,
   "codonsPerGene": 3,
   "geneNbExceptions": {

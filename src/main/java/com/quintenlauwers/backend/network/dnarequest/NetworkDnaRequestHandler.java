@@ -2,8 +2,8 @@ package com.quintenlauwers.backend.network.dnarequest;
 
 import com.quintenlauwers.backend.network.dnadata.NetworkDnaDataPacket;
 import com.quintenlauwers.entity.DnaEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,12 +17,12 @@ public class NetworkDnaRequestHandler implements IMessageHandler<NetworkDnaReque
     public NetworkDnaDataPacket onMessage(NetworkDnaRequestPacket message, MessageContext ctx) {
         int entityId = message.getEntityId();
         if (ctx.side.equals(Side.SERVER)){
-            Minecraft minecraft = Minecraft.getMinecraft();
-            Entity requested = minecraft.getIntegratedServer().getEntityWorld().getEntityByID(entityId);
+            World world = ctx.getServerHandler().playerEntity.worldObj;
+            Entity requested = world.getEntityByID(entityId);
             if (!(requested instanceof DnaEntity)) {
                 return null;
             }
-            DnaEntity animal = (DnaEntity) minecraft.getIntegratedServer().getEntityWorld().getEntityByID(entityId);
+            DnaEntity animal = (DnaEntity) world.getEntityByID(entityId);
             byte[] dnaData = animal.getDnaData();
             return new NetworkDnaDataPacket(entityId, dnaData);
         }

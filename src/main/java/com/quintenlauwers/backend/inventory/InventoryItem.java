@@ -41,8 +41,8 @@ public class InventoryItem implements IInventory {
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        if (index >= 100) {
-            index = index % 100;
+        if (index >= 36) {
+            index = index % 36;
         }
         return contains[index];
     }
@@ -67,10 +67,11 @@ public class InventoryItem implements IInventory {
 
     @Override
     public void setInventorySlotContents(int index, @Nullable ItemStack stack) {
-        if (index >= 100) {
-            index = index % 100;
+        if (index >= 36) {
+            index = index % 36;
         }
         if (index >= SIZE) {
+            System.err.println("Trying to put in inventory: " + index + " : " + stack);
             return;
         }
         if (stack != null && stack.stackSize > getInventoryStackLimit()) {

@@ -61,7 +61,7 @@ public class DnaConfig {
         return 0;
     }
 
-    private int getNbOfCodonsInChromosome(int chromosomeNumber) {
+    public int getNbOfCodonsInChromosome(int chromosomeNumber) {
         int total = 0;
         for (int i = 0; i < getNbOfGenes(chromosomeNumber); i++) {
             total += getNbOfCodons(chromosomeNumber, i);
@@ -86,6 +86,14 @@ public class DnaConfig {
             total += getNbOfCodons(chromosomeNumber, i);
         }
         return total + codonNumber;
+    }
+
+    public int getCodonIndex(int chromosomeNumber, int codonOnChromosome) {
+        int total = 0;
+        for (int i = 0; i < chromosomeNumber; i++) {
+            total += getNbOfCodonsInChromosome(i);
+        }
+        return total + codonOnChromosome;
     }
 
     public int getCodonIndex(int[] position) {
