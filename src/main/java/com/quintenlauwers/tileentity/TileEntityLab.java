@@ -74,7 +74,6 @@ public class TileEntityLab extends TileEntity implements IInventory {
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
-        // TODO: check what false does
     }
 
     @Override

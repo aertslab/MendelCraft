@@ -197,10 +197,11 @@ public class GuiDnaMain extends GuiScreen {
             for (Tab tab : this.tabs) {
                 if (tab != null && this.isMouseOverTab(tab, i, j)) {
                     this.currentPage = tab.getDisplayPage();
-                    if (tab != this.activeTab) {
+                    boolean diff = tab != this.activeTab;
+                    this.activeTab = tab;
+                    if (diff) {
                         currentPage.commingFromOtherTab();
                     }
-                    this.activeTab = tab;
                     buttonList = currentPage.getButtonList();
                     return;
                 }

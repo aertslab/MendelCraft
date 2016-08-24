@@ -34,8 +34,6 @@ public class ModGuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-	    if (ID == TUTORIAL_GUI)
-	        return new GuiTutorial();
         if (ID == DNA_GUI) {
             TileEntity tile_entity = world.getTileEntity(new BlockPos(x, y, z));
             System.out.println(tile_entity);

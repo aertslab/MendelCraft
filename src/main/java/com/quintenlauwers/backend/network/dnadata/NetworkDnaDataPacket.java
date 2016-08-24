@@ -36,7 +36,7 @@ public class NetworkDnaDataPacket implements IMessage {
                     int length = UtilDna.byteToInt(Arrays.copyOfRange(totalData, 4, 8));
                     if (8 + length < totalData.length) {
                         this.dnaData = Arrays.copyOfRange(totalData, 8, 8 + length);
-                        this.dnaData2 = Arrays.copyOfRange(totalData, 8 + length, totalData.length);
+                        this.dnaData2 = Arrays.copyOfRange(totalData, 8 + length, 8 + 2 * length);
                     }
                 } else {
                     this.entityId = UtilDna.byteToInt(Arrays.copyOf(totalData, 4));

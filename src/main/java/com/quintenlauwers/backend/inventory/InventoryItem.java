@@ -101,7 +101,6 @@ public class InventoryItem implements IInventory {
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
-        // TODO: check what false does
     }
 
     @Override

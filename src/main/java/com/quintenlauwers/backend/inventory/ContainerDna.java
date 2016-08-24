@@ -43,6 +43,10 @@ public class ContainerDna extends Container {
 
     }
 
+    public EntityPlayer getPlayer() {
+        return player;
+    }
+
     public RestrictedSlot getInputSlot(int slot) {
         switch (slot) {
             case 0:
@@ -103,7 +107,7 @@ public class ContainerDna extends Container {
 
             //merges the item into player inventory since its in the tileEntity
             if (slot < INV_START) {
-                if (!this.mergeItemStack(stackInSlot, INV_START, HOTBAR_END + 1, true)) {
+                if (!this.mergeItemStack(stackInSlot, INV_START, HOTBAR_END, true)) {
                     return null;
                 }
                 slotObject.onSlotChange(stackInSlot, stack);
@@ -117,13 +121,13 @@ public class ContainerDna extends Container {
                 }
                 // Item is in inventory, move to hotbar
                 else if (slot >= INV_START && slot < HOTBAR_START) {
-                    if (!this.mergeItemStack(stackInSlot, HOTBAR_START, HOTBAR_END + 1, false)) {
+                    if (!this.mergeItemStack(stackInSlot, HOTBAR_START, HOTBAR_END, false)) {
                         return null;
                     }
                 }
                 // Item is in hotbar, move to inventory
                 else if (slot >= HOTBAR_START && slot < HOTBAR_END + 1) {
-                    if (!this.mergeItemStack(stackInSlot, INV_START, INV_END + 1, false)) {
+                    if (!this.mergeItemStack(stackInSlot, INV_START, INV_END, false)) {
                         return null;
                     }
                 }

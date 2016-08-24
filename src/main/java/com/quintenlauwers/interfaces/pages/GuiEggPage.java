@@ -29,7 +29,6 @@ public class GuiEggPage extends GuiEditDna {
 
     public static ResourceLocation CONTAINERBACKGROUND = new ResourceLocation("testmod:textures/gui/background.png");
     GuiButton createEggButton;
-    boolean isDnaVisible;
     byte[] dnaData;
     byte[] dnaData2;
     String[] possibleCodons;
@@ -38,7 +37,6 @@ public class GuiEggPage extends GuiEditDna {
     int codonButtonWiddth = 30;
     GuiButton nextCodon;
     GuiButton previousCodon;
-    DnaProperties properties;
 
     public GuiEggPage(GuiDnaMain screen) {
         super(screen);
@@ -108,26 +106,10 @@ public class GuiEggPage extends GuiEditDna {
         }
     }
 
-    public void makeDnaVisible() {
-        this.prevChromosome.visible = true;
-        this.nextChromosome.visible = true;
-        isDnaVisible = true;
-        drawChromosomes();
-    }
-
     public void makeDnaInvisible() {
-        this.prevChromosome.visible = false;
-        this.nextChromosome.visible = false;
-        this.prevGene.visible = false;
-        this.nextGene.visible = false;
         this.previousCodon.visible = false;
         this.nextCodon.visible = false;
-        this.buttonList.removeAll(visibleChromosomes);
         this.properties = null;
-        visibleChromosomes.clear();
-        isDnaVisible = false;
-        codonIsActive = false;
-        lastChromosomeIndex = -1;
     }
 
     @Override
@@ -164,13 +146,17 @@ public class GuiEggPage extends GuiEditDna {
             return;
         }
         changeCodonIndex(direction);
+        byte[] tempDna = this.dnaData;
+        if (dnaString == 2) {
+            tempDna = this.dnaData2;
+        }
         byte dnaChange = UtilDna.stringNucleobaseToByte(possibleCodons[this.possibleCodonIndex]);
-        if (dnaChange == dnaData[codonPosition]) {
+        if (dnaChange == tempDna[codonPosition]) {
             changeCodonIndex(direction);
             dnaChange = UtilDna.stringNucleobaseToByte(possibleCodons[this.possibleCodonIndex]);
         }
-        dnaData[codonPosition] = dnaChange;
-        writeToEgg(dnaData, dnaData2);
+        tempDna[codonPosition] = dnaChange;
+        writeToEgg(this.dnaData, this.dnaData2);
     }
 
 
@@ -184,7 +170,6 @@ public class GuiEggPage extends GuiEditDna {
     }
 
     public void createEgg() {
-        System.out.println("Create egg");
         RestrictedSlot[] slots = getContainer().getCombinedInputSlots();
         if (slots != null && slots[0] != null && slots[0].getHasStack()) {
             ItemStack syringe = slots[0].getStack();
@@ -195,15 +180,18 @@ public class GuiEggPage extends GuiEditDna {
                 }
                 byte[] dnaData = syringeTag.getByteArray("dnaData").clone();
                 byte[] dnaData2 = null;
+                String animal = "chicken";
+                if (syringeTag.hasKey("animal")) {
+                    animal = syringeTag.getString("animal");
+                }
                 if (syringeTag.hasKey("dnaData2")) {
                     dnaData2 = syringeTag.getByteArray("dnaData2").clone();
-                    this.properties = new DnaProperties("chicken", dnaData, dnaData2);
+                    this.properties = new DnaProperties(animal, dnaData, dnaData2);
                 } else {
-                    this.properties = new DnaProperties("chicken", dnaData);
+                    this.properties = new DnaProperties(animal, dnaData);
                 }
                 writeToEgg(dnaData, dnaData2);
                 this.createEggButton.displayString = I18n.format("gui.remakeEgg");
-                // TODO: make universal for any animal.
                 makeDnaVisible();
 
             }
@@ -245,44 +233,69 @@ public class GuiEggPage extends GuiEditDna {
     }
 
     @Override
-    public void drawNucleobasesOfCodon() {
+    protected String getCodonAsString() {
         String nubleobases = "";
-        int codonIndex = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
+        int currentCodonIndex = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
+        byte[] dnaData = this.getRawDna(this.dnaString);
+        if (dnaData != null && dnaData.length > currentCodonIndex) {
+            nubleobases = UtilDna.byteNucleobaseToString(dnaData[currentCodonIndex]);
+            if (properties == null) {
+                if (TestMod.dnaConfig.isDiploid()) {
+                    byte[] dnaData2;
+                    if (this.dnaString < 2) {
+                        dnaData2 = getRawDna(2);
+                    } else {
+                        dnaData2 = dnaData;
+                        dnaData = getRawDna(1);
+                    }
+                    properties = new DnaProperties(getAnimalName(), dnaData, dnaData2);
+
+                } else {
+                    properties = new DnaProperties(getAnimalName(), dnaData);
+                }
+            }
+            this.previousCodon.visible = true;
+            this.nextCodon.visible = true;
+        }
+        return nubleobases;
+    }
+
+    @Override
+    protected byte[] getRawDna(int dnaString) {
         TakeOnlySlot slot = getContainer().getOutputSlot();
         if (slot != null && slot.getHasStack() && slot.getStack().getItem() instanceof ItemMonsterPlacer) {
             ItemStack stack = slot.getStack();
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("EntityTag")) {
                 NBTTagCompound entityTag = stack.getTagCompound().getCompoundTag("EntityTag");
-                if (entityTag.hasKey("dnaData")) {
-                    byte[] dnaData = entityTag.getByteArray("dnaData");
-                    if (dnaData != null && dnaData.length > codonIndex) {
-                        nubleobases = UtilDna.byteNucleobaseToString(dnaData[codonIndex]);
-                        if (properties == null) {
-                            properties = new DnaProperties("chicken", dnaData);
-                            // TODO: Make universal for any animal.
-                        }
-                        this.previousCodon.visible = true;
-                        this.nextCodon.visible = true;
-                    } else {
-                        System.err.println("Dnadata null our trying to acces out of range.");
+                if (dnaString == 1) {
+                    if (entityTag.hasKey("dnaData")) {
+                        return entityTag.getByteArray("dnaData");
                     }
-                } else {
-                    System.err.println("Has no dnaData.");
                 }
-            } else {
-                System.err.println("has no entitytag");
+                if (dnaString == 2) {
+                    if (entityTag.hasKey("dnaData2")) {
+                        return entityTag.getByteArray("dnaData2");
+                    }
+                }
             }
-        } else {
-            System.err.println("Item is gone");
         }
-        int yPosition = toWorldy(this.yNucleobasePosition);
-        int xBegin = toWorldx((this.xWindowSize - 10 * nubleobases.length() - 10 * (nubleobases.length() - 1)) / 2);
-        for (int i = 0; i < nubleobases.length(); i++) {
-            String letter = Character.toString(nubleobases.charAt(i));
-            int xPosition = xBegin + i * 20;
-            getContainer().getFontRendererObj().drawString(letter, xPosition, yPosition, 0x000000);
-        }
+        return null;
     }
+
+    private String getAnimalName() {
+        TakeOnlySlot slot = getContainer().getOutputSlot();
+        if (slot != null && slot.getHasStack() && slot.getStack().getItem() instanceof ItemMonsterPlacer) {
+            ItemStack stack = slot.getStack();
+            if (stack.hasTagCompound() && stack.getTagCompound().hasKey("EntityTag")) {
+                NBTTagCompound entityTag = stack.getTagCompound().getCompoundTag("EntityTag");
+                if (entityTag.hasKey("animal")) {
+                    return entityTag.getString("animal");
+                }
+            }
+        }
+        return null;
+    }
+
 
     enum codonChangeDirection {
         UP, DOWN

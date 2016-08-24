@@ -33,16 +33,9 @@ ComStone extends BlockBase implements ITileEntityProvider {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        System.out.println("Activated!!");
         if (!worldIn.isRemote) {
-            System.out.println("not on remote");
             TileEntity tileEntity = worldIn.getTileEntity(pos);
-            System.out.println("tileEntity " + tileEntity);
             if (tileEntity instanceof TileEntityLab) {
-                System.out.println("opening gui");
-                System.out.println(playerIn.inventory.getStackInSlot(0).getTagCompound());
-                System.out.println(playerIn.inventory.currentItem);
-                // TODO: copy from hotbar to inventory!!!
                 playerIn.openGui(TestMod.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
             }
         }

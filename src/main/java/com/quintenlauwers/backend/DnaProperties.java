@@ -38,7 +38,7 @@ public class DnaProperties {
         if (dnaData2 != null && dnaData2.length == dnaData.length) {
             setDna2(dnaData2);
         } else {
-            if (dnaData2 == null && TestMod.dnaConfig.isDiploid()) {
+            if (dnaData2 == null && dnaConfig.isDiploid()) {
                 throw new IllegalArgumentException("The animal should have two dna strings (diploid).");
             }
             if (dnaData2 != null) {
@@ -100,7 +100,7 @@ public class DnaProperties {
             byte rawCode = dnaData[dnaConfig.getCodonIndex(position)];
             String code = UtilDna.byteNucleobaseToString(rawCode);
             allAlleles += asset.getAlleleOnPosition(position, code);
-            if (TestMod.dnaConfig.isDiploid() && dnaData2 != null) {
+            if (dnaConfig.isDiploid() && dnaData2 != null) {
                 byte rawCode2 = dnaData2[dnaConfig.getCodonIndex(position)];
                 String code2 = UtilDna.byteNucleobaseToString(rawCode2);
                 allAlleles += asset.getAlleleOnPosition(position, code2);
@@ -115,7 +115,7 @@ public class DnaProperties {
             fillRestrictedEntries();
         }
         for (Map.Entry<GenePosition, Set<String>> entry : restrictedEntries.entrySet()) {
-            int index = TestMod.dnaConfig.getCodonIndex(entry.getKey().getCoordinate());
+            int index = dnaConfig.getCodonIndex(entry.getKey().getCoordinate());
             if (index < data.length) {
                 byte rawCode = data[index];
                 String code = UtilDna.byteNucleobaseToString(rawCode);
@@ -153,7 +153,6 @@ public class DnaProperties {
                 } else {
                     restrictedEntries.put(tempPosition, new HashSet<String>(codonSet));
                 }
-//                TODO: Hier verder werken.
             }
         }
 
