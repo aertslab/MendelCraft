@@ -31,10 +31,11 @@
     },
     "effects": {
       "green": [
-        "A"
+        "AA",
+        "AB"
       ],
       "red": [
-        "B"
+        "BB"
       ]
     }
   }

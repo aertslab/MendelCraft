@@ -1,4 +1,4 @@
-package com.quintenlauwers.entity;
+package com.quintenlauwers.entity.chicken;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.Render;
@@ -8,12 +8,12 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 /**
  * Created by quinten on 9/08/16.
  */
-public class ModRenderFactory implements IRenderFactory<EntityDnaChicken> {
+public class ModRenderFactoryChicken implements IRenderFactory<EntityDnaChicken> {
 
     private ModelBase model;
     private float shadowSize;
 
-    ModRenderFactory(ModelBase model, float shadowSize) {
+    public ModRenderFactoryChicken(ModelBase model, float shadowSize) {
         this.model = model;
         this.shadowSize = shadowSize;
     }

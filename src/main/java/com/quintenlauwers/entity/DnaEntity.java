@@ -6,5 +6,11 @@ package com.quintenlauwers.entity;
 public interface DnaEntity {
     byte[] getDnaData();
 
+    byte[] getDnaData2();
+
     void setDnaData(byte[] dnaData);
+
+    void setDnaData(byte[] dnaData, byte[] dnaData2);
+
+    String getAnimalName();
 }

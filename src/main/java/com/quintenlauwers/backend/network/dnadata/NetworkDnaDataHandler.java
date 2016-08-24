@@ -28,6 +28,11 @@ public class NetworkDnaDataHandler implements IMessageHandler<NetworkDnaDataPack
             public void run() {
                 DnaEntity animal = TestMod.storage.getById(message.getId());
                 if (animal != null) {
+
+                    if (message.getDnaData2() != null) {
+                        animal.setDnaData(message.getDnaData(), message.getDnaData2());
+                        return;
+                    }
                     animal.setDnaData(message.getDnaData());
                 }
             }

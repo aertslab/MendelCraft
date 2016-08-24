@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class EntityInteractionHandler implements IMessageHandler<EntityInteractionPackage, IMessage> {
     @Override
     public IMessage onMessage(final EntityInteractionPackage message, final MessageContext ctx) {
-        IThreadListener mainThread;
+        final IThreadListener mainThread;
         if (ctx.side.equals(Side.SERVER)) {
             mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
         } else {
@@ -33,9 +33,15 @@ public class EntityInteractionHandler implements IMessageHandler<EntityInteracti
                 Entity possiblePlayer;
                 Entity animalFrom = null;
                 if (Side.SERVER.equals(ctx.side)) {
+                    System.out.println(message.getAnimalId());
+                    System.out.println(message.animalUUID);
                     World serverWorld = ctx.getServerHandler().playerEntity.worldObj;
                     possiblePlayer = serverWorld.getPlayerEntityByUUID(message.getPlayerUUID());
-                    animalFrom = serverWorld.getEntityByID(message.getAnimalId());
+                    for (Entity e : serverWorld.loadedEntityList) {
+                        if (e != null && e.getPersistentID().equals(message.getAnimalPersistentId())) {
+                            animalFrom = e;
+                        }
+                    }
                 } else {
                     Minecraft innerMinecraft = Minecraft.getMinecraft();
                     possiblePlayer = innerMinecraft.getIntegratedServer().getEntityFromUuid(message.getPlayerUUID());

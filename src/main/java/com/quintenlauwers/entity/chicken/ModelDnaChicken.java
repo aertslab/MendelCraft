@@ -1,4 +1,4 @@
-package com.quintenlauwers.entity;
+package com.quintenlauwers.entity.chicken;
 
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.client.model.ModelRenderer;

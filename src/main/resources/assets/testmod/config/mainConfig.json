@@ -1,5 +1,6 @@
 {
   "name": "jsonConfig",
+  "diploid": true,
   "chromosomes": 7,
   "genesPerChromosme": 6,
   "codonsPerGene": 3,

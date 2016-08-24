@@ -24,7 +24,8 @@ public class NetworkDnaRequestHandler implements IMessageHandler<NetworkDnaReque
             }
             DnaEntity animal = (DnaEntity) world.getEntityByID(entityId);
             byte[] dnaData = animal.getDnaData();
-            return new NetworkDnaDataPacket(entityId, dnaData);
+            byte[] dnaData2 = animal.getDnaData2();
+            return new NetworkDnaDataPacket(entityId, dnaData, dnaData2);
         }
         return null;
     }

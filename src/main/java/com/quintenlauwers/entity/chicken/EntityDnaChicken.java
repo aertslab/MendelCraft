@@ -1,6 +1,7 @@
-package com.quintenlauwers.entity;
+package com.quintenlauwers.entity.chicken;
 
 import com.quintenlauwers.backend.DnaProperties;
+import com.quintenlauwers.entity.DnaEntity;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -16,29 +17,32 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EntityDnaChicken extends EntityChicken implements DnaEntity
-{
+public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     private static final ResourceLocation CHICKEN_TEXTURE_GREEN = new ResourceLocation("testmod:textures/entity/dnaChickenGreen.png");
     private static final ResourceLocation CHICKEN_TEXTURE_RED = new ResourceLocation("testmod:textures/entity/dnaChickenRed.png");
 
     private byte[] dnaData = new byte[TestMod.dnaConfig.getTotalNbOfCodons()];
+    private byte[] dnaData2;
     private DnaProperties properties;
 
 
-    public EntityDnaChicken(World worldIn)
-    {
+    public EntityDnaChicken(World worldIn) {
         super(worldIn);
         this.setSize(0.4F, 0.7F); // Only sets the hitbox
         this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         this.setPathPriority(PathNodeType.WATER, 0.0F);
-        new Random().nextBytes(dnaData);
-        properties = new DnaProperties("chicken", dnaData);
+        Random rand = new Random();
+        rand.nextBytes(dnaData);
+        if (TestMod.dnaConfig.isDiploid()) {
+            this.dnaData2 = new byte[dnaData.length];
+            rand.nextBytes(this.dnaData2);
+        }
+        properties = new DnaProperties("chicken", this.dnaData, this.dnaData2);
     }
 
     @Override
-    protected void initEntityAI()
-    {
+    protected void initEntityAI() {
         super.initEntityAI();
     }
 
@@ -48,14 +52,12 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
      * use this to react to sunlight and start to burn.
      */
     @Override
-    public void onLivingUpdate()
-    {
+    public void onLivingUpdate() {
         super.onLivingUpdate();
     }
 
     @Override
-    public EntityDnaChicken createChild(EntityAgeable ageable)
-    {
+    public EntityDnaChicken createChild(EntityAgeable ageable) {
         return new EntityDnaChicken(this.worldObj);
     }
 
@@ -64,19 +66,17 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
      * the animal type)
      */
     @Override
-    public boolean isBreedingItem(@Nullable ItemStack stack)
-    {
+    public boolean isBreedingItem(@Nullable ItemStack stack) {
         return super.isBreedingItem(stack);
     }
 
 
     @Override
-    public void setEntityId(int id){
+    public void setEntityId(int id) {
         super.setEntityId(id);
         this.getInformationFromServer();
         this.resetEntityId();
     }
-
 
 
     public void getInformationFromServer() {
@@ -94,23 +94,33 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
         compound.setBoolean("IsChickenJockey", this.chickenJockey);
         compound.setInteger("EggLayTime", this.timeUntilNextEgg);
         compound.setByteArray("dnaData", this.getDnaData());
+        if (TestMod.dnaConfig.isDiploid()) {
+            compound.setByteArray("dnaData2", this.getDnaData2());
+        }
     }
 
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
-    {
+    public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
         this.chickenJockey = compound.getBoolean("IsChickenJockey");
 
-        if (compound.hasKey("EggLayTime"))
-        {
+        if (compound.hasKey("EggLayTime")) {
             this.timeUntilNextEgg = compound.getInteger("EggLayTime");
         }
         if (compound.hasKey("dnaData")) {
-            this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"));
+            if (TestMod.dnaConfig.isDiploid() && compound.hasKey("dnaData2")) {
+                this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"),
+                        compound.getByteArray("dnaData2"));
+                System.out.println("Diploid loaded");
+                return;
+            }
+            if (!TestMod.dnaConfig.isDiploid()) {
+                this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"));
+                System.out.println("Not diploid");
+            }
         }
     }
 
@@ -120,32 +130,46 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity
     }
 
     @Override
+    public byte[] getDnaData2() {
+        return this.properties.getDnaData2();
+    }
+
+    @Override
     public void setDnaData(byte[] dnaData) {
-        if (dnaData != null){
+        if (dnaData != null) {
             this.properties = new DnaProperties("chicken", dnaData);
         }
     }
 
-    public void updatePassenger(Entity passenger)
-    {
+    @Override
+    public void setDnaData(byte[] dnaData, byte[] dnaData2) {
+        if (dnaData != null) {
+            this.properties = new DnaProperties("chicken", dnaData, dnaData2);
+        }
+    }
+
+    @Override
+    public String getAnimalName() {
+        return "chicken";
+    }
+
+    public void updatePassenger(Entity passenger) {
         super.updatePassenger(passenger);
         float f = MathHelper.sin(this.renderYawOffset * 0.017453292F);
         float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
         float f2 = 0.1F;
         float f3 = 0.0F;
-        passenger.setPosition(this.posX + (double)(0.1F * f), this.posY + (double)(this.height * 0.5F) + passenger.getYOffset() + 0.0D, this.posZ - (double)(0.1F * f1));
+        passenger.setPosition(this.posX + (double) (0.1F * f), this.posY + (double) (this.height * 0.5F) + passenger.getYOffset() + 0.0D, this.posZ - (double) (0.1F * f1));
 
-        if (passenger instanceof EntityLivingBase)
-        {
-            ((EntityLivingBase)passenger).renderYawOffset = this.renderYawOffset;
+        if (passenger instanceof EntityLivingBase) {
+            ((EntityLivingBase) passenger).renderYawOffset = this.renderYawOffset;
         }
     }
 
-    public ResourceLocation getTexture(){
+    public ResourceLocation getTexture() {
         if ("green".equals(this.properties.getStringProperty("color"))) {
             return CHICKEN_TEXTURE_GREEN;
-        }
-        else {
+        } else {
             return CHICKEN_TEXTURE_RED;
         }
     }

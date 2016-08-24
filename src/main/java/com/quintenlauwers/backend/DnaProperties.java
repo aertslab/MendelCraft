@@ -10,8 +10,8 @@ import java.util.*;
  * Created by quinten on 11/08/16.
  */
 public class DnaProperties {
-    boolean color;
     byte[] dnaData;
+    byte[] dnaData2;
     String animal;
     HashMap<GenePosition, Set<String>> restrictedEntries = null;
     String[] possibleProperties = null;
@@ -19,15 +19,31 @@ public class DnaProperties {
     HashMap<String, String> cachedStringProperty = new HashMap<String, String>();
 
     public DnaProperties(String animal, byte[] dnaData) {
+
+        this(animal, dnaData, null);
+    }
+
+    public DnaProperties(String animal, byte[] dnaData, byte[] dnaData2) {
+        System.out.println(Arrays.toString(dnaData2));
         if (dnaData != null && dnaData.length >= dnaConfig.getTotalNbOfGenes()) {
             this.animal = animal;
-            this.color = UtilDna.byteToBool((byte) (dnaData[0] & (byte) 1));
             setDna(dnaData);
         } else {
             if (dnaData == null) {
                 throw new IllegalArgumentException("dnaData is nonexistent.");
             } else {
                 throw new IllegalArgumentException("dnaData only has lenght: " + dnaData.length);
+            }
+        }
+        if (dnaData2 != null && dnaData2.length == dnaData.length) {
+            setDna2(dnaData2);
+        } else {
+            if (dnaData2 == null && TestMod.dnaConfig.isDiploid()) {
+                throw new IllegalArgumentException("The animal should have two dna strings (diploid).");
+            }
+            if (dnaData2 != null) {
+                throw new IllegalArgumentException("dnaData has the wrong length, " + dnaData2.length
+                        + " instead of " + dnaData2.length);
             }
         }
     }
@@ -84,19 +100,24 @@ public class DnaProperties {
             byte rawCode = dnaData[dnaConfig.getCodonIndex(position)];
             String code = UtilDna.byteNucleobaseToString(rawCode);
             allAlleles += asset.getAlleleOnPosition(position, code);
+            if (TestMod.dnaConfig.isDiploid() && dnaData2 != null) {
+                byte rawCode2 = dnaData2[dnaConfig.getCodonIndex(position)];
+                String code2 = UtilDna.byteNucleobaseToString(rawCode2);
+                allAlleles += asset.getAlleleOnPosition(position, code2);
+            }
         }
         String finalValue = asset.getPropertyValue(allAlleles);
         return finalValue;
     }
 
-    public void filterDna() {
+    public void filterDna(byte[] data) {
         if (restrictedEntries == null) {
             fillRestrictedEntries();
         }
         for (Map.Entry<GenePosition, Set<String>> entry : restrictedEntries.entrySet()) {
             int index = TestMod.dnaConfig.getCodonIndex(entry.getKey().getCoordinate());
-            if (index < dnaData.length) {
-                byte rawCode = dnaData[index];
+            if (index < data.length) {
+                byte rawCode = data[index];
                 String code = UtilDna.byteNucleobaseToString(rawCode);
                 if (!entry.getValue().contains(code)) {
 
@@ -106,7 +127,7 @@ public class DnaProperties {
                     int i = 0;
                     for (String newCode : value) {
                         if (i == item)
-                            dnaData[index] = UtilDna.stringNucleobaseToByte(newCode);
+                            data[index] = UtilDna.stringNucleobaseToByte(newCode);
                         i++;
                     }
                 }
@@ -141,20 +162,28 @@ public class DnaProperties {
 
     public void setDna(byte[] dnaData) {
         this.dnaData = dnaData;
-        filterDna();
+        filterDna(this.dnaData);
+    }
+
+    public void setDna2(byte[] dnaData2) {
+        this.dnaData2 = dnaData2;
+        filterDna(this.dnaData2);
     }
 
     private void loadPossibleProperties() {
         this.possibleProperties = dnaConfig.getPossibleProperties(this.animal);
     }
 
-    public boolean getColor() {
-        return this.color;
-    }
-
     public byte[] getDnaData() {
         if (dnaData != null)
             return dnaData.clone();
+        return null;
+    }
+
+    public byte[] getDnaData2() {
+        if (this.dnaData2 != null) {
+            return dnaData2.clone();
+        }
         return null;
     }
 }

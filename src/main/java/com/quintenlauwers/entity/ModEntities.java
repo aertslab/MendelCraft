@@ -1,5 +1,8 @@
 package com.quintenlauwers.entity;
 
+import com.quintenlauwers.entity.chicken.EntityDnaChicken;
+import com.quintenlauwers.entity.chicken.ModRenderFactoryChicken;
+import com.quintenlauwers.entity.chicken.ModelDnaChicken;
 import com.quintenlauwers.main.TestMod;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -18,6 +21,6 @@ public class ModEntities {
 
     @SideOnly(Side.CLIENT)
     public static void registerRenderers() {
-        RenderingRegistry.registerEntityRenderingHandler(EntityDnaChicken.class, new ModRenderFactory(new ModelDnaChicken(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityDnaChicken.class, new ModRenderFactoryChicken(new ModelDnaChicken(), 0.3F));
     }
 }

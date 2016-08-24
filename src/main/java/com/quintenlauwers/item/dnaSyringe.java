@@ -11,8 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 
-import java.util.Arrays;
-
 public class dnaSyringe extends Item {
     public dnaSyringe() {
         setMaxStackSize(1);
@@ -48,16 +46,17 @@ public class dnaSyringe extends Item {
         return null;
     }
 
+    public byte[] getDnaData2(ItemStack stack) {
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("dnaData2")) {
+            return stack.getTagCompound().getByteArray("dnaData2");
+        }
+        return null;
+    }
+
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
         if (playerIn.getEntityWorld().isRemote) {
             TestMod.network.sendToServer(new EntityInteractionPackage(target, playerIn, hand));
-        }
-        if (stack.hasTagCompound()) {
-            if (stack.getTagCompound().hasKey("dnaData")) {
-                System.out.println("Previous dna data:");
-                System.out.println(Arrays.toString(stack.getTagCompound().getByteArray("dnaData")));
-            }
         }
         ItemStack equipped = playerIn.getHeldItemMainhand();
         if (equipped == null || !(equipped.getItem() instanceof dnaSyringe)) {
@@ -71,16 +70,39 @@ public class dnaSyringe extends Item {
             if (!equipped.hasTagCompound()) {
                 equipped.setTagCompound(new NBTTagCompound());
             }
-            equipped.getTagCompound().setByteArray("dnaData", ((DnaEntity) target).getDnaData());
+            DnaEntity animal = ((DnaEntity) target);
+            writeDnaToTag(equipped.getTagCompound(), animal);
             if (stack.getItem() instanceof dnaSyringe) {
                 if (!stack.hasTagCompound()) {
                     stack.setTagCompound(new NBTTagCompound());
                 }
-                stack.getTagCompound().setByteArray("dnaData", ((DnaEntity) target).getDnaData());
+                writeDnaToTag(stack.getTagCompound(), animal);
+            }
+            ItemStack inventoryStack = playerIn.inventory.getStackInSlot(playerIn.inventory.currentItem);
+            if (inventoryStack != null && inventoryStack.getItem() instanceof dnaSyringe) {
+                if (!inventoryStack.hasTagCompound()) {
+                    inventoryStack.setTagCompound(new NBTTagCompound());
+                }
+                System.out.println(playerIn.inventory.getStackInSlot(0).getTagCompound());
+                writeDnaToTag(inventoryStack.getTagCompound(), animal);
             }
             return true;
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
+    }
+
+    private NBTTagCompound createDnaTag(DnaEntity from) {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeDnaToTag(tag, from);
+        return tag;
+    }
+
+    private void writeDnaToTag(NBTTagCompound tag, DnaEntity from) {
+        tag.setByteArray("dnaData", from.getDnaData());
+        tag.setString("animal", from.getAnimalName());
+        if (TestMod.dnaConfig.isDiploid()) {
+            tag.setByteArray("dnaData2", from.getDnaData2());
+        }
     }
 
 

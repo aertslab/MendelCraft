@@ -42,6 +42,7 @@ public class GuiEditDna extends GuiPage {
      */
     protected boolean codonIsActive = false;
     protected int activeCodon;
+    protected int dnaString = 1;
     protected GuiImageButton activeCodonButton = null;
 
     /**
@@ -51,11 +52,11 @@ public class GuiEditDna extends GuiPage {
     /**
      * The Y position of the first DNA row in pixels.
      */
-    protected int yDNARowPosition = 70;
+    protected int yDNARowPosition = 90;
     /**
      * The Y posoition of the nucleobase row in pixels.
      */
-    protected int yNucleobasePosition = 120;
+    protected int yNucleobasePosition = 140;
     /**
      * The X size of the chromosome button in pixels.
      */
@@ -69,10 +70,10 @@ public class GuiEditDna extends GuiPage {
      */
     private int nbVisibleCodons;
     /**
-     * The first shown gene.
+     * The first shown codon.
      */
-    private int geneIndex = 0;
-    private int lastGeneIndex = 1;
+    private int codonIndex = 0;
+    private int lastCodonIndex = 1;
     /**
      * The maximum number of chromosomes showed in a row at once.
      */
@@ -88,6 +89,7 @@ public class GuiEditDna extends GuiPage {
 
     protected ArrayList<GuiButton> visibleChromosomes = new ArrayList<GuiButton>();
     protected ArrayList<GuiButton> visibleCodons = new ArrayList<GuiButton>();
+    protected ArrayList<GuiButton> visibleCodons2 = new ArrayList<GuiButton>();
 
     protected ArrayList<GuiTextField> textboxList = new ArrayList<GuiTextField>();
 
@@ -189,9 +191,9 @@ public class GuiEditDna extends GuiPage {
         this.hoverText(mouseX, mouseY, partialTicks);
         if (this.codonIsActive)
             drawNucleobasesOfCodon();
-        for (GuiTextField textbox : textboxList) {
-            textbox.drawTextBox();
-        }
+//        for (GuiTextField textbox : textboxList) {
+//            textbox.drawTextBox();
+//        }
     }
 
     @Override
@@ -283,14 +285,14 @@ public class GuiEditDna extends GuiPage {
             }
         }
         if (button == this.prevGene) {
-            if (this.geneIndex > 0) {
-                this.geneIndex--;
+            if (this.codonIndex > 0) {
+                this.codonIndex--;
                 this.drawCodonsOfChromosome(activeChromosome);
             }
         }
         if (button == this.nextGene) {
-            if ((this.geneIndex + this.nbVisibleCodons) <= TestMod.dnaConfig.getNbOfCodonsInChromosome(this.activeChromosome)) {
-                this.geneIndex++;
+            if ((this.codonIndex + this.nbVisibleCodons) <= TestMod.dnaConfig.getNbOfCodonsInChromosome(this.activeChromosome)) {
+                this.codonIndex++;
                 this.drawCodonsOfChromosome(activeChromosome);
             }
         }
@@ -301,7 +303,12 @@ public class GuiEditDna extends GuiPage {
             handleChromosomeButton(button);
         }
         if (visibleCodons.contains(button)) {
-            handleGeneButton(button);
+            this.dnaString = 1;
+            handleCodonButton(button);
+        }
+        if (visibleCodons2.contains(button)) {
+            this.dnaString = 2;
+            handleCodonButton(button);
         }
 
     }
@@ -319,8 +326,8 @@ public class GuiEditDna extends GuiPage {
                 codonIsActive = false;
             }
         }
-        this.geneIndex = 0;
-        this.lastGeneIndex = this.geneIndex + 1;
+        this.codonIndex = 0;
+        this.lastCodonIndex = this.codonIndex + 1;
         this.activeChromosome = button.id;
         this.activeChromosomeButton = (GuiClickableImage) button;
         this.activeChromosomeButton.hold();
@@ -345,7 +352,7 @@ public class GuiEditDna extends GuiPage {
      *
      * @param button The gene button pressed.
      */
-    private void handleGeneButton(GuiButton button) {
+    private void handleCodonButton(GuiButton button) {
         this.removeTextBox();
         if (this.activeCodonButton != null) {
             this.activeCodonButton.releaseHold();
@@ -378,35 +385,44 @@ public class GuiEditDna extends GuiPage {
         this.nbVisibleCodons = Math.min(4, TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber));
         this.prevGene.visible = true;
         this.nextGene.visible = true;
-        if (geneIndex == lastGeneIndex) {
+        if (codonIndex == lastCodonIndex) {
             return;
         }
-        GuiButton tempButton;
         this.buttonList.removeAll(this.visibleCodons);
         this.visibleCodons.clear();
-        int endIndex = Math.min(TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), geneIndex + nbVisibleCodons);
-        int j = 0;
-        for (int i = geneIndex; i < endIndex; i++) {
-            int xPosition = toWorldx(20 + xButtonSize * j);
-            int yPosition = toWorldy(yDNARowPosition);
-            this.buttonList.add(tempButton = new GuiImageButton(i, xPosition, yPosition, xButtonSize, yButtonSize, GENECOLORTEXTURE));
-            this.visibleCodons.add(tempButton);
-            j++;
+
+        if (!TestMod.dnaConfig.isDiploid()) {
+            drawCodonRow(chromosomeNumber, this.visibleCodons, 1);
+        } else {
+            drawCodonRow(chromosomeNumber, this.visibleCodons, 0);
+            drawCodonRow(chromosomeNumber, this.visibleCodons2, 2);
         }
-        this.lastGeneIndex = this.geneIndex;
+        this.lastCodonIndex = this.codonIndex;
     }
 
-    public void drawNucleobasesOfCodon() {
-        String nubleobases = "";
-        int codonIndex = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon, 0);
-        RestrictedSlot slot = getContainer().getInputSlot();
-        if (slot != null && slot.getHasStack() && slot.getStack().getItem() instanceof dnaSyringe) {
-            dnaSyringe dnaSample = (dnaSyringe) slot.getStack().getItem();
-            byte[] dnaData = dnaSample.getDnaData(slot.getStack());
-            if (dnaData != null && dnaData.length > codonIndex) {
-                nubleobases = UtilDna.byteNucleobaseToString(dnaData[codonIndex]);
+    private void drawCodonRow(int chromosomeNumber, List<GuiButton> codonButtonList, int row) {
+        int endIndex = Math.min(TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), codonIndex + nbVisibleCodons);
+        GuiButton tempButton;
+        int j = 0;
+        for (int i = codonIndex; i < endIndex; i++) {
+            int xPosition = toWorldx(20 + xButtonSize * j);
+            int yPosition = toWorldy(yDNARowPosition) - 13 + 13 * row;
+            this.buttonList.add(tempButton = new GuiImageButton(i, xPosition, yPosition, xButtonSize, yButtonSize, GENECOLORTEXTURE));
+            codonButtonList.add(tempButton);
+            if (this.activeCodonButton != null) {
+                if (this.activeChromosome == chromosomeNumber && this.activeCodon == i
+                        && ((this.dnaString == 1 && row < 2) || (this.dnaString == row))) {
+                    this.activeCodonButton = (GuiImageButton) tempButton;
+                    this.activeCodonButton.hold();
+                }
             }
+            j++;
         }
+    }
+
+
+    public void drawNucleobasesOfCodon() {
+        String nubleobases = getDnaString();
         int yPosition = toWorldy(this.yNucleobasePosition);
         int xBegin = toWorldx((this.xWindowSize - 10 * nubleobases.length() - 10 * (nubleobases.length() - 1)) / 2);
         for (int i = 0; i < nubleobases.length(); i++) {
@@ -414,6 +430,30 @@ public class GuiEditDna extends GuiPage {
             int xPosition = xBegin + i * 20;
             getContainer().getFontRendererObj().drawString(letter, xPosition, yPosition, 0x000000);
         }
+    }
+
+    private String getDnaString() {
+        String nubleobases = "";
+        int currentCodonIndex = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
+        byte[] dnaData = this.getRawDna();
+        if (dnaData != null && dnaData.length > currentCodonIndex) {
+            nubleobases = UtilDna.byteNucleobaseToString(dnaData[currentCodonIndex]);
+        }
+        return nubleobases;
+    }
+
+    private byte[] getRawDna() {
+        RestrictedSlot slot = getContainer().getInputSlot();
+        if (slot != null && slot.getHasStack() && slot.getStack().getItem() instanceof dnaSyringe) {
+            dnaSyringe dnaSample = (dnaSyringe) slot.getStack().getItem();
+            if (this.dnaString == 1) {
+                return dnaSample.getDnaData(slot.getStack());
+            }
+            if (this.dnaString == 2) {
+                return dnaSample.getDnaData2(slot.getStack());
+            }
+        }
+        return null;
     }
 
 

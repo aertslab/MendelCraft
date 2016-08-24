@@ -5,7 +5,7 @@ import com.quintenlauwers.backend.inventory.RestrictedSlot;
 import com.quintenlauwers.backend.inventory.TakeOnlySlot;
 import com.quintenlauwers.backend.network.slotcontents.SlotContentsToServerPackage;
 import com.quintenlauwers.backend.util.UtilDna;
-import com.quintenlauwers.entity.EntityDnaChicken;
+import com.quintenlauwers.entity.chicken.EntityDnaChicken;
 import com.quintenlauwers.interfaces.GuiDnaMain;
 import com.quintenlauwers.item.dnaSyringe;
 import com.quintenlauwers.main.TestMod;
@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.abs;
@@ -32,6 +31,7 @@ public class GuiEggPage extends GuiEditDna {
     GuiButton createEggButton;
     boolean isDnaVisible;
     byte[] dnaData;
+    byte[] dnaData2;
     String[] possibleCodons;
     int possibleCodonIndex = 0;
 
@@ -152,7 +152,6 @@ public class GuiEggPage extends GuiEditDna {
 
     private void changeCodon(codonChangeDirection direction) {
         int codonPosition = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
-        System.out.println("Codonindex is " + codonPosition);
         if (codonPosition >= dnaData.length) {
             return;
         }
@@ -161,30 +160,26 @@ public class GuiEggPage extends GuiEditDna {
             // TODO: review, seems inefficient.
             possibleCodons = this.properties.getPossibleCodons(position);
         }
-        System.out.println(Arrays.toString(possibleCodons));
         if (possibleCodons == null) {
             return;
         }
         changeCodonIndex(direction);
-        System.out.println("String index is " + possibleCodonIndex);
         byte dnaChange = UtilDna.stringNucleobaseToByte(possibleCodons[this.possibleCodonIndex]);
         if (dnaChange == dnaData[codonPosition]) {
             changeCodonIndex(direction);
             dnaChange = UtilDna.stringNucleobaseToByte(possibleCodons[this.possibleCodonIndex]);
         }
         dnaData[codonPosition] = dnaChange;
-        writeToEgg(dnaData);
+        writeToEgg(dnaData, dnaData2);
     }
 
 
     private void changeCodonIndex(codonChangeDirection direction) {
-        System.out.println("changing direction" + direction);
         if (codonChangeDirection.UP.equals(direction)) {
-            System.out.println("up");
-            this.possibleCodonIndex = abs(possibleCodonIndex++) % possibleCodons.length;
+            this.possibleCodonIndex = abs(++possibleCodonIndex) % possibleCodons.length;
         }
         if (codonChangeDirection.DOWN.equals(direction)) {
-            this.possibleCodonIndex = abs(possibleCodonIndex-- % possibleCodons.length);
+            this.possibleCodonIndex = abs(--possibleCodonIndex % possibleCodons.length);
         }
     }
 
@@ -199,8 +194,14 @@ public class GuiEggPage extends GuiEditDna {
                     return;
                 }
                 byte[] dnaData = syringeTag.getByteArray("dnaData").clone();
-                this.properties = new DnaProperties("chicken", dnaData);
-                writeToEgg(dnaData);
+                byte[] dnaData2 = null;
+                if (syringeTag.hasKey("dnaData2")) {
+                    dnaData2 = syringeTag.getByteArray("dnaData2").clone();
+                    this.properties = new DnaProperties("chicken", dnaData, dnaData2);
+                } else {
+                    this.properties = new DnaProperties("chicken", dnaData);
+                }
+                writeToEgg(dnaData, dnaData2);
                 this.createEggButton.displayString = I18n.format("gui.remakeEgg");
                 // TODO: make universal for any animal.
                 makeDnaVisible();
@@ -214,7 +215,7 @@ public class GuiEggPage extends GuiEditDna {
      *
      * @param dnaData
      */
-    public void writeToEgg(byte[] dnaData) {
+    public void writeToEgg(byte[] dnaData, byte[] dnaData2) {
         if (dnaData == null) {
             return;
         }
@@ -222,10 +223,15 @@ public class GuiEggPage extends GuiEditDna {
         ItemStack resultStack = new ItemStack(Items.SPAWN_EGG);
         net.minecraft.item.ItemMonsterPlacer.applyEntityIdToItemStack(resultStack, entityName);
         resultStack.getTagCompound().getCompoundTag("EntityTag").setByteArray("dnaData", dnaData);
+        if (dnaData2 != null) {
+            resultStack.getTagCompound().getCompoundTag("EntityTag").setByteArray("dnaData2", dnaData2);
+        }
         // TODO: make this work if the server client delay is bigger.
-        TestMod.network.sendToServer(new SlotContentsToServerPackage(resultStack, 38));
+        TestMod.network.sendToServer(new SlotContentsToServerPackage(resultStack, 2));
         this.dnaData = dnaData;
+        this.dnaData2 = dnaData2;
         this.properties.setDna(dnaData);
+        this.properties.setDna2(dnaData2);
     }
 
     public boolean canCreateEgg() {

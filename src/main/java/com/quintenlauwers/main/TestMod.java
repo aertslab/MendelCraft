@@ -5,8 +5,10 @@ import com.quintenlauwers.backend.network.NetworkHelper;
 import com.quintenlauwers.backend.util.Storage;
 import com.quintenlauwers.blocks.ModBlocks;
 import com.quintenlauwers.entity.ModEntities;
+import com.quintenlauwers.events.ModEventHandler;
 import com.quintenlauwers.item.ModItems;
 import com.quintenlauwers.lib.RefStrings;
+import com.quintenlauwers.tileentity.TileEntityLab;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,7 +34,7 @@ public class TestMod {
     @SidedProxy(clientSide = RefStrings.CLIENTSIDE, serverSide = RefStrings.SERVERSIDE)
     public static CommonProxy proxy;
 
-    static com.quintenlauwers.events.EventHandler eventHandler = new com.quintenlauwers.events.EventHandler();
+    static ModEventHandler modEventHandler = new ModEventHandler();
     public static SimpleNetworkWrapper network;
     public static NetworkHelper networkHelper;
     public static Storage storage;
@@ -49,8 +51,9 @@ public class TestMod {
         ModItems.mainRegistry();
         ModBlocks.init();
         ModEntities.init();
-        MinecraftForge.EVENT_BUS.register(eventHandler);
+        MinecraftForge.EVENT_BUS.register(modEventHandler);
         proxy.preRender();
+        GameRegistry.registerTileEntity(TileEntityLab.class, "lab");
         System.err.println("Preload");
     }
 

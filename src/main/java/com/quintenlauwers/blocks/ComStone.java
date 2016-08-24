@@ -1,11 +1,16 @@
 package com.quintenlauwers.blocks;
 
 import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.tileentity.TileEntityLab;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +19,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class
-ComStone extends BlockBase {
+ComStone extends BlockBase implements ITileEntityProvider {
 
     public ComStone(String name) {
         super(Material.ROCK, name);
@@ -28,8 +33,36 @@ ComStone extends BlockBase {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        playerIn.openGui(TestMod.instance, 1, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
+        System.out.println("Activated!!");
+        if (!worldIn.isRemote) {
+            System.out.println("not on remote");
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            System.out.println("tileEntity " + tileEntity);
+            if (tileEntity instanceof TileEntityLab) {
+                System.out.println("opening gui");
+                System.out.println(playerIn.inventory.getStackInSlot(0).getTagCompound());
+                System.out.println(playerIn.inventory.currentItem);
+                // TODO: copy from hotbar to inventory!!!
+                playerIn.openGui(TestMod.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            }
+        }
 
-        return side == EnumFacing.UP;
+        return true;
+    }
+
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity instanceof IInventory) {
+            IInventory inv = (IInventory) tileEntity;
+            InventoryHelper.dropInventoryItems(world, pos, inv);
+        }
+        super.breakBlock(world, pos, state);
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        System.out.println("creating tile entitiy");
+        return new TileEntityLab();
     }
 }

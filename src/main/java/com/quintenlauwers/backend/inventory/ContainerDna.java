@@ -1,8 +1,10 @@
 package com.quintenlauwers.backend.inventory;
 
+import com.quintenlauwers.item.dnaSyringe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -11,7 +13,11 @@ import net.minecraft.item.ItemStack;
  */
 public class ContainerDna extends Container {
 
-    protected InventoryItem dnaInventory;
+    private static final int INV_START = InventoryItem.SIZE + 1, INV_END = INV_START + 26, HOTBAR_START = INV_END + 1,
+            HOTBAR_END = HOTBAR_START + 8;
+
+    protected IInventory dnaInventory;
+    private EntityPlayer player;
 
     private RestrictedSlot inputSlot1;
     private RestrictedSlot inputSlot2;
@@ -21,30 +27,31 @@ public class ContainerDna extends Container {
     int inputSlot2Nb;
     int outputSlotNb;
 
-    public ContainerDna(EntityPlayer player, InventoryPlayer inventoryPlayer, InventoryItem te) {
-        dnaInventory = te;
+    public ContainerDna(EntityPlayer player, InventoryPlayer inventoryPlayer, IInventory te) {
 
+        this.dnaInventory = te;
+        this.player = player;
+
+        addSlotToContainer(this.inputSlot1 = new RestrictedSlot(dnaInventory, 0, 26, 31));
+        addSlotToContainer(this.inputSlot2 = new RestrictedSlot(dnaInventory, 1, 75, 31));
+        addSlotToContainer(this.outputSlot = new TakeOnlySlot(dnaInventory, 2, 133, 31));
 
         //commonly used vanilla code that adds the player's inventory
         bindPlayerInventory(inventoryPlayer);
         //the Slot constructor takes the IInventory and the slot number in that it binds to
         // and the x-y coordinates it resides on-screen
 
-        addSlotToContainer(this.inputSlot1 = new RestrictedSlot(dnaInventory, inputSlot1Nb = inventorySlots.size(), 26, 31));
-        addSlotToContainer(this.inputSlot2 = new RestrictedSlot(dnaInventory, inputSlot2Nb = inventorySlots.size(), 75, 31));
-        addSlotToContainer(this.outputSlot = new TakeOnlySlot(dnaInventory, outputSlotNb = inventorySlots.size(), 133, 31));
     }
 
-    public RestrictedSlot getInputSlot(int nb) {
-        System.out.println(nb);
-        System.out.println(inputSlot1Nb);
-        if (nb == inputSlot1Nb) {
-            return inputSlot1;
+    public RestrictedSlot getInputSlot(int slot) {
+        switch (slot) {
+            case 0:
+                return this.inputSlot1;
+            case 1:
+                return this.inputSlot2;
+            default:
+                return null;
         }
-        if (nb == inputSlot2Nb) {
-            return inputSlot2;
-        }
-        return null;
     }
 
     public TakeOnlySlot getOutputSlot() {
@@ -95,15 +102,31 @@ public class ContainerDna extends Container {
             stack = stackInSlot.copy();
 
             //merges the item into player inventory since its in the tileEntity
-            if (slot < dnaInventory.getSizeInventory()) {
-                if (!this.mergeItemStack(stackInSlot, dnaInventory.getSizeInventory(), 36 + dnaInventory.getSizeInventory(), true)) {
+            if (slot < INV_START) {
+                if (!this.mergeItemStack(stackInSlot, INV_START, HOTBAR_END + 1, true)) {
                     return null;
                 }
+                slotObject.onSlotChange(stackInSlot, stack);
             }
-
-            //places it into the tileEntity is possible since its in the player inventory
-            else if (!this.mergeItemStack(stackInSlot, 0, dnaInventory.getSizeInventory(), false)) {
-                return null;
+            // Item is in inventory / hotbar, try to place in custom slots.
+            else {
+                if (stackInSlot.getItem() instanceof dnaSyringe) {
+                    if (!this.mergeItemStack(stackInSlot, 0, 2, false)) {
+                        return null;
+                    }
+                }
+                // Item is in inventory, move to hotbar
+                else if (slot >= INV_START && slot < HOTBAR_START) {
+                    if (!this.mergeItemStack(stackInSlot, HOTBAR_START, HOTBAR_END + 1, false)) {
+                        return null;
+                    }
+                }
+                // Item is in hotbar, move to inventory
+                else if (slot >= HOTBAR_START && slot < HOTBAR_END + 1) {
+                    if (!this.mergeItemStack(stackInSlot, INV_START, INV_END + 1, false)) {
+                        return null;
+                    }
+                }
             }
 
             if (stackInSlot.stackSize == 0) {
@@ -117,6 +140,7 @@ public class ContainerDna extends Container {
             }
             slotObject.onPickupFromSlot(player, stackInSlot);
         }
+
         return stack;
     }
 

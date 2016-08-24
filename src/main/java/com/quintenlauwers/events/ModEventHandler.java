@@ -8,9 +8,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Created by quinten on 8/08/16.
  */
-public class EventHandler {
+public class ModEventHandler {
 
-    public EventHandler() {
+    public ModEventHandler() {
 
     }
 

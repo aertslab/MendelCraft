@@ -8,7 +8,6 @@ import com.quintenlauwers.interfaces.pages.GuiContainerPage;
 import com.quintenlauwers.interfaces.pages.GuiEditDna;
 import com.quintenlauwers.interfaces.pages.GuiEggPage;
 import com.quintenlauwers.interfaces.pages.GuiPage;
-import com.quintenlauwers.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -18,18 +17,13 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
@@ -120,13 +114,13 @@ public class GuiDnaMain extends GuiScreen {
 
     public RestrictedSlot getInputSlot() {
         if (this.activeTab != null) {
-            return container.getInputSlot(this.activeTab.getTabColumn() + 35);
+            return container.getInputSlot(this.activeTab.getTabColumn() - 1);
         }
         return null;
     }
 
     public RestrictedSlot[] getCombinedInputSlots() {
-        RestrictedSlot[] returnArray = {container.getInputSlot(36), container.getInputSlot(37)};
+        RestrictedSlot[] returnArray = {container.getInputSlot(0), container.getInputSlot(1)};
         return returnArray;
     }
 
@@ -901,45 +895,3 @@ public class GuiDnaMain extends GuiScreen {
 
 }
 
-class Tab {
-    private ItemStack iconItemStack;
-    private int column;
-    private GuiPage page;
-
-    Tab(int column, GuiPage displayPage) {
-        this.column = column;
-        this.page = displayPage;
-    }
-
-    GuiPage getDisplayPage() {
-        return this.page;
-    }
-
-
-    @SideOnly(Side.CLIENT)
-    ItemStack getIconItemStack() {
-        {
-            if (this.iconItemStack == null) {
-                this.iconItemStack = new ItemStack(this.getTabIconItem(), 1, 0);
-            }
-
-            return this.iconItemStack;
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public Item getTabIconItem() {
-        switch (this.column) {
-            case 0:
-                return Item.getItemFromBlock(Blocks.CHEST);
-            case 3:
-                return Items.SPAWN_EGG;
-            default:
-                return ModItems.dnaSyringe;
-        }
-    }
-
-    int getTabColumn() {
-        return this.column;
-    }
-}

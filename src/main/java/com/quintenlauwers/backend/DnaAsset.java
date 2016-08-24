@@ -183,8 +183,9 @@ class DnaAsset {
         String combination;
 
         AlleleCombination(String alleleCombination) {
-            Set<String> unique = new TreeSet<String>(Arrays.asList(alleleCombination.split("")));
-            for (String element : unique) {
+            String[] sorted = alleleCombination.split("");
+            Arrays.sort(sorted);
+            for (String element : sorted) {
                 combination += element;
             }
         }

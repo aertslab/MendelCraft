@@ -21,12 +21,16 @@ public class DnaConfig {
     private JsonObject mainConfig;
     private HashMap<String, JsonObject> animalConfigs = new HashMap<String, JsonObject>();
     private static String CONFIGFOLDER = "/assets/testmod/config/";
+    private boolean diploid;
+    private int nbOfChromosomes;
 
     public DnaConfig(String configFile) {
         String fileName = CONFIGFOLDER + configFile;
         URL location = getClass().getResource(fileName);
         mainConfig = DnaConfig.convertFileToJSON(location);
         loadAnimals();
+        loadDiploid();
+        loadNbOfChromosomes();
     }
 
     public static JsonObject convertFileToJSON(URL fileName) {
@@ -54,11 +58,24 @@ public class DnaConfig {
         return jsonObject;
     }
 
-    public int getNbOfChromosomes() {
-        if (mainConfig.has("chromosomes")) {
-            return mainConfig.get("chromosomes").getAsInt();
+    private void loadDiploid() {
+        if (mainConfig.has("diploid")) {
+            this.diploid = mainConfig.get("diploid").getAsBoolean();
         }
-        return 0;
+    }
+
+    private void loadNbOfChromosomes() {
+        if (mainConfig.has("chromosomes")) {
+            this.nbOfChromosomes = mainConfig.get("chromosomes").getAsInt();
+        }
+    }
+
+    public int getNbOfChromosomes() {
+        return this.nbOfChromosomes;
+    }
+
+    public boolean isDiploid() {
+        return this.diploid;
     }
 
     public int getNbOfCodonsInChromosome(int chromosomeNumber) {
