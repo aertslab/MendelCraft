@@ -18,6 +18,7 @@ public class GuiImageButton extends GuiButton implements holdable {
     private float v;
     private float textureWidth;
     private float textureHeight;
+    private int buttonHeight;
 
     public GuiImageButton(int buttonId, int x, int y, ResourceLocation image) {
         this(buttonId, x, y, 200, 20, image);
@@ -28,12 +29,17 @@ public class GuiImageButton extends GuiButton implements holdable {
     }
 
     public GuiImageButton(int buttonId, int x, int y, float u, float v, int widthIn, int heightIn, float textureWidth, float textureHeight, ResourceLocation image, String text) {
+        this(buttonId, x, y, u, v, widthIn, heightIn, textureWidth, textureHeight, image, text, 20);
+    }
+
+    public GuiImageButton(int buttonId, int x, int y, float u, float v, int widthIn, int heightIn, float textureWidth, float textureHeight, ResourceLocation image, String text, int buttonHeight) {
         super(buttonId, x, y, widthIn, heightIn, text);
         this.imageLocation = image;
         this.u = u;
         this.v = v;
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
+        this.buttonHeight = buttonHeight;
     }
 
     @Override
@@ -49,7 +55,7 @@ public class GuiImageButton extends GuiButton implements holdable {
 //            GlStateManager.enableBlend();
 //            GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 //            GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-            drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, u, v + (i) * 20, this.width, this.height, this.textureWidth, this.textureHeight);
+            drawModalRectWithCustomSizedTexture(this.xPosition, this.yPosition, u, v + (i) * this.buttonHeight, this.width, this.height, this.textureWidth, this.textureHeight);
 //            drawModalRectWithCustomSizedTexture(this.xPosition + this.width / 2, this.yPosition, 50 - this.width / 2, (i) * 20, this.width / 2, this.height, 50, 60);
             this.mouseDragged(mc, mouseX, mouseY);
         }

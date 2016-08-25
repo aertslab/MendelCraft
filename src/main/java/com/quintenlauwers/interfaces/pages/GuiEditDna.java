@@ -56,7 +56,7 @@ public class GuiEditDna extends GuiPage {
     /**
      * The Y posoition of the nucleobase row in pixels.
      */
-    protected int yNucleobasePosition = 140;
+    protected int yNucleobasePosition = 138;
     /**
      * The X size of the chromosome button in pixels.
      */
@@ -202,7 +202,7 @@ public class GuiEditDna extends GuiPage {
         }
         this.drawDNAText();
         this.drawChromosomes();
-        this.hoverText(mouseX, mouseY, partialTicks);
+//        this.hoverText(mouseX, mouseY, partialTicks);
         if (this.codonIsActive)
             drawNucleobasesOfCodon();
 //        for (GuiTextField textbox : textboxList) {
@@ -254,7 +254,7 @@ public class GuiEditDna extends GuiPage {
     /**
      * Draw the title of the DNA window.
      */
-    private void drawDNAText() {
+    protected void drawDNAText() {
         String DNAText = "DNA";
         int[] DNApositionTemp = this.toWorldCoordinates(this.xWindowSize / 2, 5);
         int[] DNAposition = {DNApositionTemp[0] - getContainer().getStringWidth(DNAText) / 2, DNApositionTemp[1]};
@@ -349,7 +349,7 @@ public class GuiEditDna extends GuiPage {
         this.activeChromosomeButton = (GuiImageButton) button;
         this.activeChromosomeButton.hold();
         this.drawCodonsOfChromosome(activeChromosome);
-        drawTextbox();
+//        drawTextbox();
     }
 
     private void drawTextbox() {
@@ -491,7 +491,7 @@ public class GuiEditDna extends GuiPage {
         int xBegin = toWorldx((this.xWindowSize - 10 * nubleobases.length() - 10 * (nubleobases.length() - 1)) / 2);
         for (int i = 0; i < nubleobases.length(); i++) {
             String letter = Character.toString(nubleobases.charAt(i));
-            int xPosition = xBegin + i * 20;
+            int xPosition = xBegin + i * 20 + 2;
             getContainer().getFontRendererObj().drawString(letter, xPosition, yPosition, 0x000000);
         }
     }

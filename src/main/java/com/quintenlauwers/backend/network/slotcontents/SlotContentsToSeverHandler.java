@@ -16,11 +16,11 @@ import net.minecraftforge.fml.relauncher.Side;
  */
 public class SlotContentsToSeverHandler implements IMessageHandler<SlotContentsToServerPackage, IMessage> {
     @Override
-    public IMessage onMessage(final SlotContentsToServerPackage message, MessageContext ctx) {
+    public IMessage onMessage(final SlotContentsToServerPackage message, final MessageContext ctx) {
         if (message == null) {
             return null;
         }
-        IThreadListener mainThread;
+        final IThreadListener mainThread;
         if (ctx.side.equals(Side.SERVER)) {
             mainThread = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
         } else {
@@ -29,7 +29,14 @@ public class SlotContentsToSeverHandler implements IMessageHandler<SlotContentsT
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                Container container = ModGuiHandler.SERVERCONTAINER;
+                Container container;
+//                Container container = ctx.getServerHandler().playerEntity.openContainer;
+//                Container container = ModGuiHandler.SERVERCONTAINER;
+                if (ctx.side.equals(Side.SERVER)) {
+                    container = ctx.getServerHandler().playerEntity.openContainer;
+                } else {
+                    container = ModGuiHandler.SERVERCONTAINER;
+                }
                 if (container != null) {
                     Slot slot = container.getSlot(message.getSlotId());
                     if (slot != null) {

@@ -7,6 +7,7 @@ import com.quintenlauwers.backend.network.slotcontents.SlotContentsToServerPacka
 import com.quintenlauwers.backend.util.UtilDna;
 import com.quintenlauwers.entity.chicken.EntityDnaChicken;
 import com.quintenlauwers.interfaces.GuiDnaMain;
+import com.quintenlauwers.interfaces.custombuttons.GuiImageButton;
 import com.quintenlauwers.item.dnaSyringe;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.client.gui.GuiButton;
@@ -28,7 +29,11 @@ import static java.lang.Math.abs;
 public class GuiEggPage extends GuiEditDna {
 
     public static ResourceLocation CONTAINERBACKGROUND = new ResourceLocation("testmod:textures/gui/background.png");
+    public static ResourceLocation UPCODON = new ResourceLocation("testmod:textures/gui/upCodon.png");
+    public static ResourceLocation DOWNCODON = new ResourceLocation("testmod:textures/gui/downCodon.png");
+
     GuiButton createEggButton;
+    GuiButton cloneButton;
     byte[] dnaData;
     byte[] dnaData2;
     String[] possibleCodons;
@@ -71,14 +76,17 @@ public class GuiEggPage extends GuiEditDna {
             button.visible = true;
         }
         this.buttonList.add(
-                this.createEggButton = new GuiButton(5, toWorldx((this.xWindowSize - 100) / 2), toWorldy(10),
-                        100, 20, I18n.format("gui.makeEgg")));
+                this.createEggButton = new GuiButton(5, toWorldx((this.xWindowSize) / 2), toWorldy(5),
+                        this.xWindowSize / 2 - 5, 20, I18n.format("gui.makeEgg")));
         this.buttonList.add(
-                this.nextCodon = new GuiButton(6, toWorldx((this.xWindowSize - codonButtonWiddth) / 2),
-                        toWorldy(yNucleobasePosition - 10), this.codonButtonWiddth, 10, "^"));
+                this.cloneButton = new GuiButton(8, toWorldx(5), toWorldy(5),
+                        this.xWindowSize / 2 - 5, 20, I18n.format("gui.clone")));
         this.buttonList.add(
-                this.previousCodon = new GuiButton(7, toWorldx((this.xWindowSize - codonButtonWiddth) / 2),
-                        toWorldy(yNucleobasePosition + 10), this.codonButtonWiddth, 10, "v"));
+                this.nextCodon = new GuiImageButton(6, toWorldx((this.xWindowSize - codonButtonWiddth) / 2),
+                        toWorldy(yNucleobasePosition - 12), 0, 0, this.codonButtonWiddth, 10, this.codonButtonWiddth, 30, UPCODON, "", 10));
+        this.buttonList.add(
+                this.previousCodon = new GuiImageButton(7, toWorldx((this.xWindowSize - codonButtonWiddth) / 2),
+                        toWorldy(yNucleobasePosition + 10), 0, 0, this.codonButtonWiddth, 10, this.codonButtonWiddth, 30, DOWNCODON, "", 10));
         this.nextCodon.visible = false;
         this.previousCodon.visible = false;
     }
@@ -106,10 +114,16 @@ public class GuiEggPage extends GuiEditDna {
         }
     }
 
+    @Override
     public void makeDnaInvisible() {
         this.previousCodon.visible = false;
         this.nextCodon.visible = false;
-        this.properties = null;
+//        this.properties = null;
+        super.makeDnaInvisible();
+    }
+
+    @Override
+    protected void drawDNAText() {
     }
 
     @Override
@@ -118,7 +132,6 @@ public class GuiEggPage extends GuiEditDna {
             createEgg();
         }
         if (button == this.nextCodon && this.properties != null) {
-            System.out.println("Next codon");
             changeCodon(codonChangeDirection.UP);
         }
         if (button == this.previousCodon && this.properties != null) {
@@ -254,8 +267,13 @@ public class GuiEggPage extends GuiEditDna {
                     properties = new DnaProperties(getAnimalName(), dnaData);
                 }
             }
-            this.previousCodon.visible = true;
-            this.nextCodon.visible = true;
+            if (properties.isEditablePosition(TestMod.dnaConfig.positionFromCodonIndex(currentCodonIndex))) {
+                this.previousCodon.visible = true;
+                this.nextCodon.visible = true;
+            } else {
+                this.previousCodon.visible = false;
+                this.nextCodon.visible = false;
+            }
         }
         return nubleobases;
     }

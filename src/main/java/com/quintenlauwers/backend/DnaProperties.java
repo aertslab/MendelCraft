@@ -24,7 +24,6 @@ public class DnaProperties {
     }
 
     public DnaProperties(String animal, byte[] dnaData, byte[] dnaData2) {
-        System.out.println(Arrays.toString(dnaData2));
         if (dnaData != null && dnaData.length >= dnaConfig.getTotalNbOfGenes()) {
             this.animal = animal;
             setDna(dnaData);
