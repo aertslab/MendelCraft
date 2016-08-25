@@ -98,6 +98,7 @@ public class GuiEggPage extends GuiEditDna {
                 && getContainer().getOutputSlot().getStack().getItem() instanceof ItemMonsterPlacer) {
             this.createEggButton.displayString = I18n.format("gui.remakeEgg");
             this.createEggButton.visible = true;
+            this.cloneButton.visible = true;
             this.dnaData = getContainer().getOutputSlot().getStack().getTagCompound()
                     .getCompoundTag("EntityTag").getByteArray("dnaData");
             makeDnaVisible();
@@ -105,9 +106,15 @@ public class GuiEggPage extends GuiEditDna {
             if (canCreateEgg()) {
                 this.createEggButton.displayString = I18n.format("gui.makeEgg");
                 this.createEggButton.visible = true;
+                this.cloneButton.visible = true;
+                this.codonIsActive = false;
+            } else if (canCloneDna()) {
+                this.createEggButton.visible = false;
+                this.cloneButton.visible = true;
                 this.codonIsActive = false;
             } else {
                 this.createEggButton.visible = false;
+                this.cloneButton.visible = false;
                 this.codonIsActive = false;
             }
             makeDnaInvisible();
@@ -128,8 +135,11 @@ public class GuiEggPage extends GuiEditDna {
 
     @Override
     public void actionPerformed(GuiButton button) {
+        if (this.cloneButton != null && button == this.cloneButton) {
+            cloneSyringe();
+        }
         if (this.createEggButton != null && button == this.createEggButton) {
-            createEgg();
+            cloneSyringe();
         }
         if (button == this.nextCodon && this.properties != null) {
             changeCodon(codonChangeDirection.UP);
@@ -182,12 +192,43 @@ public class GuiEggPage extends GuiEditDna {
         }
     }
 
-    public void createEgg() {
+    public void cloneSyringe() {
         RestrictedSlot[] slots = getContainer().getCombinedInputSlots();
         if (slots != null && slots[0] != null && slots[0].getHasStack()) {
             ItemStack syringe = slots[0].getStack();
             if (syringe.getItem() instanceof dnaSyringe && syringe.hasTagCompound()) {
                 NBTTagCompound syringeTag = syringe.getTagCompound();
+                if (!syringeTag.hasKey("dnaData")) {
+                    return;
+                }
+                byte[] dnaData = syringeTag.getByteArray("dnaData").clone();
+                byte[] dnaData2 = null;
+                String animal = "chicken";
+                if (syringeTag.hasKey("animal")) {
+                    animal = syringeTag.getString("animal");
+                }
+                if (syringeTag.hasKey("dnaData2")) {
+                    dnaData2 = syringeTag.getByteArray("dnaData2").clone();
+                    this.properties = new DnaProperties(animal, dnaData, dnaData2);
+                } else {
+                    this.properties = new DnaProperties(animal, dnaData);
+                }
+                writeToEgg(dnaData, dnaData2);
+                this.createEggButton.displayString = I18n.format("gui.remakeEgg");
+                makeDnaVisible();
+
+            }
+        }
+    }
+
+    public void createEgg() {
+        RestrictedSlot[] slots = getContainer().getCombinedInputSlots();
+        if (canCreateEgg()) {
+            ItemStack syringe1 = slots[0].getStack();
+            ItemStack syringe2 = slots[1].getStack();
+            if (syringe1.getItem() instanceof dnaSyringe && syringe1.hasTagCompound()) {
+                NBTTagCompound syringeTag = syringe1.getTagCompound();
+                // TODO: continue here
                 if (!syringeTag.hasKey("dnaData")) {
                     return;
                 }
@@ -236,6 +277,16 @@ public class GuiEggPage extends GuiEditDna {
     }
 
     public boolean canCreateEgg() {
+        RestrictedSlot[] slots = getContainer().getCombinedInputSlots();
+        if (slots != null && slots[1] != null && slots[1].getHasStack()) {
+            if (slots[1].getStack().hasTagCompound() && slots[1].getStack().getTagCompound().hasKey("dnaData")) {
+                return canCloneDna();
+            }
+        }
+        return false;
+    }
+
+    public boolean canCloneDna() {
         RestrictedSlot[] slots = getContainer().getCombinedInputSlots();
         if (slots != null && slots[0] != null && slots[0].getHasStack()) {
             if (slots[0].getStack().hasTagCompound() && slots[0].getStack().getTagCompound().hasKey("dnaData")) {

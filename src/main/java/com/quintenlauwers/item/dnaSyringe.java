@@ -11,33 +11,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 
+import java.util.List;
+
 public class dnaSyringe extends Item {
     public dnaSyringe() {
         setMaxStackSize(1);
         setCreativeTab(CreativeTabs.MISC);
+        this.setHasSubtypes(true);
         setUnlocalizedName("dnaSyringe");
         setRegistryName("dnaSyringe");
 
     }
 
-//    @Override
-//    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-//            if (itemStackIn.hasTagCompound()) {
-//                if (itemStackIn.getTagCompound().hasKey("dnaData")) {
-//                    System.out.println(Arrays.toString(itemStackIn.getTagCompound().getByteArray("dnaData")));
-//                }
-//            } else {
-//                System.out.println("No tag compound");
-//            }
-//        return new ActionResult(EnumActionResult.PASS, itemStackIn);
-//    }
-//
-//    @Override
-//    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-//        stack.setTagCompound(new NBTTagCompound());
-//        stack.getTagCompound().setString("owner", playerIn.getDisplayNameString());
-//        super.onCreated(stack, worldIn, playerIn);
-//    }
+    @Override
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+        subItems.add(new ItemStack(itemIn, 1, 0));
+    }
 
     public byte[] getDnaData(ItemStack stack) {
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("dnaData")) {
@@ -77,6 +66,7 @@ public class dnaSyringe extends Item {
                     stack.setTagCompound(new NBTTagCompound());
                 }
                 writeDnaToTag(stack.getTagCompound(), animal);
+                stack.setItemDamage(1);
             }
             ItemStack inventoryStack = playerIn.inventory.getStackInSlot(playerIn.inventory.currentItem);
             if (inventoryStack != null && inventoryStack.getItem() instanceof dnaSyringe) {
@@ -85,6 +75,7 @@ public class dnaSyringe extends Item {
                 }
                 System.out.println(playerIn.inventory.getStackInSlot(0).getTagCompound());
                 writeDnaToTag(inventoryStack.getTagCompound(), animal);
+                stack.setItemDamage(1);
             }
             return true;
         }

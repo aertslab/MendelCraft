@@ -2,6 +2,7 @@ package com.quintenlauwers.interfaces;
 
 import com.quintenlauwers.interfaces.pages.GuiPage;
 import com.quintenlauwers.item.ModItems;
+import com.quintenlauwers.item.dnaSyringe;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -31,7 +32,12 @@ class Tab {
     ItemStack getIconItemStack() {
         {
             if (this.iconItemStack == null) {
-                this.iconItemStack = new ItemStack(this.getTabIconItem(), 1, 0);
+                Item tabItem = this.getTabIconItem();
+                if (tabItem instanceof dnaSyringe) {
+                    this.iconItemStack = new ItemStack(this.getTabIconItem(), 1, 1);
+                } else {
+                    this.iconItemStack = new ItemStack(this.getTabIconItem(), 1, 0);
+                }
             }
 
             return this.iconItemStack;

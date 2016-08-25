@@ -407,7 +407,8 @@ public class GuiEditDna extends GuiPage {
         }
         if (getContainer().getInputSlot() != null
                 && getContainer().getInputSlot().getHasStack()
-                && getContainer().getInputSlot().getStack().getItem() instanceof dnaSyringe) {
+                && getContainer().getInputSlot().getStack().getItem() instanceof dnaSyringe
+                && this.getRawDna(1) != null) {
             makeDnaVisible();
             this.properties = new DnaProperties(this.getAnimalName(), this.getRawDna(1), this.getRawDna(2));
         } else {
