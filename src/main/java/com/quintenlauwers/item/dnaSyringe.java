@@ -73,7 +73,6 @@ public class dnaSyringe extends Item {
                 if (!inventoryStack.hasTagCompound()) {
                     inventoryStack.setTagCompound(new NBTTagCompound());
                 }
-                System.out.println(playerIn.inventory.getStackInSlot(0).getTagCompound());
                 writeDnaToTag(inventoryStack.getTagCompound(), animal);
                 stack.setItemDamage(1);
             }

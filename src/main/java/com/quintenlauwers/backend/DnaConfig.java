@@ -4,13 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 /**
@@ -23,36 +20,27 @@ public class DnaConfig {
     private static String CONFIGFOLDER = "/assets/testmod/config/";
     private boolean diploid;
     private int nbOfChromosomes;
+    private Random rand = new Random();
 
     public DnaConfig(String configFile) {
         String fileName = CONFIGFOLDER + configFile;
-        URL location = getClass().getResource(fileName);
+        InputStream location = getClass().getResourceAsStream(fileName);
         mainConfig = DnaConfig.convertFileToJSON(location);
         loadAnimals();
         loadDiploid();
         loadNbOfChromosomes();
     }
 
-    public static JsonObject convertFileToJSON(URL fileName) {
-        String realPath = null;
-        try {
-            realPath = new File(fileName.toURI()).getAbsolutePath();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+    public static JsonObject convertFileToJSON(InputStream fileName) {
 
         // Read from File to String
         JsonObject jsonObject = new JsonObject();
 
-        try {
-            JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(new FileReader(realPath));
-            jsonObject = jsonElement.getAsJsonObject();
-        } catch (FileNotFoundException e) {
 
-        } catch (IOException ioe) {
-
-        }
+        JsonParser parser = new JsonParser();
+        JsonReader reader = new JsonReader(new InputStreamReader(fileName));
+        JsonElement jsonElement = parser.parse(reader);
+        jsonObject = jsonElement.getAsJsonObject();
 
 
         return jsonObject;
@@ -173,6 +161,40 @@ public class DnaConfig {
     }
 
     /**
+     * Function used to generate one set of Chromosomes from two sets of chromosomes
+     * (generates one bytearray from two bytearrays by randomly choosing one of two chromosomes each time).
+     * This function may also introduce random mutations in the resulting dna.
+     *
+     * @param string1 A bytelist containing dna,
+     *                it's length has to be greater or equal to the number of codons in an animal.
+     * @param string2 A bytelist containing dna,
+     *                it's length has to be greater or equal to the number of codons in an animal.
+     * @return A combined byteArray, one of the two input arrays if the other is not valid.
+     */
+    public byte[] reduceToSingleDnaString(byte[] string1, byte[] string2) {
+        int totalCodons = getTotalNbOfCodons();
+        if (string1 == null || string1.length < totalCodons) {
+            return string2;
+        }
+        if (string2 == null || string2.length < totalCodons) {
+            return string1;
+        }
+        byte[] combinedDna = new byte[totalCodons];
+        int lastIndex = 0;
+        int chromosomeLength;
+        for (int i = 0; i < nbOfChromosomes; i++) {
+            chromosomeLength = Math.min(totalCodons - lastIndex, getNbOfCodonsInChromosome(i));
+            if (rand.nextBoolean()) {
+                System.arraycopy(string1, lastIndex, combinedDna, lastIndex, chromosomeLength);
+            } else {
+                System.arraycopy(string2, lastIndex, combinedDna, lastIndex, chromosomeLength);
+            }
+            lastIndex += chromosomeLength;
+        }
+        return combinedDna;
+    }
+
+    /**
      * Returns the relevant positions for the given property as chromosomeposition, genepositon pairs.
      *
      * @param animal   chicken, ...
@@ -263,7 +285,7 @@ public class DnaConfig {
                     String animalName = entry.get("name").getAsString().toLowerCase();
                     String configFile = entry.get("geneFile").getAsString();
                     String fileName = CONFIGFOLDER + configFile;
-                    URL location = getClass().getResource(fileName);
+                    InputStream location = getClass().getResourceAsStream(fileName);
                     JsonObject animalConfig = DnaConfig.convertFileToJSON(location);
                     if (animalConfig != null) {
                         this.animalConfigs.put(animalName, animalConfig);

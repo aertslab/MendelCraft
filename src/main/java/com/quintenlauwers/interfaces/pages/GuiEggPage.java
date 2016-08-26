@@ -139,7 +139,7 @@ public class GuiEggPage extends GuiEditDna {
             cloneSyringe();
         }
         if (this.createEggButton != null && button == this.createEggButton) {
-            cloneSyringe();
+            createEgg();
         }
         if (button == this.nextCodon && this.properties != null) {
             changeCodon(codonChangeDirection.UP);
@@ -227,29 +227,63 @@ public class GuiEggPage extends GuiEditDna {
             ItemStack syringe1 = slots[0].getStack();
             ItemStack syringe2 = slots[1].getStack();
             if (syringe1.getItem() instanceof dnaSyringe && syringe1.hasTagCompound()) {
-                NBTTagCompound syringeTag = syringe1.getTagCompound();
-                // TODO: continue here
-                if (!syringeTag.hasKey("dnaData")) {
+                NBTTagCompound syringeTag1 = syringe1.getTagCompound();
+                NBTTagCompound syringeTag2 = syringe2.getTagCompound();
+                if (syringeTag1 == null || syringeTag2 == null) {
                     return;
                 }
-                byte[] dnaData = syringeTag.getByteArray("dnaData").clone();
-                byte[] dnaData2 = null;
-                String animal = "chicken";
-                if (syringeTag.hasKey("animal")) {
-                    animal = syringeTag.getString("animal");
+                byte[] dnaData11 = getDna1FromTag(syringeTag1);
+                byte[] dnaData12 = getDna2FromTag(syringeTag1);
+                String animal1 = getAnimalFromTag(syringeTag1);
+                byte[] dnaData21 = getDna1FromTag(syringeTag2);
+                byte[] dnaData22 = getDna2FromTag(syringeTag2);
+                String animal2 = getAnimalFromTag(syringeTag2);
+                if (animal1 == null || !animal1.equals(animal2)) {
+                    return;
                 }
-                if (syringeTag.hasKey("dnaData2")) {
-                    dnaData2 = syringeTag.getByteArray("dnaData2").clone();
-                    this.properties = new DnaProperties(animal, dnaData, dnaData2);
+                byte[] dnaFinal1;
+                byte[] dnaFinal2 = null;
+                if (TestMod.dnaConfig.isDiploid()) {
+                    dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData11, dnaData12);
+                    dnaFinal2 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData21, dnaData22);
+                    if (dnaFinal1 == null || dnaFinal2 == null) {
+                        return;
+                    }
+                    this.properties = new DnaProperties(animal1, dnaFinal1, dnaFinal2);
                 } else {
-                    this.properties = new DnaProperties(animal, dnaData);
+                    dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData11, dnaData21);
+                    if (dnaFinal1 == null) {
+                        return;
+                    }
+                    this.properties = new DnaProperties(animal1, dnaFinal1);
                 }
-                writeToEgg(dnaData, dnaData2);
+                writeToEgg(dnaFinal1, dnaFinal2);
                 this.createEggButton.displayString = I18n.format("gui.remakeEgg");
                 makeDnaVisible();
 
             }
         }
+    }
+
+    private byte[] getDna1FromTag(NBTTagCompound tag) {
+        if (!tag.hasKey("dnaData")) {
+            return null;
+        }
+        return tag.getByteArray("dnaData").clone();
+    }
+
+    private byte[] getDna2FromTag(NBTTagCompound tag) {
+        if (!tag.hasKey("dnaData2")) {
+            return null;
+        }
+        return tag.getByteArray("dnaData2").clone();
+    }
+
+    private String getAnimalFromTag(NBTTagCompound tag) {
+        if (!tag.hasKey("animal")) {
+            return null;
+        }
+        return tag.getString("animal");
     }
 
     /**
@@ -279,8 +313,10 @@ public class GuiEggPage extends GuiEditDna {
     public boolean canCreateEgg() {
         RestrictedSlot[] slots = getContainer().getCombinedInputSlots();
         if (slots != null && slots[1] != null && slots[1].getHasStack()) {
-            if (slots[1].getStack().hasTagCompound() && slots[1].getStack().getTagCompound().hasKey("dnaData")) {
-                return canCloneDna();
+            if (slots[1].getStack().hasTagCompound() && slots[1].getStack().getTagCompound().hasKey("dnaData") && canCloneDna()) {
+                NBTTagCompound tag1 = slots[0].getStack().getTagCompound();
+                NBTTagCompound tag2 = slots[0].getStack().getTagCompound();
+                return (tag1.hasKey("animal") && tag2.hasKey("animal") && tag1.getString("animal") == tag2.getString("animal"));
             }
         }
         return false;

@@ -10,7 +10,9 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -21,11 +23,32 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     private static final ResourceLocation CHICKEN_TEXTURE_GREEN = new ResourceLocation("testmod:textures/entity/dnaChickenGreen.png");
     private static final ResourceLocation CHICKEN_TEXTURE_RED = new ResourceLocation("testmod:textures/entity/dnaChickenRed.png");
+    private static final ResourceLocation CHICKEN_TEXUTRE_MULTICOLOR = new ResourceLocation("testmod:textures/entity/chickenVariations.png");
 
     private byte[] dnaData = new byte[TestMod.dnaConfig.getTotalNbOfCodons()];
     private byte[] dnaData2;
     private DnaProperties properties;
 
+    private boolean isBig;
+
+
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox() {
+        return this.getEntityBoundingBox();
+    }
+
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBox(Entity entityIn) {
+        return super.getEntityBoundingBox();
+    }
+
+//    @Override
+//    protected void damageEntity(DamageSource damageSrc, float damageAmount) {
+//        System.out.println("aaah damage!!! " + damageAmount);
+//        super.damageEntity(damageSrc, damageAmount);
+//    }
 
     public EntityDnaChicken(World worldIn) {
         super(worldIn);
@@ -38,6 +61,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
             this.dnaData2 = new byte[dnaData.length];
             rand.nextBytes(this.dnaData2);
         }
+        isBig = rand.nextBoolean();
         properties = new DnaProperties("chicken", this.dnaData, this.dnaData2);
     }
 
@@ -166,12 +190,42 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
         }
     }
 
-    public ResourceLocation getTexture() {
+    public int getHeadColor() {
         if ("green".equals(this.properties.getStringProperty("color"))) {
-            return CHICKEN_TEXTURE_GREEN;
+            return 3;
         } else {
-            return CHICKEN_TEXTURE_RED;
+            return 4;
         }
+    }
+
+    public boolean isBig() {
+        if (this.isBig) {
+//            AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
+//            if (Math.abs(axisalignedbb.maxX - axisalignedbb.minX) < 4.2 * 0.3) {
+//                System.out.println(Math.abs(axisalignedbb.maxX - axisalignedbb.minX));
+//                this.setEntityBoundingBox(new AxisAlignedBB(axisalignedbb.minX - 4.2 * 0.13, axisalignedbb.minY, axisalignedbb.minZ - 4.2 * 0.13, axisalignedbb.minX + 4.2 * 0.25, axisalignedbb.minY + 0.55 * 4.2, axisalignedbb.minZ + 4.2 * 0.25));
+//            }
+            setScale(4);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        System.out.println("Attacked!!");
+        System.out.println(net.minecraftforge.common.ForgeHooks.onLivingAttack(this, source, amount));
+        System.out.println(source);
+        return super.attackEntityFrom(source, amount);
+    }
+
+    public ResourceLocation getTexture() {
+//        if ("green".equals(this.properties.getStringProperty("color"))) {
+//            return CHICKEN_TEXTURE_GREEN;
+//        } else {
+//            return CHICKEN_TEXTURE_RED;
+//        }
+        return CHICKEN_TEXUTRE_MULTICOLOR;
     }
 
     @Override

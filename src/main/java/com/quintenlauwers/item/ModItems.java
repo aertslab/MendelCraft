@@ -13,8 +13,12 @@ public class ModItems {
 
     public static void mainRegistry() {
         initializeItems();
-        preRegister();
+
         regiserItem();
+    }
+
+    public static void clientRegistry() {
+        preRegister();
     }
 
     public static void preRegister() {

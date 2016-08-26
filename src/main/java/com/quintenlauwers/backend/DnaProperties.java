@@ -2,7 +2,6 @@ package com.quintenlauwers.backend;
 
 import com.quintenlauwers.backend.util.UtilDna;
 import com.quintenlauwers.main.TestMod;
-import scala.actors.threadpool.Arrays;
 
 import java.util.*;
 
