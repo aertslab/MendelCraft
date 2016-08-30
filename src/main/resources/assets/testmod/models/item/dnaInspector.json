@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "testmod:items/syringeFullRed"
+    "layer0": "testmod:items/inspector"
   },
   "display": {
     "thirdperson_righthand": {
@@ -25,7 +25,7 @@
       "rotation": [
         0,
         0,
-        110
+        0
       ],
       "translation": [
         0,

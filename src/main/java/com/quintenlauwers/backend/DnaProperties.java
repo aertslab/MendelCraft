@@ -18,7 +18,6 @@ public class DnaProperties {
     HashMap<String, String> cachedStringProperty = new HashMap<String, String>();
 
     public DnaProperties(String animal, byte[] dnaData) {
-
         this(animal, dnaData, null);
     }
 
@@ -165,6 +164,20 @@ public class DnaProperties {
     public void setDna2(byte[] dnaData2) {
         this.dnaData2 = dnaData2;
         filterDna(this.dnaData2);
+    }
+
+    public String[] getPossibleProperties() {
+        if (this.possibleProperties == null) {
+            loadPossibleProperties();
+        }
+        if (this.possibleProperties == null) {
+            this.possibleProperties = new String[0];
+        }
+        return this.possibleProperties.clone();
+    }
+
+    public String getAnimal() {
+        return this.animal;
     }
 
     private void loadPossibleProperties() {

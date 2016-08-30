@@ -1,7 +1,9 @@
 package com.quintenlauwers.interfaces;
 
 import com.quintenlauwers.backend.inventory.ContainerDna;
+import com.quintenlauwers.entity.DnaEntity;
 import com.quintenlauwers.tileentity.TileEntityLab;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
@@ -13,6 +15,7 @@ public class ModGuiHandler implements IGuiHandler {
 
 	public static final int TUTORIAL_GUI = 0;
     public static final int DNA_GUI = 1;
+    public static final int INSPECTOR_GUI = 2;
 
     public static Container SERVERCONTAINER;
 
@@ -43,6 +46,13 @@ public class ModGuiHandler implements IGuiHandler {
                 return new GuiDnaMain(new ContainerDna(player,
                         player.inventory,
                         (TileEntityLab) tile_entity));
+            }
+        }
+        if (ID == INSPECTOR_GUI) {
+            Entity entity = world.getEntityByID(x);
+            System.out.println("Entity: " + entity);
+            if (entity != null && entity instanceof DnaEntity) {
+                return new GuiInspector(((DnaEntity) entity).getProperties());
             }
         }
         return null;

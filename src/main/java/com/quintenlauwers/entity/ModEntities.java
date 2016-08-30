@@ -17,7 +17,7 @@ public class ModEntities {
     public static void init() {
 
 
-        EntityRegistry.registerModEntity(EntityDnaChicken.class, "dnaChicken", 121, TestMod.instance, 12, 1, false, 230, 78 );
+        EntityRegistry.registerModEntity(EntityDnaChicken.class, "dnaChicken", 121, TestMod.instance, 60, 1, false, 230, 78);
     }
 
     @SideOnly(Side.CLIENT)

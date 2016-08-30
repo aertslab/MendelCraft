@@ -1,6 +1,6 @@
 {
   "parent": "testmod:item/dnaSyringe",
   "textures": {
-    "layer0": "testmod:items/test_item"
+    "layer0": "testmod:items/syringeFullBlue"
   }
 }

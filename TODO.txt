@@ -3,4 +3,4 @@ Config file from server to player
 Mark genes
 Build dinosaur
 Fix todo's in code
-Link config to new properties (easy).
+Link config to new properties (easy). --> Done!!

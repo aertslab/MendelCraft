@@ -68,3 +68,4 @@ public class EntityInteractionPackage implements IMessage {
         ByteBufUtils.writeUTF8String(buf, this.uuid);
     }
 }
+

@@ -6,6 +6,8 @@ import com.quintenlauwers.backend.network.dnarequest.NetworkDnaRequestHandler;
 import com.quintenlauwers.backend.network.dnarequest.NetworkDnaRequestPacket;
 import com.quintenlauwers.backend.network.entityinteraction.EntityInteractionHandler;
 import com.quintenlauwers.backend.network.entityinteraction.EntityInteractionPackage;
+import com.quintenlauwers.backend.network.entityinteraction.ProcessInteractionHandler;
+import com.quintenlauwers.backend.network.entityinteraction.ProcessInteractionPackage;
 import com.quintenlauwers.backend.network.slotcontents.SlotContentsToServerPackage;
 import com.quintenlauwers.backend.network.slotcontents.SlotContentsToSeverHandler;
 import com.quintenlauwers.entity.DnaEntity;
@@ -35,5 +37,6 @@ public class NetworkHelper {
         TestMod.network.registerMessage(NetworkDnaRequestHandler.class, NetworkDnaRequestPacket.class, 1, Side.SERVER);
         TestMod.network.registerMessage(EntityInteractionHandler.class, EntityInteractionPackage.class, 2, Side.SERVER);
         TestMod.network.registerMessage(SlotContentsToSeverHandler.class, SlotContentsToServerPackage.class, 3, Side.SERVER);
+        TestMod.network.registerMessage(ProcessInteractionHandler.class, ProcessInteractionPackage.class, 4, Side.SERVER);
     }
 }

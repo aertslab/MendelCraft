@@ -207,11 +207,11 @@ public class DnaConfig {
             System.err.println("Config file is wrong, missing animal: " + animal);
             return null;
         }
-        if (!animalConfig.has(property.toLowerCase())) {
-            System.err.println("Config file for " + animal + " misses property: " + property.toLowerCase());
+        if (!animalConfig.has(property)) {
+            System.err.println("Config file for " + animal + " misses property: " + property);
             return null;
         }
-        JsonObject currentProperty = animalConfig.getAsJsonObject(property.toLowerCase());
+        JsonObject currentProperty = animalConfig.getAsJsonObject(property);
         if (currentProperty.has("codonsInvolved") && currentProperty.has("allelesInvolved")) {
             DnaAsset dnaAsset = new DnaAsset(property);
             JsonArray genesInvolved = currentProperty.getAsJsonArray("codonsInvolved");

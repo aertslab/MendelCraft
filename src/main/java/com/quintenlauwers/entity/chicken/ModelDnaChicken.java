@@ -8,11 +8,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Arrays;
-
 @SideOnly(Side.CLIENT)
-public class ModelDnaChicken extends ModelChicken
-{
+public class ModelDnaChicken extends ModelChicken {
     public ModelRenderer head;
     public ModelRenderer body;
     public ModelRenderer rightLeg;
@@ -22,21 +19,41 @@ public class ModelDnaChicken extends ModelChicken
     public ModelRenderer bill;
     public ModelRenderer chin;
 
-    public ModelRenderer[][] heads = new ModelRenderer[2][5];
-    public ModelRenderer[][] bills = new ModelRenderer[2][5];
-    public ModelRenderer[][] chins = new ModelRenderer[2][5];
-    public ModelRenderer[][] bodies = new ModelRenderer[2][5];
-    public ModelRenderer[][] rightLegs = new ModelRenderer[2][5];
-    public ModelRenderer[][] leftLegs = new ModelRenderer[2][5];
-    public ModelRenderer[][] rightWings = new ModelRenderer[2][5];
-    public ModelRenderer[][] leftWings = new ModelRenderer[2][5];
+    public ModelRenderer[] dinoLowerLips = new ModelRenderer[3];
+    public ModelRenderer[] dinoUpperLips = new ModelRenderer[3];
+    public ModelRenderer[] dinoLowerNecks = new ModelRenderer[3];
+    public ModelRenderer[] dinoUpperNecks = new ModelRenderer[3];
+    public ModelRenderer[] dinoHeads = new ModelRenderer[3];
+
+    public ModelRenderer[] dinoBodies = new ModelRenderer[3];
+    public ModelRenderer[] dinoUpperTails = new ModelRenderer[3];
+    public ModelRenderer[] dinoMidTails = new ModelRenderer[3];
+    public ModelRenderer[] dinoLowerTails = new ModelRenderer[3];
+
+    public ModelRenderer[] dinoThighRights = new ModelRenderer[3];
+    public ModelRenderer[] dinoThighLefts = new ModelRenderer[3];
+
+    public ModelRenderer[] dinoLeftArms = new ModelRenderer[3];
+    public ModelRenderer[] dinoRightArms = new ModelRenderer[3];
 
 
+    public ModelRenderer[][] heads = new ModelRenderer[3][5];
+    public ModelRenderer[][] bills = new ModelRenderer[3][5];
+    public ModelRenderer[][] chins = new ModelRenderer[3][5];
+    public ModelRenderer[][] bodies = new ModelRenderer[3][5];
+    public ModelRenderer[][] rightLegs = new ModelRenderer[3][5];
+    public ModelRenderer[][] leftLegs = new ModelRenderer[3][5];
+    public ModelRenderer[][] rightWings = new ModelRenderer[3][5];
+    public ModelRenderer[][] leftWings = new ModelRenderer[3][5];
 
-    public ModelDnaChicken()
-    {
-        textureHeight = 160;
-        setCustomOffsets();
+    private int backupRotateAngleZ;
+
+    private boolean isDino = true;
+
+
+    public ModelDnaChicken() {
+        textureHeight = 192;
+        createCustomModelRenderers();
         int i = 16;
         this.head = new ModelRenderer(this, 0, 64);
         this.head.addBox(-2.0F, -6.0F, -2.0F, 4, 6, 3, 0.0F);
@@ -67,73 +84,77 @@ public class ModelDnaChicken extends ModelChicken
     /**
      * Sets the models various rotation angles then renders the model.
      */
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
 
-        int headIndex = 0;
-        int billIndex = 0;
-        int chinIndex = 0;
-        int bodyIndex = 0;
-        int rightLegIndex = 0;
-        int leftLegIndex = 0;
-        int rightWingIndex = 0;
-        int leftWingIndex = 0;
         boolean isBig = false;
         if (entityIn instanceof EntityDnaChicken) {
-            headIndex = ((EntityDnaChicken) entityIn).getHeadColor();
-            isBig = ((EntityDnaChicken) entityIn).isBig();
+            EntityDnaChicken chicken = (EntityDnaChicken) entityIn;
+            isBig = chicken.isBig();
         }
 
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-        if (this.isChild)
-        {
+//        scale = 0.2F;
+
+        if (this.isChild) {
             float f = 2.0F;
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 5.0F * scale, 2.0F * scale);
-            this.heads[0][headIndex].render(scale);
-            this.bills[0][billIndex].render(scale);
-            this.chins[0][billIndex].render(scale);
+            for (ModelRenderer headRenderer : getHeadModels(entityIn)) {
+                headRenderer.render(scale);
+            }
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.scale(0.5F, 0.5F, 0.5F);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.bodies[0][bodyIndex].render(scale);
-            this.rightLegs[0][rightLegIndex].render(scale);
-            this.leftLegs[0][rightLegIndex].render(scale);
-            this.rightWings[0][rightWingIndex].render(scale);
-            this.leftWings[0][leftWingIndex].render(scale);
+            for (ModelRenderer bodyRenderer : getBodyModels(entityIn)) {
+                bodyRenderer.render(scale);
+            }
+            for (ModelRenderer legRenderer : getLegModels(entityIn)) {
+                legRenderer.render(scale);
+            }
+            for (ModelRenderer wingRenderer : getWingModels(entityIn)) {
+                wingRenderer.render(scale);
+            }
             GlStateManager.popMatrix();
         } else if (isBig) {
             GlStateManager.disableRescaleNormal();
             float f = 0.2F;
             GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, -16.0F * f, -1.0F * f);
-            this.heads[1][headIndex].render(f);
-            this.bills[1][billIndex].render(f);
-            this.chins[1][chinIndex].render(f);
+            GlStateManager.translate(0.0F, -17.0F * f, 0.0F * f);
+
+            for (ModelRenderer headRenderer : getHeadModels(entityIn)) {
+                headRenderer.render(f);
+            }
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, -17.0F * f, 0.0F);
-            this.bodies[1][bodyIndex].render(f);
-            this.rightLegs[1][rightLegIndex].render(f);
-            this.leftLegs[1][leftLegIndex].render(f);
-            this.rightWings[1][rightWingIndex].render(f);
-            this.leftWings[1][leftWingIndex].render(f);
+            for (ModelRenderer bodyRenderer : getBodyModels(entityIn)) {
+                bodyRenderer.render(f);
+            }
+            for (ModelRenderer legRenderer : getLegModels(entityIn)) {
+                legRenderer.render(f);
+            }
+            for (ModelRenderer wingRenderer : getWingModels(entityIn)) {
+                wingRenderer.render(f);
+            }
             GlStateManager.popMatrix();
-        }
-        else
-        {
+        } else {
             GlStateManager.enableRescaleNormal();
-            this.heads[0][headIndex].render(scale);
-            this.bills[0][headIndex].render(scale);
-            this.chins[0][chinIndex].render(scale);
-            this.bodies[0][bodyIndex].render(scale);
-            this.rightLegs[0][rightLegIndex].render(scale);
-            this.leftLegs[0][leftLegIndex].render(scale);
-            this.rightWings[0][rightWingIndex].render(scale);
-            this.leftWings[0][leftWingIndex].render(scale);
+            for (ModelRenderer headRenderer : getHeadModels(entityIn)) {
+                headRenderer.render(scale);
+            }
+            for (ModelRenderer bodyRenderer : getBodyModels(entityIn)) {
+                bodyRenderer.render(scale);
+            }
+            for (ModelRenderer legRenderer : getLegModels(entityIn)) {
+                legRenderer.render(scale);
+            }
+            for (ModelRenderer wingRenderer : getWingModels(entityIn)) {
+                wingRenderer.render(scale);
+            }
+
         }
     }
 
@@ -142,8 +163,7 @@ public class ModelDnaChicken extends ModelChicken
      * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
      * "far" arms and legs can swing at most.
      */
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 
         int headIndex = 0;
         int billIndex = 0;
@@ -154,27 +174,74 @@ public class ModelDnaChicken extends ModelChicken
         int rightWingIndex = 0;
         int leftWingIndex = 0;
         boolean isBig = false;
+        boolean isHandicapped = false;
         if (entityIn instanceof EntityDnaChicken) {
-            headIndex = ((EntityDnaChicken) entityIn).getHeadColor();
-            isBig = ((EntityDnaChicken) entityIn).isBig();
+            EntityDnaChicken chicken = (EntityDnaChicken) entityIn;
+            headIndex = chicken.getHeadColor();
+            billIndex = chicken.getBillColor();
+            chinIndex = chicken.getChinColor();
+            bodyIndex = chicken.getBodyColor();
+            rightLegIndex = chicken.getRightLegColor();
+            leftLegIndex = chicken.getLeftLegColor();
+            rightWingIndex = chicken.getRightWingColor();
+            leftWingIndex = chicken.getLeftWingColor();
+            isBig = chicken.isBig();
+            isHandicapped = chicken.isHandicapped();
         }
         int size = (isBig) ? 1 : 0;
+        size = isChild ? 2 : size;
 
-        this.heads[size][headIndex].rotateAngleX = headPitch * 0.017453292F;
-        this.heads[size][headIndex].rotateAngleY = netHeadYaw * 0.017453292F;
+        float strange = (isHandicapped) ? 1.751728F : 1;
+
+
+        this.dinoHeads[size].rotateAngleX = headPitch * 0.017453292F * strange * 0.8F - (float) (-10. / 180 * Math.PI) + (strange - 1);
+        this.dinoHeads[size].rotateAngleY = netHeadYaw * 0.017453292F * strange * strange * strange - (strange - 1);
+        this.dinoLowerLips[size].rotateAngleX = this.dinoHeads[size].rotateAngleX + (float) (7. / 180 * Math.PI);
+        this.dinoLowerLips[size].rotateAngleY = this.dinoHeads[size].rotateAngleY;
+        this.dinoUpperLips[size].rotateAngleX = this.dinoHeads[size].rotateAngleX;
+        this.dinoUpperLips[size].rotateAngleY = this.dinoHeads[size].rotateAngleY;
+        this.dinoLowerNecks[size].rotateAngleX = (float) (-45. / 180 * Math.PI);
+        this.dinoUpperNecks[size].rotateAngleX = (float) (29. / 180 * Math.PI);
+        this.dinoBodies[size].rotateAngleX = (float) (50. / 180 * Math.PI);
+        this.dinoUpperTails[size].rotateAngleX = (float) (-14. / 180 * Math.PI);
+        this.dinoMidTails[size].rotateAngleX = (float) (-10. / 180 * Math.PI);
+        this.dinoLowerTails[size].rotateAngleX = (float) (8. / 180 * Math.PI);
+        this.dinoLeftArms[size].rotateAngleX = (float) (23. / 180 * Math.PI);
+        this.dinoRightArms[size].rotateAngleX = (float) (23. / 180 * Math.PI);
+        this.heads[size][headIndex].rotateAngleX = headPitch * 0.017453292F * strange + (strange - 1);
+        this.heads[size][headIndex].rotateAngleY = netHeadYaw * 0.017453292F * strange * strange * strange - (strange - 1);
         this.bills[size][billIndex].rotateAngleX = this.heads[size][headIndex].rotateAngleX;
         this.bills[size][billIndex].rotateAngleY = this.heads[size][headIndex].rotateAngleY;
         this.chins[size][chinIndex].rotateAngleX = this.heads[size][headIndex].rotateAngleX;
         this.chins[size][chinIndex].rotateAngleY = this.heads[size][headIndex].rotateAngleY;
         this.bodies[size][bodyIndex].rotateAngleX = ((float) Math.PI / 2F);
-        this.rightLegs[size][rightLegIndex].rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leftLegs[size][leftLegIndex].rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-        this.rightWings[size][rightWingIndex].rotateAngleZ = ageInTicks;
-        this.leftWings[size][leftWingIndex].rotateAngleZ = -ageInTicks;
+        this.rightWings[size][rightWingIndex].rotateAngleZ = ageInTicks * strange;
+        this.leftWings[size][leftWingIndex].rotateAngleZ = -ageInTicks * strange;
+
+        this.rightLegs[size][rightLegIndex].rotateAngleX = MathHelper.cos(limbSwing * 0.6662F * strange) * 1.4F * limbSwingAmount - (strange * strange - 1);
+        this.leftLegs[size][leftLegIndex].rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI * strange) * 1.4F * limbSwingAmount;
+
+        this.dinoThighRights[size].rotateAngleX = this.rightLegs[size][rightLegIndex].rotateAngleX;
+        this.dinoThighLefts[size].rotateAngleX = this.leftLegs[size][leftLegIndex].rotateAngleX;
+
+
+        if (isHandicapped) {
+            this.leftWings[size][leftWingIndex].rotateAngleZ = strange;
+            this.heads[size][headIndex].rotateAngleZ = -strange;
+            this.bills[size][billIndex].rotateAngleZ = this.heads[size][headIndex].rotateAngleZ;
+            this.chins[size][chinIndex].rotateAngleZ = this.heads[size][headIndex].rotateAngleZ;
+            this.rightLegs[size][rightLegIndex].rotateAngleY = (float) Math.PI / 2;
+        } else {
+            this.leftWings[size][leftWingIndex].rotateAngleZ = leftWing.rotateAngleZ;
+            this.heads[size][headIndex].rotateAngleZ = head.rotateAngleZ;
+            this.bills[size][billIndex].rotateAngleZ = bill.rotateAngleZ;
+            this.chins[size][chinIndex].rotateAngleZ = chin.rotateAngleZ;
+            this.rightLegs[size][rightLegIndex].rotateAngleY = rightLeg.rotateAngleY;
+        }
     }
 
-    public void setCustomOffsets() {
-        for (int size = 0; size < 2; size++) {
+    public void createCustomModelRenderers() {
+        for (int size = 0; size < 3; size++) {
             if (heads[size][0] == null) {
                 for (int i = 0; i < heads[size].length; i++) {
                     heads[size][i] = new ModelRenderer(this, 0, i * 32);
@@ -231,7 +298,183 @@ public class ModelDnaChicken extends ModelChicken
                     this.leftWings[size][i].setRotationPoint(4.0F, 13.0F, 0.0F);
                 }
             }
+
+            this.dinoLowerLips[size] = new ModelRenderer(this, 0, 173);
+            this.dinoLowerLips[size].addBox(-0.5F, -1.0F, -6.0F, 1, 1, 4, 0.0F);
+            this.dinoLowerLips[size].setRotationPoint(0.0F, 8.0F, -6.0F);
+
+            this.dinoUpperLips[size] = new ModelRenderer(this, 0, 167);
+            this.dinoUpperLips[size].addBox(-1.0F, -2.0F, -7.0F, 2, 1, 5, 0.0F);
+            this.dinoUpperLips[size].setRotationPoint(0.0F, 8.0F, -6.0F);
+
+            this.dinoUpperNecks[size] = new ModelRenderer(this, 0, 178);
+            this.dinoUpperNecks[size].addBox(-1.0F, -8.0F, -0.0F, 2, 8, 2, 0.0F);
+            this.dinoUpperNecks[size].setRotationPoint(0.0F, 15.0F, -4.0F);
+
+            this.dinoLowerNecks[size] = new ModelRenderer(this, 14, 160);
+            this.dinoLowerNecks[size].addBox(-1.5F, -3.5F, -4.0F, 3, 3, 6, 0.0F);
+            this.dinoLowerNecks[size].setRotationPoint(0.0F, 15.0F, -4.0F);
+
+            this.dinoHeads[size] = new ModelRenderer(this, 0, 160);
+            this.dinoHeads[size].addBox(-1.5F, -2.5F, -4.0F, 3, 3, 4, 0.0F);
+            this.dinoHeads[size].setRotationPoint(0.0F, 8.0F, -6.0F);
+
+            this.dinoBodies[size] = new ModelRenderer(this, 14, 169);
+            this.dinoBodies[size].addBox(-2.0F, -4.0F, -3.0F, 4, 7, 5, 0.0F);
+            this.dinoBodies[size].setRotationPoint(0.0F, 16.0F, 0.0F);
+
+            this.dinoUpperTails[size] = new ModelRenderer(this, 8, 181);
+            this.dinoUpperTails[size].addBox(-1.5F, -1.0F, 1.0F, 3, 3, 5, 0.0F);
+            this.dinoUpperTails[size].setRotationPoint(0.0F, 16.0F, 0.0F);
+
+            this.dinoMidTails[size] = new ModelRenderer(this, 32, 160);
+            this.dinoMidTails[size].addBox(-1.0F, -0.5F, 4.0F, 2, 2, 5, 0.0F);
+            this.dinoMidTails[size].setRotationPoint(0.0F, 16.0F, 0.0F);
+
+            this.dinoLowerTails[size] = new ModelRenderer(this, 36, 167);
+            this.dinoLowerTails[size].addBox(-0.5F, 2.0F, 8.0F, 1, 1, 4, 0.0F);
+            this.dinoLowerTails[size].setRotationPoint(0.0F, 16.0F, 0.0F);
+
+            this.dinoThighRights[size] = new ModelRenderer(this, 34, 172);
+            this.dinoThighRights[size].addBox(0.0F, -1.0F, -2.0F, 1, 3, 2);
+            this.dinoThighRights[size].setRotationPoint(-2.0F, 19.0F, 1.0F);
+
+            this.dinoThighLefts[size] = new ModelRenderer(this, 34, 172);
+            this.dinoThighLefts[size].addBox(0.0F, -1.0F, -2.0F, 1, 3, 2);
+            this.dinoThighLefts[size].setRotationPoint(1.0F, 19.0F, 1.0F);
+
+            this.dinoLeftArms[size] = new ModelRenderer(this, 32, 177);
+            this.dinoLeftArms[size].addBox(0.0F, 0.0F, -4.0F, 1, 1, 4);
+            this.dinoLeftArms[size].setRotationPoint(2.0F, 14.0F, -2.0F);
+
+            this.dinoRightArms[size] = new ModelRenderer(this, 32, 177);
+            this.dinoRightArms[size].addBox(-1.0F, 0.0F, -4.0F, 1, 1, 4);
+            this.dinoRightArms[size].setRotationPoint(-2.0F, 14.0F, -2.0F);
         }
-        System.out.println("Heads 0 " + Arrays.toString(heads[0]));
+    }
+
+    public ModelRenderer[] getHeadModels(Entity animal) {
+        if (!(animal instanceof EntityDnaChicken)) {
+            ModelRenderer[] returnArray = {this.head, this.bill, this.chin};
+            return returnArray;
+        } else {
+            EntityDnaChicken chicken = (EntityDnaChicken) animal;
+            int headIndex = chicken.getHeadColor();
+            int isBigIndex = chicken.isBig() ? 1 : 0;
+            isBigIndex = this.isChild ? 2 : isBigIndex;
+
+            if (chicken.hasDinoHead()) {
+                ModelRenderer[] returnArray = {this.dinoHeads[isBigIndex],
+                        this.dinoUpperNecks[isBigIndex],
+                        this.dinoLowerNecks[isBigIndex],
+                        this.dinoUpperLips[isBigIndex],
+                        this.dinoLowerLips[isBigIndex]};
+                return returnArray;
+            } else {
+                ModelRenderer[] returnArray = {
+                        this.heads[isBigIndex][headIndex],
+                        this.chins[isBigIndex][headIndex],
+                        this.bills[isBigIndex][headIndex]};
+                return returnArray;
+            }
+        }
+    }
+
+    public ModelRenderer[] getBodyModels(Entity animal) {
+        if (!(animal instanceof EntityDnaChicken)) {
+            ModelRenderer[] returnArray = {this.body};
+            return returnArray;
+        } else {
+            EntityDnaChicken chicken = (EntityDnaChicken) animal;
+            int bodyIndex = chicken.getBodyColor();
+            int isBigIndex = chicken.isBig() ? 1 : 0;
+            isBigIndex = this.isChild ? 2 : isBigIndex;
+            if (chicken.hasDinoBody()) {
+                ModelRenderer[] returnArray = {this.dinoBodies[isBigIndex],
+                        this.dinoUpperTails[isBigIndex],
+                        this.dinoMidTails[isBigIndex],
+                        this.dinoLowerTails[isBigIndex]};
+                return returnArray;
+            } else {
+                ModelRenderer[] returnArray = {this.bodies[isBigIndex][bodyIndex]};
+                return returnArray;
+            }
+        }
+    }
+
+    public ModelRenderer[] getLegModels(Entity animal) {
+        if (!(animal instanceof EntityDnaChicken)) {
+            ModelRenderer[] returnArray = {this.leftLeg, this.rightLeg};
+            return returnArray;
+        } else {
+            EntityDnaChicken chicken = (EntityDnaChicken) animal;
+            int rightLegIndex = chicken.getRightLegColor();
+            int leftLegIndex = chicken.getLeftLegColor();
+            int isBigIndex = chicken.isBig() ? 1 : 0;
+            isBigIndex = this.isChild ? 2 : isBigIndex;
+            if (chicken.hasDinoLeftLeg()) {
+                if (chicken.hasDinoRightLeg()) {
+                    ModelRenderer[] returnArray = {
+                            this.leftLeg,
+                            this.rightLeg,
+                            this.dinoThighLefts[isBigIndex],
+                            this.dinoThighRights[isBigIndex]};
+                    return returnArray;
+                } else {
+                    ModelRenderer[] returnArray = {
+                            this.leftLeg,
+                            this.rightLegs[isBigIndex][rightLegIndex],
+                            this.dinoThighLefts[isBigIndex]};
+                    return returnArray;
+                }
+            } else if (chicken.hasDinoRightLeg()) {
+                ModelRenderer[] returnArray = {
+                        this.rightLeg,
+                        this.leftLegs[isBigIndex][leftLegIndex],
+                        this.dinoThighRights[isBigIndex]};
+                return returnArray;
+            } else {
+                ModelRenderer[] returnArray = {
+                        this.leftLegs[isBigIndex][leftLegIndex],
+                        this.rightLegs[isBigIndex][rightLegIndex]};
+                return returnArray;
+            }
+        }
+    }
+
+    public ModelRenderer[] getWingModels(Entity animal) {
+        if (!(animal instanceof EntityDnaChicken)) {
+            ModelRenderer[] returnArray = {this.leftWing, this.rightWing};
+            return returnArray;
+        } else {
+            EntityDnaChicken chicken = (EntityDnaChicken) animal;
+            int rightWingIndex = chicken.getRightWingColor();
+            int leftWingIndex = chicken.getLeftWingColor();
+            int isBigIndex = chicken.isBig() ? 1 : 0;
+            isBigIndex = this.isChild ? 2 : isBigIndex;
+            if (chicken.hasDinoLeftArm()) {
+                if (chicken.hasDinoRightArm()) {
+                    ModelRenderer[] returnArray = {
+                            this.dinoRightArms[isBigIndex],
+                            this.dinoLeftArms[isBigIndex]};
+                    return returnArray;
+                } else {
+                    ModelRenderer[] returnArray = {
+                            this.dinoLeftArms[isBigIndex],
+                            this.rightWings[isBigIndex][rightWingIndex]};
+                    return returnArray;
+                }
+            } else if (chicken.hasDinoRightArm()) {
+                ModelRenderer[] returnArray = {
+                        this.dinoRightArms[isBigIndex],
+                        this.leftWings[isBigIndex][leftWingIndex]};
+                return returnArray;
+            } else {
+                ModelRenderer[] returnArray = {
+                        this.leftWings[isBigIndex][leftWingIndex],
+                        this.rightWings[isBigIndex][rightWingIndex]};
+                return returnArray;
+            }
+        }
     }
 }
