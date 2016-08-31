@@ -1,7 +1,7 @@
 package com.quintenlauwers.backend.network.dnadata;
 
 import com.quintenlauwers.entity.DnaEntity;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.main.MendelCraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
@@ -26,7 +26,7 @@ public class NetworkDnaDataHandler implements IMessageHandler<NetworkDnaDataPack
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
-                DnaEntity animal = TestMod.storage.getById(message.getId());
+                DnaEntity animal = MendelCraft.storage.getById(message.getId());
                 if (animal != null) {
 
                     if (message.getDnaData2() != null) {

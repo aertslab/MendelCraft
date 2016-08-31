@@ -1,7 +1,7 @@
 package com.quintenlauwers.backend;
 
 import com.quintenlauwers.backend.util.UtilDna;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.main.MendelCraft;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ public class DnaProperties {
     String animal;
     HashMap<GenePosition, Set<String>> restrictedEntries = null;
     String[] possibleProperties = null;
-    public static DnaConfig dnaConfig = TestMod.dnaConfig;
+    public static DnaConfig dnaConfig = MendelCraft.dnaConfig;
     HashMap<String, String> cachedStringProperty = new HashMap<String, String>();
 
     public DnaProperties(String animal, byte[] dnaData) {

@@ -1,0 +1,6 @@
+{
+  "parent": "mendelcraft:item/dnaSyringe",
+  "textures": {
+    "layer0": "mendelcraft:items/syringeFullBlue"
+  }
+}

@@ -1,6 +1,6 @@
 package com.quintenlauwers.blocks;
 
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.main.MendelCraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -23,7 +23,7 @@ public class BlockBase extends Block implements ItemModelProvider {
 
     @Override
     public void registerItemModel(Item itemBlock) {
-        TestMod.proxy.registerItemRenderer(itemBlock, 0, name);
+        MendelCraft.proxy.registerItemRenderer(itemBlock, 0, name);
 
     }
 

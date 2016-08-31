@@ -46,7 +46,6 @@ private final IItemHandler handler;
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
-        // TODO: check what false does
     }
 
     @Override

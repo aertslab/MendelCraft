@@ -5,7 +5,8 @@ import com.quintenlauwers.backend.DnaProperties;
 import com.quintenlauwers.backend.network.entityinteraction.EntityChildBirthPackage;
 import com.quintenlauwers.backend.network.entityinteraction.ProcessInteractionPackage;
 import com.quintenlauwers.entity.DnaEntity;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.lib.RefStrings;
+import com.quintenlauwers.main.MendelCraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,9 +33,9 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 
-    private static final ResourceLocation CHICKEN_TEXUTRE_MULTICOLOR = new ResourceLocation("testmod:textures/entity/chickenVariations.png");
+    private static final ResourceLocation CHICKEN_TEXUTRE_MULTICOLOR = new ResourceLocation(RefStrings.MODID + ":textures/entity/chickenVariations.png");
 
-    private byte[] dnaData = new byte[TestMod.dnaConfig.getTotalNbOfCodons()];
+    private byte[] dnaData = new byte[MendelCraft.dnaConfig.getTotalNbOfCodons()];
     private byte[] dnaData2;
     private DnaProperties properties;
     private int myId = 0;
@@ -48,7 +49,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
         this.setPathPriority(PathNodeType.WATER, 0.0F);
         Random rand = new Random();
         rand.nextBytes(dnaData);
-        if (TestMod.dnaConfig.isDiploid()) {
+        if (MendelCraft.dnaConfig.isDiploid()) {
             this.dnaData2 = new byte[dnaData.length];
             rand.nextBytes(this.dnaData2);
         }
@@ -91,19 +92,19 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     public EntityDnaChicken createChild(EntityAgeable ageable) {
         if (ageable instanceof EntityDnaChicken) {
             if (!this.getEntityWorld().isRemote) {
-                TestMod.network.sendToAll(new EntityChildBirthPackage(this, ageable));
+                MendelCraft.network.sendToAll(new EntityChildBirthPackage(this, ageable));
             }
             EntityDnaChicken child = new EntityDnaChicken(this.worldObj);
             EntityDnaChicken other = (EntityDnaChicken) ageable;
-            if (TestMod.dnaConfig.isDiploid()) {
-                byte[] dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData, dnaData2);
-                byte[] dnaFinal2 = TestMod.dnaConfig.reduceToSingleDnaString(other.dnaData, other.dnaData2);
+            if (MendelCraft.dnaConfig.isDiploid()) {
+                byte[] dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(dnaData, dnaData2);
+                byte[] dnaFinal2 = MendelCraft.dnaConfig.reduceToSingleDnaString(other.dnaData, other.dnaData2);
                 if (dnaFinal1 == null || dnaFinal2 == null) {
                     return null;
                 }
                 child.setDnaData(dnaFinal1, dnaFinal2);
             } else {
-                byte[] dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData, other.dnaData);
+                byte[] dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(dnaData, other.dnaData);
                 if (dnaFinal1 == null) {
                     return null;
                 }
@@ -118,7 +119,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand, @Nullable ItemStack stack) {
         if (player.getEntityWorld().isRemote) {
-            TestMod.network.sendToServer(new ProcessInteractionPackage(this, player, hand, stack));
+            MendelCraft.network.sendToServer(new ProcessInteractionPackage(this, player, hand, stack));
 
         }
         return super.processInteract(player, hand, stack);
@@ -151,7 +152,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     public void getInformationFromServer() {
         if (this.getEntityWorld().isRemote) {
-            TestMod.networkHelper.sendDnaRequest(this);
+            MendelCraft.networkHelper.sendDnaRequest(this);
         }
     }
 
@@ -164,7 +165,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
         compound.setBoolean("IsChickenJockey", this.chickenJockey);
         compound.setInteger("EggLayTime", this.timeUntilNextEgg);
         compound.setByteArray("dnaData", this.getDnaData());
-        if (TestMod.dnaConfig.isDiploid()) {
+        if (MendelCraft.dnaConfig.isDiploid()) {
             compound.setByteArray("dnaData2", this.getDnaData2());
         }
     }
@@ -181,14 +182,14 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
             this.timeUntilNextEgg = compound.getInteger("EggLayTime");
         }
         if (compound.hasKey("dnaData")) {
-            if (TestMod.dnaConfig.isDiploid() && compound.hasKey("dnaData2")) {
+            if (MendelCraft.dnaConfig.isDiploid() && compound.hasKey("dnaData2")) {
                 this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"),
                         compound.getByteArray("dnaData2"));
 
                 System.out.println("Diploid loaded");
                 return;
             }
-            if (!TestMod.dnaConfig.isDiploid()) {
+            if (!MendelCraft.dnaConfig.isDiploid()) {
                 this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"));
                 System.out.println("Not diploid");
             }
@@ -400,7 +401,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
      */
     @Override
     public void finalize() throws Throwable {
-        TestMod.storage.removeById(this.getEntityId());
+        MendelCraft.storage.removeById(this.getEntityId());
         super.finalize();
     }
 

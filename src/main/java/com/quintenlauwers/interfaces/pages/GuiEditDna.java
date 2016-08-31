@@ -9,7 +9,8 @@ import com.quintenlauwers.interfaces.GuiDnaMain;
 import com.quintenlauwers.interfaces.custombuttons.GuiImageButton;
 import com.quintenlauwers.interfaces.helpers.StoredRect;
 import com.quintenlauwers.item.dnaSyringe;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.lib.RefStrings;
+import com.quintenlauwers.main.MendelCraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
@@ -17,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public class GuiEditDna extends GuiPage {
      * The current active chromosme.
      */
     protected int activeChromosome;
-    private GuiImageButton activeChromosomeButton = null;
+    protected GuiImageButton activeChromosomeButton = null;
     /**
      * The current active gene.
      */
@@ -83,7 +85,7 @@ public class GuiEditDna extends GuiPage {
     /**
      * The first shown chromosome.
      */
-    private int chromosomeIndex = 0;
+    protected int chromosomeIndex = 0;
     protected int lastChromosomeIndex = 1;
     /**
      * Is there a valid syringe in the item slot
@@ -106,10 +108,10 @@ public class GuiEditDna extends GuiPage {
     /**
      * Textures used.
      */
-    public static ResourceLocation BACKGROUNDTEXTURE = new ResourceLocation("testmod:textures/gui/background.png");
-    public static ResourceLocation CHROMOSOMETEXTURE = new ResourceLocation("testmod:textures/gui/chromosomeButtons.png");
-    public static ResourceLocation GENECOLORTEXTURE = new ResourceLocation("testmod:textures/gui/dnaButton.png");
-    public static ResourceLocation GENEBACKGROUND = new ResourceLocation("testmod:textures/gui/geneBackgroundOrange.png");
+    public static ResourceLocation BACKGROUNDTEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/background.png");
+    public static ResourceLocation CHROMOSOMETEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/chromosomeButtons.png");
+    public static ResourceLocation GENECOLORTEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/dnaButton.png");
+    public static ResourceLocation GENEBACKGROUND = new ResourceLocation(RefStrings.MODID + ":textures/gui/geneBackgroundOrange.png");
 
     public static int NUMBEROFCHROMOSOMES = 30;
 
@@ -121,10 +123,10 @@ public class GuiEditDna extends GuiPage {
 
     @Override
     public void initGui() {
-        this.nbVisibleChromosomes = Math.min(5, TestMod.dnaConfig.getNbOfChromosomes());
+        this.nbVisibleChromosomes = Math.min(5, MendelCraft.dnaConfig.getNbOfChromosomes());
         this.lastChromosomeIndex = this.chromosomeIndex + 1;
         drawChromosomes();
-        this.nbVisibleCodons = Math.min(4, TestMod.dnaConfig.getNbOfCodonsInChromosome(0));
+        this.nbVisibleCodons = Math.min(4, MendelCraft.dnaConfig.getNbOfCodonsInChromosome(0));
 
         this.buttonList.add(this.prevGene = new GuiButton(0, toWorldx(10), toWorldy(this.yDNARowPosition), 10, this.yButtonSize, "<"));
         this.buttonList.add(this.nextGene = new GuiButton(1, toWorldx(this.xWindowSize - 20), toWorldy(this.yDNARowPosition), 10, this.yButtonSize, ">"));
@@ -147,7 +149,7 @@ public class GuiEditDna extends GuiPage {
         GuiButton tempButton;
         this.buttonList.removeAll(this.visibleChromosomes);
         this.visibleChromosomes.clear();
-        int endIndex = Math.min(TestMod.dnaConfig.getNbOfChromosomes(), chromosomeIndex + 2 * nbVisibleChromosomes);
+        int endIndex = Math.min(MendelCraft.dnaConfig.getNbOfChromosomes(), chromosomeIndex + 2 * nbVisibleChromosomes);
         for (int i = chromosomeIndex; i < endIndex; i++) {
             tempButton = drawChromosomeButton(i);
             if (tempButton != null) {
@@ -190,7 +192,7 @@ public class GuiEditDna extends GuiPage {
      */
     public boolean chromosomeIsVisible(int chromosomeNumber) {
         return chromosomeNumber >= this.chromosomeIndex && chromosomeNumber <= Math.min(
-                TestMod.dnaConfig.getNbOfChromosomes(), chromosomeIndex + 2 * nbVisibleChromosomes);
+                MendelCraft.dnaConfig.getNbOfChromosomes(), chromosomeIndex + 2 * nbVisibleChromosomes);
     }
 
 //    @Override
@@ -304,7 +306,7 @@ public class GuiEditDna extends GuiPage {
         }
         if (button == this.nextChromosome) {
             //Main.packetHandler.sendToServer(...);
-            if ((this.chromosomeIndex + 2 * this.nbVisibleChromosomes) <= TestMod.dnaConfig.getNbOfChromosomes()) {
+            if ((this.chromosomeIndex + 2 * this.nbVisibleChromosomes) <= MendelCraft.dnaConfig.getNbOfChromosomes()) {
                 this.chromosomeIndex++;
             }
         }
@@ -320,7 +322,7 @@ public class GuiEditDna extends GuiPage {
             }
         }
         if (button == this.nextGene) {
-            if ((this.codonIndex + this.nbVisibleCodons) <= TestMod.dnaConfig.getNbOfCodonsInChromosome(this.activeChromosome)) {
+            if ((this.codonIndex + this.nbVisibleCodons) <= MendelCraft.dnaConfig.getNbOfCodonsInChromosome(this.activeChromosome)) {
                 this.codonIndex++;
                 this.drawCodonsOfChromosome(activeChromosome);
             }
@@ -347,7 +349,7 @@ public class GuiEditDna extends GuiPage {
      *
      * @param button The chromosome button pressed.
      */
-    private void handleChromosomeButton(GuiButton button) {
+    protected void handleChromosomeButton(GuiButton button) {
         if (this.activeChromosomeButton != null) {
             this.activeChromosomeButton.releaseHold();
             if (this.activeCodonButton != null) {
@@ -458,7 +460,7 @@ public class GuiEditDna extends GuiPage {
 
 
     public void drawCodonsOfChromosome(int chromosomeNumber) {
-        this.nbVisibleCodons = Math.min(4, TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber));
+        this.nbVisibleCodons = Math.min(4, MendelCraft.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber));
         this.prevGene.visible = true;
         this.nextGene.visible = true;
         if (codonIndex == lastCodonIndex) {
@@ -470,7 +472,7 @@ public class GuiEditDna extends GuiPage {
         this.visibleCodons.clear();
         this.visibleCodons2.clear();
 
-        if (!TestMod.dnaConfig.isDiploid()) {
+        if (!MendelCraft.dnaConfig.isDiploid()) {
             drawCodonRow(chromosomeNumber, this.visibleCodons, 1);
         } else {
             drawCodonRow(chromosomeNumber, this.visibleCodons, 0);
@@ -480,7 +482,7 @@ public class GuiEditDna extends GuiPage {
     }
 
     protected void drawCodonRow(int chromosomeNumber, List<GuiButton> codonButtonList, int row) {
-        int endIndex = Math.min(TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), codonIndex + nbVisibleCodons);
+        int endIndex = Math.min(MendelCraft.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), codonIndex + nbVisibleCodons);
         drawGeneMarker(endIndex);
         GuiImageButton tempButton;
         int j = 0;
@@ -501,20 +503,24 @@ public class GuiEditDna extends GuiPage {
     }
 
     protected void drawGeneMarker(int endIndex) {
-        int[] posBegin = TestMod.dnaConfig.positionFromCodonIndex(codonIndex);
-        int[] posEnd = TestMod.dnaConfig.positionFromCodonIndex(endIndex);
+        System.out.println(activeChromosome);
+        int realIndex = MendelCraft.dnaConfig.getCodonIndex(activeChromosome, codonIndex);
+        int offset = realIndex - codonIndex;
+        int[] posBegin = MendelCraft.dnaConfig.positionFromCodonIndex(realIndex);
+        System.out.println(Arrays.toString(posBegin));
+        int[] posEnd = MendelCraft.dnaConfig.positionFromCodonIndex(endIndex + offset);
         if (posEnd[0] > posBegin[0]) {
-            posEnd[1] = TestMod.dnaConfig.positionFromCodonIndex(endIndex - 1)[1] + 1;
+            posEnd[1] = MendelCraft.dnaConfig.positionFromCodonIndex(endIndex + offset - 1)[1] + 1;
         }
         for (int geneNb = posBegin[1]; geneNb <= posEnd[1]; geneNb++) {
             System.out.println("Drawing gene starts.");
-            int geneBegin = TestMod.dnaConfig.getCodonIndex(posBegin[0], geneNb, 0);
-            int geneEnd = TestMod.dnaConfig.getCodonIndex(posBegin[0], geneNb + 1, 0) - 1;
-            if (geneBegin >= codonIndex) {
-                if (geneBegin < endIndex) {
+            int geneBegin = MendelCraft.dnaConfig.getCodonIndex(posBegin[0], geneNb, 0);
+            int geneEnd = MendelCraft.dnaConfig.getCodonIndex(posBegin[0], geneNb + 1, 0) - 1;
+            if (geneBegin >= codonIndex + offset) {
+                if (geneBegin < endIndex + offset) {
                     System.out.println("start should be visible. " + geneBegin + "    " + codonIndex);
                     rectangleList.add(new StoredRect(
-                            toWorldx(20 + xButtonSize * (geneBegin - codonIndex)),
+                            toWorldx(20 + xButtonSize * (geneBegin - (codonIndex + offset))),
                             toWorldy(yDNARowPosition - 15),
                             0,
                             0,
@@ -536,9 +542,9 @@ public class GuiEditDna extends GuiPage {
                         50,
                         GENEBACKGROUND));
             }
-            if (geneEnd < endIndex) {
+            if (geneEnd < endIndex + offset) {
                 rectangleList.add(new StoredRect(
-                        toWorldx(20 + xButtonSize * (geneEnd - codonIndex + 1) - 4),
+                        toWorldx(20 + xButtonSize * (geneEnd - (codonIndex + offset) + 1) - 4),
                         toWorldy(yDNARowPosition - 15),
                         6,
                         0,
@@ -548,7 +554,7 @@ public class GuiEditDna extends GuiPage {
                         50,
                         GENEBACKGROUND));
             } else { // The ends after the last visible codon.
-                if (geneBegin < endIndex) {
+                if (geneBegin < endIndex + offset) {
                     rectangleList.add(new StoredRect(
                             toWorldx(20 + xButtonSize * (endIndex - codonIndex) - 4),
                             toWorldy(yDNARowPosition - 15),
@@ -561,8 +567,8 @@ public class GuiEditDna extends GuiPage {
                             GENEBACKGROUND));
                 }
             }
-            int beginFiller = Math.max(geneBegin, codonIndex);
-            int endFiller = Math.min(geneEnd + 1, endIndex);
+            int beginFiller = Math.max(geneBegin - offset, codonIndex);
+            int endFiller = Math.min(geneEnd + 1 - offset, endIndex);
             if (beginFiller < endIndex) {
                 rectangleList.add(new StoredRect(
                         toWorldx(20 + xButtonSize * (beginFiller - codonIndex) + 4),
@@ -592,7 +598,7 @@ public class GuiEditDna extends GuiPage {
 
     protected String getCodonAsString() {
         String nubleobases = "";
-        int currentCodonIndex = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
+        int currentCodonIndex = MendelCraft.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
         byte[] dnaData = this.getRawDna(this.dnaString);
         if (dnaData != null && dnaData.length > currentCodonIndex) {
             nubleobases = UtilDna.byteNucleobaseToString(dnaData[currentCodonIndex]);

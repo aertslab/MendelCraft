@@ -1,6 +1,7 @@
-Config file save
+Config file save --> Done!!!
 Config file from server to player
-Mark genes
-Build dinosaur
-Fix todo's in code
+Mark genes --> Done!!!
+Build dinosaur --> Done!!!
+Fix todo's in code --> Mostly done
 Link config to new properties (easy). --> Done!!
+Color nucleobases

@@ -2,7 +2,7 @@ package com.quintenlauwers.item;
 
 import com.quintenlauwers.backend.network.entityinteraction.EntityInteractionPackage;
 import com.quintenlauwers.entity.DnaEntity;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.main.MendelCraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -45,7 +45,7 @@ public class dnaSyringe extends Item {
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
         if (playerIn.getEntityWorld().isRemote) {
-            TestMod.network.sendToServer(new EntityInteractionPackage(target, playerIn, hand));
+            MendelCraft.network.sendToServer(new EntityInteractionPackage(target, playerIn, hand));
         }
         ItemStack equipped = playerIn.getHeldItemMainhand();
         if (equipped == null || !(equipped.getItem() instanceof dnaSyringe)) {
@@ -116,7 +116,7 @@ public class dnaSyringe extends Item {
     private void writeDnaToTag(NBTTagCompound tag, DnaEntity from) {
         tag.setByteArray("dnaData", from.getDnaData());
         tag.setString("animal", from.getAnimalName());
-        if (TestMod.dnaConfig.isDiploid()) {
+        if (MendelCraft.dnaConfig.isDiploid()) {
             tag.setByteArray("dnaData2", from.getDnaData2());
         }
     }

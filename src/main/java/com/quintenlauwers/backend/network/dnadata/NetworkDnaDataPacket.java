@@ -1,7 +1,7 @@
 package com.quintenlauwers.backend.network.dnadata;
 
 import com.quintenlauwers.backend.util.UtilDna;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.main.MendelCraft;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
@@ -31,7 +31,7 @@ public class NetworkDnaDataPacket implements IMessage {
             byte[] totalData = new byte[buf.readableBytes()];
             buf.readBytes(totalData);
             if (totalData.length >= 4) {
-                if (TestMod.dnaConfig.isDiploid()) {
+                if (MendelCraft.dnaConfig.isDiploid()) {
                     this.entityId = UtilDna.byteToInt(Arrays.copyOf(totalData, 4));
                     int length = UtilDna.byteToInt(Arrays.copyOfRange(totalData, 4, 8));
                     if (8 + length < totalData.length) {

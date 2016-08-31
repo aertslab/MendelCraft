@@ -1,7 +1,7 @@
 package com.quintenlauwers.item;
 
 import com.quintenlauwers.entity.DnaEntity;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.main.MendelCraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +24,7 @@ public class dnaInspector extends Item {
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
         if (target instanceof DnaEntity) {
-            playerIn.openGui(TestMod.instance, 2, playerIn.getEntityWorld(), ((DnaEntity) target).getRegisteredId(), 0, 0);
+            playerIn.openGui(MendelCraft.instance, 2, playerIn.getEntityWorld(), ((DnaEntity) target).getRegisteredId(), 0, 0);
             return true;
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);

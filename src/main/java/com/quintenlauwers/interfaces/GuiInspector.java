@@ -2,13 +2,14 @@ package com.quintenlauwers.interfaces;
 
 import com.google.common.collect.Lists;
 import com.quintenlauwers.backend.DnaProperties;
+import com.quintenlauwers.lib.RefStrings;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import scala.actors.threadpool.Arrays;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class GuiInspector extends GuiScreen {
     private GuiButton nextButton;
     private GuiButton prevButton;
 
-    public static ResourceLocation BACKGROUNDTEXTURE = new ResourceLocation("testmod:textures/gui/background.png");
+    public static ResourceLocation BACKGROUNDTEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/background.png");
 
     GuiInspector(DnaProperties properties) {
         this.properties = properties;

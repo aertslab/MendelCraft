@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "testmod:items/test_item"
+      "layer0": "mendelcraft:items/test_item"
     },
     "display": {
       "thirdperson_righthand": {

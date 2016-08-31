@@ -9,7 +9,8 @@ import com.quintenlauwers.entity.chicken.EntityDnaChicken;
 import com.quintenlauwers.interfaces.GuiDnaMain;
 import com.quintenlauwers.interfaces.custombuttons.GuiImageButton;
 import com.quintenlauwers.item.dnaSyringe;
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.lib.RefStrings;
+import com.quintenlauwers.main.MendelCraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityList;
@@ -28,10 +29,10 @@ import static java.lang.Math.abs;
  */
 public class GuiEggPage extends GuiEditDna {
 
-    public static ResourceLocation CONTAINERBACKGROUND = new ResourceLocation("testmod:textures/gui/background.png");
-    public static ResourceLocation UPCODON = new ResourceLocation("testmod:textures/gui/upCodon.png");
-    public static ResourceLocation DOWNCODON = new ResourceLocation("testmod:textures/gui/downCodon.png");
-    public static ResourceLocation GENEEDITTEXTURE = new ResourceLocation("testmod:textures/gui/dnaButtonEdit.png");
+    public static ResourceLocation CONTAINERBACKGROUND = new ResourceLocation(RefStrings.MODID + ":textures/gui/background.png");
+    public static ResourceLocation UPCODON = new ResourceLocation(RefStrings.MODID + ":textures/gui/upCodon.png");
+    public static ResourceLocation DOWNCODON = new ResourceLocation(RefStrings.MODID + ":textures/gui/downCodon.png");
+    public static ResourceLocation GENEEDITTEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/dnaButtonEdit.png");
 
     GuiButton createEggButton;
     GuiButton cloneButton;
@@ -156,15 +157,25 @@ public class GuiEggPage extends GuiEditDna {
         }
     }
 
+    @Override
+    protected void handleChromosomeButton(GuiButton button) {
+        if (button != this.activeChromosomeButton) {
+            this.nextCodon.visible = false;
+            this.previousCodon.visible = false;
+        }
+        super.handleChromosomeButton(button);
+    }
+
     protected void drawCodonRow(int chromosomeNumber, List<GuiButton> codonButtonList, int row) {
-        int endIndex = Math.min(TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), codonIndex + nbVisibleCodons);
+        int endIndex = Math.min(MendelCraft.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), codonIndex + nbVisibleCodons);
         drawGeneMarker(endIndex);
         GuiImageButton tempButton;
         int j = 0;
         for (int i = codonIndex; i < endIndex; i++) {
             int xPosition = toWorldx(20 + xButtonSize * j);
             int yPosition = toWorldy(yDNARowPosition) - 13 + 13 * row;
-            if (this.properties.isEditablePosition(TestMod.dnaConfig.positionFromCodonIndex(i))) {
+            int realPos = MendelCraft.dnaConfig.getCodonIndex(activeChromosome, i);
+            if (this.properties.isEditablePosition(MendelCraft.dnaConfig.positionFromCodonIndex(realPos))) {
                 tempButton = new GuiImageButton(i, xPosition, yPosition, xButtonSize, yButtonSize, GENEEDITTEXTURE);
             } else {
                 tempButton = new GuiImageButton(i, xPosition, yPosition, xButtonSize, yButtonSize, GENECOLORTEXTURE);
@@ -183,12 +194,12 @@ public class GuiEggPage extends GuiEditDna {
     }
 
     private void changeCodon(codonChangeDirection direction) {
-        int codonPosition = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
+        int codonPosition = MendelCraft.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
         if (codonPosition >= dnaData.length) {
             return;
         }
         if (this.possibleCodons == null) {
-            int[] position = TestMod.dnaConfig.positionFromCodonIndex(codonPosition);
+            int[] position = MendelCraft.dnaConfig.positionFromCodonIndex(codonPosition);
             // TODO: review, seems inefficient.
             possibleCodons = this.properties.getPossibleCodons(position);
         }
@@ -270,15 +281,15 @@ public class GuiEggPage extends GuiEditDna {
                 }
                 byte[] dnaFinal1;
                 byte[] dnaFinal2 = null;
-                if (TestMod.dnaConfig.isDiploid()) {
-                    dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData11, dnaData12);
-                    dnaFinal2 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData21, dnaData22);
+                if (MendelCraft.dnaConfig.isDiploid()) {
+                    dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(dnaData11, dnaData12);
+                    dnaFinal2 = MendelCraft.dnaConfig.reduceToSingleDnaString(dnaData21, dnaData22);
                     if (dnaFinal1 == null || dnaFinal2 == null) {
                         return;
                     }
                     this.properties = new DnaProperties(animal1, dnaFinal1, dnaFinal2);
                 } else {
-                    dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData11, dnaData21);
+                    dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(dnaData11, dnaData21);
                     if (dnaFinal1 == null) {
                         return;
                     }
@@ -330,7 +341,7 @@ public class GuiEggPage extends GuiEditDna {
             resultStack.getTagCompound().getCompoundTag("EntityTag").setByteArray("dnaData2", dnaData2);
         }
         // TODO: make this work if the server client delay is bigger.
-        TestMod.network.sendToServer(new SlotContentsToServerPackage(resultStack, 2));
+        MendelCraft.network.sendToServer(new SlotContentsToServerPackage(resultStack, 2));
         this.dnaData = dnaData;
         this.dnaData2 = dnaData2;
         this.properties.setDna(dnaData);
@@ -362,12 +373,12 @@ public class GuiEggPage extends GuiEditDna {
     @Override
     protected String getCodonAsString() {
         String nubleobases = "";
-        int currentCodonIndex = TestMod.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
+        int currentCodonIndex = MendelCraft.dnaConfig.getCodonIndex(this.activeChromosome, this.activeCodon);
         byte[] dnaData = this.getRawDna(this.dnaString);
         if (dnaData != null && dnaData.length > currentCodonIndex) {
             nubleobases = UtilDna.byteNucleobaseToString(dnaData[currentCodonIndex]);
             if (properties == null) {
-                if (TestMod.dnaConfig.isDiploid()) {
+                if (MendelCraft.dnaConfig.isDiploid()) {
                     byte[] dnaData2;
                     if (this.dnaString < 2) {
                         dnaData2 = getRawDna(2);
@@ -381,7 +392,7 @@ public class GuiEggPage extends GuiEditDna {
                     properties = new DnaProperties(getAnimalName(), dnaData);
                 }
             }
-            if (properties.isEditablePosition(TestMod.dnaConfig.positionFromCodonIndex(currentCodonIndex))) {
+            if (properties.isEditablePosition(MendelCraft.dnaConfig.positionFromCodonIndex(currentCodonIndex))) {
                 this.previousCodon.visible = true;
                 this.nextCodon.visible = true;
             } else {

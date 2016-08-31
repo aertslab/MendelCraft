@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -17,14 +19,20 @@ public class DnaConfig {
 
     private JsonObject mainConfig;
     private HashMap<String, JsonObject> animalConfigs = new HashMap<String, JsonObject>();
-    private static String CONFIGFOLDER = "/assets/testmod/config/";
+    private final String CONFIGFOLDER;
     private boolean diploid;
     private int nbOfChromosomes;
     private Random rand = new Random();
 
-    public DnaConfig(String configFile) {
+    public DnaConfig(String configFolder, String configFile) {
+        this.CONFIGFOLDER = configFolder + "/";
         String fileName = CONFIGFOLDER + configFile;
-        InputStream location = getClass().getResourceAsStream(fileName);
+        InputStream location = null;
+        try {
+            location = new FileInputStream(fileName);
+        } catch (FileNotFoundException e) {
+            location = getClass().getResourceAsStream("/assets/mendelcraft/config/mainConfig.json");
+        }
         mainConfig = DnaConfig.convertFileToJSON(location);
         loadAnimals();
         loadDiploid();
@@ -75,11 +83,17 @@ public class DnaConfig {
     }
 
     private int getNbOfCodons(int chromosomeNumber, int geneNumber) {
+        String geneName = "chromosome" + Integer.toString(chromosomeNumber) + "gene" + Integer.toString(geneNumber);
+        if (mainConfig.has("codonNbExceptions")) {
+            JsonObject exception = mainConfig.getAsJsonObject("codonNbExceptions");
+            if (exception.getAsJsonObject().has(geneName)) {
+                return exception.get(geneName).getAsInt();
+            }
+        }
         if (mainConfig.has("codonsPerGene")) {
             return mainConfig.get("codonsPerGene").getAsInt();
         }
         return 0;
-        // TODO: Exceptions for number of codons on gene.
     }
 
     public int getCodonIndex(int chromosomeNumber, int geneNumber, int codonNumber) {
@@ -285,7 +299,12 @@ public class DnaConfig {
                     String animalName = entry.get("name").getAsString().toLowerCase();
                     String configFile = entry.get("geneFile").getAsString();
                     String fileName = CONFIGFOLDER + configFile;
-                    InputStream location = getClass().getResourceAsStream(fileName);
+                    InputStream location;
+                    try {
+                        location = new FileInputStream(fileName);
+                    } catch (FileNotFoundException e) {
+                        location = getClass().getResourceAsStream("/assets/mendelcraft/config/" + configFile);
+                    }
                     JsonObject animalConfig = DnaConfig.convertFileToJSON(location);
                     if (animalConfig != null) {
                         this.animalConfigs.put(animalName, animalConfig);

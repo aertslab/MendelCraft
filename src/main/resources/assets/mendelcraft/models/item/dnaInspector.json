@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "testmod:items/inspector"
+    "layer0": "mendelcraft:items/inspector"
   },
   "display": {
     "thirdperson_righthand": {

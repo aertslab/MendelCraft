@@ -1,5 +1,6 @@
 package com.quintenlauwers.entity.chicken;
 
+import com.quintenlauwers.lib.RefStrings;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -13,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public class RenderDnaChicken extends RenderLiving<EntityDnaChicken> {
-    private static final ResourceLocation CHICKEN_TEXTURES = new ResourceLocation("testmod:textures/entity/dnaChicken.png");
+    private static final ResourceLocation CHICKEN_TEXTURES = new ResourceLocation(RefStrings.MODID + ":textures/entity/dnaChicken.png");
 
     public RenderDnaChicken(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(renderManagerIn, modelBaseIn, shadowSizeIn);

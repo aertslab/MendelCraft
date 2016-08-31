@@ -1,6 +1,7 @@
 package com.quintenlauwers.interfaces.pages;
 
 import com.quintenlauwers.interfaces.GuiDnaMain;
+import com.quintenlauwers.lib.RefStrings;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -37,7 +38,7 @@ public abstract class GuiPage {
     protected int lastMouseX = 0;
     protected int lastMouseY = 0;
 
-    public static ResourceLocation BACKGROUNDTEXTURE = new ResourceLocation("testmod:textures/gui/background.png");
+    public static ResourceLocation BACKGROUNDTEXTURE = new ResourceLocation(RefStrings.MODID + ":textures/gui/background.png");
 
     protected GuiDnaMain container;
 

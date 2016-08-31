@@ -226,7 +226,7 @@ public class ModelDnaChicken extends ModelChicken {
         this.dinoRightLegs[size].rotateAngleX = this.rightLegs[size][rightLegIndex].rotateAngleX;
         this.dinoLeftLegs[size].rotateAngleX = this.leftLegs[size][leftLegIndex].rotateAngleX;
 
-        this.leftWings[size][leftWingIndex].rotateAngleZ = strange - 1;
+        this.leftWings[size][leftWingIndex].rotateAngleZ += strange - 1;
         this.heads[size][headIndex].rotateAngleZ = -strange + 1;
         this.bills[size][billIndex].rotateAngleZ = this.heads[size][headIndex].rotateAngleZ * (strange - 1);
         this.chins[size][chinIndex].rotateAngleZ = this.heads[size][headIndex].rotateAngleZ * (strange - 1);
@@ -349,10 +349,11 @@ public class ModelDnaChicken extends ModelChicken {
             this.dinoRightArms[size].addBox(-1.0F, 0.0F, -4.0F, 1, 1, 4);
             this.dinoRightArms[size].setRotationPoint(-2.0F, 14.0F, -2.0F);
 
-            this.dinoRightLegs[size] = new ModelRenderer(this, 26, 0);
+            this.dinoRightLegs[size] = new ModelRenderer(this, 26, 96);
             this.dinoRightLegs[size].addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
             this.dinoRightLegs[size].setRotationPoint(-2.0F, 19.0F, 1.0F);
-            this.dinoLeftLegs[size] = new ModelRenderer(this, 26, 0);
+
+            this.dinoLeftLegs[size] = new ModelRenderer(this, 26, 96);
             this.dinoLeftLegs[size].addBox(-1.0F, 0.0F, -3.0F, 3, 5, 3);
             this.dinoLeftLegs[size].setRotationPoint(1.0F, 19.0F, 1.0F);
         }

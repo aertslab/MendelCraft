@@ -1,6 +1,6 @@
 package com.quintenlauwers.blocks;
 
-import com.quintenlauwers.main.TestMod;
+import com.quintenlauwers.main.MendelCraft;
 import com.quintenlauwers.tileentity.TileEntityLab;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -36,7 +36,7 @@ DnaLab extends BlockBase implements ITileEntityProvider {
         if (!worldIn.isRemote) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof TileEntityLab) {
-                playerIn.openGui(TestMod.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
+                playerIn.openGui(MendelCraft.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
             }
         }
 
