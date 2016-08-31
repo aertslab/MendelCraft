@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import com.quintenlauwers.backend.inventory.ContainerDna;
 import com.quintenlauwers.backend.inventory.RestrictedSlot;
 import com.quintenlauwers.backend.inventory.TakeOnlySlot;
+import com.quintenlauwers.interfaces.helpers.StoredRect;
 import com.quintenlauwers.interfaces.pages.GuiContainerPage;
 import com.quintenlauwers.interfaces.pages.GuiEditDna;
 import com.quintenlauwers.interfaces.pages.GuiEggPage;
@@ -247,7 +248,12 @@ public class GuiDnaMain extends GuiScreen {
     public void drawRectWithCustomSizedTexture(int x, int y, float u, float v, int width, int height, float textureWidth,
                                                float textureHeight, ResourceLocation texture) {
         this.mc.getTextureManager().bindTexture(texture);
-        drawModalRectWithCustomSizedTexture(x, y, u, v, width, height, textureWidth, textureHeight);
+        GuiScreen.drawModalRectWithCustomSizedTexture(x, y, u, v, width, height, textureWidth, textureHeight);
+    }
+
+    public void drawRectWithCustomSizedTexture(StoredRect rect) {
+        if (rect != null)
+            rect.drawRect(this.mc.getTextureManager());
     }
 
     public int getWidth() {

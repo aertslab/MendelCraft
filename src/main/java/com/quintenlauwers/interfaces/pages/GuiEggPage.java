@@ -31,6 +31,7 @@ public class GuiEggPage extends GuiEditDna {
     public static ResourceLocation CONTAINERBACKGROUND = new ResourceLocation("testmod:textures/gui/background.png");
     public static ResourceLocation UPCODON = new ResourceLocation("testmod:textures/gui/upCodon.png");
     public static ResourceLocation DOWNCODON = new ResourceLocation("testmod:textures/gui/downCodon.png");
+    public static ResourceLocation GENEEDITTEXTURE = new ResourceLocation("testmod:textures/gui/dnaButtonEdit.png");
 
     GuiButton createEggButton;
     GuiButton cloneButton;
@@ -45,7 +46,7 @@ public class GuiEggPage extends GuiEditDna {
 
     public GuiEggPage(GuiDnaMain screen) {
         super(screen);
-        this.yDNARowPosition = 90;
+        this.yDNARowPosition = 92;
         this.yChromosomePosition = 30;
     }
 
@@ -152,6 +153,32 @@ public class GuiEggPage extends GuiEditDna {
         }
         if (isDnaVisible) {
             super.actionPerformed(button);
+        }
+    }
+
+    protected void drawCodonRow(int chromosomeNumber, List<GuiButton> codonButtonList, int row) {
+        int endIndex = Math.min(TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), codonIndex + nbVisibleCodons);
+        drawGeneMarker(endIndex);
+        GuiImageButton tempButton;
+        int j = 0;
+        for (int i = codonIndex; i < endIndex; i++) {
+            int xPosition = toWorldx(20 + xButtonSize * j);
+            int yPosition = toWorldy(yDNARowPosition) - 13 + 13 * row;
+            if (this.properties.isEditablePosition(TestMod.dnaConfig.positionFromCodonIndex(i))) {
+                tempButton = new GuiImageButton(i, xPosition, yPosition, xButtonSize, yButtonSize, GENEEDITTEXTURE);
+            } else {
+                tempButton = new GuiImageButton(i, xPosition, yPosition, xButtonSize, yButtonSize, GENECOLORTEXTURE);
+            }
+            this.buttonList.add(tempButton);
+            codonButtonList.add(tempButton);
+            if (this.codonIsActive) {
+                if (this.activeChromosome == chromosomeNumber && this.activeCodon == i
+                        && ((this.dnaString == 1 && row < 2) || (this.dnaString == row))) {
+                    this.activeCodonButton = tempButton;
+                    this.activeCodonButton.hold();
+                }
+            }
+            j++;
         }
     }
 

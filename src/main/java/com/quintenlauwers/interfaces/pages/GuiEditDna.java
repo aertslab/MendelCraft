@@ -7,6 +7,7 @@ import com.quintenlauwers.backend.inventory.RestrictedSlot;
 import com.quintenlauwers.backend.util.UtilDna;
 import com.quintenlauwers.interfaces.GuiDnaMain;
 import com.quintenlauwers.interfaces.custombuttons.GuiImageButton;
+import com.quintenlauwers.interfaces.helpers.StoredRect;
 import com.quintenlauwers.item.dnaSyringe;
 import com.quintenlauwers.main.TestMod;
 import net.minecraft.client.gui.GuiButton;
@@ -25,6 +26,7 @@ public class GuiEditDna extends GuiPage {
     DNAData DNA = new DNAData("chicken");
 
     protected List<GuiButton> buttonList = new ArrayList<GuiButton>();
+    protected List<StoredRect> rectangleList = new ArrayList<StoredRect>();
 
     protected GuiButton prevGene;
     protected GuiButton nextGene;
@@ -56,7 +58,7 @@ public class GuiEditDna extends GuiPage {
     /**
      * The Y posoition of the nucleobase row in pixels.
      */
-    protected int yNucleobasePosition = 138;
+    protected int yNucleobasePosition = 142;
     /**
      * The X size of the chromosome button in pixels.
      */
@@ -68,11 +70,11 @@ public class GuiEditDna extends GuiPage {
     /**
      * The maximum number of genes showed in a row at once.
      */
-    private int nbVisibleCodons;
+    protected int nbVisibleCodons;
     /**
      * The first shown codon.
      */
-    private int codonIndex = 0;
+    protected int codonIndex = 0;
     private int lastCodonIndex = 1;
     /**
      * The maximum number of chromosomes showed in a row at once.
@@ -107,6 +109,7 @@ public class GuiEditDna extends GuiPage {
     public static ResourceLocation BACKGROUNDTEXTURE = new ResourceLocation("testmod:textures/gui/background.png");
     public static ResourceLocation CHROMOSOMETEXTURE = new ResourceLocation("testmod:textures/gui/chromosomeButtons.png");
     public static ResourceLocation GENECOLORTEXTURE = new ResourceLocation("testmod:textures/gui/dnaButton.png");
+    public static ResourceLocation GENEBACKGROUND = new ResourceLocation("testmod:textures/gui/geneBackgroundOrange.png");
 
     public static int NUMBEROFCHROMOSOMES = 30;
 
@@ -202,12 +205,21 @@ public class GuiEditDna extends GuiPage {
         }
         this.drawDNAText();
         this.drawChromosomes();
+        this.drawRectangles();
 //        this.hoverText(mouseX, mouseY, partialTicks);
         if (this.codonIsActive)
             drawNucleobasesOfCodon();
 //        for (GuiTextField textbox : textboxList) {
 //            textbox.drawTextBox();
 //        }
+    }
+
+    public void drawRectangles() {
+        for (StoredRect rect : rectangleList) {
+            if (rect != null) {
+                getContainer().drawRectWithCustomSizedTexture(rect);
+            }
+        }
     }
 
     @Override
@@ -432,6 +444,7 @@ public class GuiEditDna extends GuiPage {
         this.buttonList.removeAll(visibleChromosomes);
         this.buttonList.removeAll(visibleCodons);
         this.buttonList.removeAll(visibleCodons2);
+        this.rectangleList.clear();
         this.properties = null;
         this.activeCodonButton = null;
         this.activeChromosomeButton = null;
@@ -453,6 +466,7 @@ public class GuiEditDna extends GuiPage {
         }
         this.buttonList.removeAll(this.visibleCodons);
         this.buttonList.removeAll(this.visibleCodons2);
+        this.rectangleList.clear();
         this.visibleCodons.clear();
         this.visibleCodons2.clear();
 
@@ -465,8 +479,9 @@ public class GuiEditDna extends GuiPage {
         this.lastCodonIndex = this.codonIndex;
     }
 
-    private void drawCodonRow(int chromosomeNumber, List<GuiButton> codonButtonList, int row) {
+    protected void drawCodonRow(int chromosomeNumber, List<GuiButton> codonButtonList, int row) {
         int endIndex = Math.min(TestMod.dnaConfig.getNbOfCodonsInChromosome(chromosomeNumber), codonIndex + nbVisibleCodons);
+        drawGeneMarker(endIndex);
         GuiImageButton tempButton;
         int j = 0;
         for (int i = codonIndex; i < endIndex; i++) {
@@ -482,6 +497,84 @@ public class GuiEditDna extends GuiPage {
                 }
             }
             j++;
+        }
+    }
+
+    protected void drawGeneMarker(int endIndex) {
+        int[] posBegin = TestMod.dnaConfig.positionFromCodonIndex(codonIndex);
+        int[] posEnd = TestMod.dnaConfig.positionFromCodonIndex(endIndex);
+        if (posEnd[0] > posBegin[0]) {
+            posEnd[1] = TestMod.dnaConfig.positionFromCodonIndex(endIndex - 1)[1] + 1;
+        }
+        for (int geneNb = posBegin[1]; geneNb <= posEnd[1]; geneNb++) {
+            System.out.println("Drawing gene starts.");
+            int geneBegin = TestMod.dnaConfig.getCodonIndex(posBegin[0], geneNb, 0);
+            int geneEnd = TestMod.dnaConfig.getCodonIndex(posBegin[0], geneNb + 1, 0) - 1;
+            if (geneBegin >= codonIndex) {
+                if (geneBegin < endIndex) {
+                    System.out.println("start should be visible. " + geneBegin + "    " + codonIndex);
+                    rectangleList.add(new StoredRect(
+                            toWorldx(20 + xButtonSize * (geneBegin - codonIndex)),
+                            toWorldy(yDNARowPosition - 15),
+                            0,
+                            0,
+                            4,
+                            50,
+                            10,
+                            50,
+                            GENEBACKGROUND));
+                }
+            } else { // The gene begins before the first visible codon.
+                rectangleList.add(new StoredRect(
+                        toWorldx(20),
+                        toWorldy(yDNARowPosition - 15),
+                        8,
+                        0,
+                        4,
+                        50,
+                        20,
+                        50,
+                        GENEBACKGROUND));
+            }
+            if (geneEnd < endIndex) {
+                rectangleList.add(new StoredRect(
+                        toWorldx(20 + xButtonSize * (geneEnd - codonIndex + 1) - 4),
+                        toWorldy(yDNARowPosition - 15),
+                        6,
+                        0,
+                        4,
+                        50,
+                        10,
+                        50,
+                        GENEBACKGROUND));
+            } else { // The ends after the last visible codon.
+                if (geneBegin < endIndex) {
+                    rectangleList.add(new StoredRect(
+                            toWorldx(20 + xButtonSize * (endIndex - codonIndex) - 4),
+                            toWorldy(yDNARowPosition - 15),
+                            8,
+                            0,
+                            4,
+                            50,
+                            20,
+                            50,
+                            GENEBACKGROUND));
+                }
+            }
+            int beginFiller = Math.max(geneBegin, codonIndex);
+            int endFiller = Math.min(geneEnd + 1, endIndex);
+            if (beginFiller < endIndex) {
+                rectangleList.add(new StoredRect(
+                        toWorldx(20 + xButtonSize * (beginFiller - codonIndex) + 4),
+                        toWorldy(yDNARowPosition - 15),
+                        800,
+                        0,
+                        xButtonSize * (endFiller - beginFiller) - 8,
+                        50,
+                        2000,
+                        50,
+                        GENEBACKGROUND));
+            }
         }
     }
 

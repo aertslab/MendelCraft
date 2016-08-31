@@ -1,6 +1,6 @@
 package com.quintenlauwers.events;
 
-import com.quintenlauwers.blocks.ComStone;
+import com.quintenlauwers.blocks.DnaLab;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -19,7 +19,7 @@ public class ModEventHandler {
         if (tile != null) {
             if (tile.getTileEntity() != null) {
                 if (tile.getTileEntity().getBlockType() != null) {
-                    if (tile.getTileEntity().getBlockType().getClass() == ComStone.class)
+                    if (tile.getTileEntity().getBlockType().getClass() == DnaLab.class)
                         System.out.println("Block placed!!");
                 }
             }

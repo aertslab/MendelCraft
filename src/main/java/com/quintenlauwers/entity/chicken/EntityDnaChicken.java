@@ -2,6 +2,7 @@ package com.quintenlauwers.entity.chicken;
 
 import com.google.common.collect.Sets;
 import com.quintenlauwers.backend.DnaProperties;
+import com.quintenlauwers.backend.network.entityinteraction.EntityChildBirthPackage;
 import com.quintenlauwers.backend.network.entityinteraction.ProcessInteractionPackage;
 import com.quintenlauwers.entity.DnaEntity;
 import com.quintenlauwers.main.TestMod;
@@ -17,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -32,9 +32,6 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 
-
-    private static final ResourceLocation CHICKEN_TEXTURE_GREEN = new ResourceLocation("testmod:textures/entity/dnaChickenGreen.png");
-    private static final ResourceLocation CHICKEN_TEXTURE_RED = new ResourceLocation("testmod:textures/entity/dnaChickenRed.png");
     private static final ResourceLocation CHICKEN_TEXUTRE_MULTICOLOR = new ResourceLocation("testmod:textures/entity/chickenVariations.png");
 
     private byte[] dnaData = new byte[TestMod.dnaConfig.getTotalNbOfCodons()];
@@ -42,25 +39,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     private DnaProperties properties;
     private int myId = 0;
     int incremental = 0;
-//    private boolean inLove;
 
-//    @Nullable
-//    @Override
-//    public AxisAlignedBB getCollisionBoundingBox() {
-//        return this.getEntityBoundingBox();
-//    }
-//
-//    @Nullable
-//    @Override
-//    public AxisAlignedBB getCollisionBox(Entity entityIn) {
-//        return super.getEntityBoundingBox();
-//    }
-
-//    @Override
-//    protected void damageEntity(DamageSource damageSrc, float damageAmount) {
-//        System.out.println("aaah damage!!! " + damageAmount);
-//        super.damageEntity(damageSrc, damageAmount);
-//    }
 
     public EntityDnaChicken(World worldIn) {
         super(worldIn);
@@ -96,7 +75,6 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     @Override
     public void onLivingUpdate() {
         if (incremental == 0) {
-            System.out.println("inlove " + this.isInLove());
             if (!isChild()) {
                 if (isBig()) {
                     this.setScale(4);
@@ -112,46 +90,39 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     @Override
     public EntityDnaChicken createChild(EntityAgeable ageable) {
         if (ageable instanceof EntityDnaChicken) {
-            this.resetInLove();
-            ((EntityDnaChicken) ageable).resetInLove();
+            if (!this.getEntityWorld().isRemote) {
+                TestMod.network.sendToAll(new EntityChildBirthPackage(this, ageable));
+            }
             EntityDnaChicken child = new EntityDnaChicken(this.worldObj);
+            EntityDnaChicken other = (EntityDnaChicken) ageable;
+            if (TestMod.dnaConfig.isDiploid()) {
+                byte[] dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData, dnaData2);
+                byte[] dnaFinal2 = TestMod.dnaConfig.reduceToSingleDnaString(other.dnaData, other.dnaData2);
+                if (dnaFinal1 == null || dnaFinal2 == null) {
+                    return null;
+                }
+                child.setDnaData(dnaFinal1, dnaFinal2);
+            } else {
+                byte[] dnaFinal1 = TestMod.dnaConfig.reduceToSingleDnaString(dnaData, other.dnaData);
+                if (dnaFinal1 == null) {
+                    return null;
+                }
+                child.setDnaData(dnaFinal1);
+            }
             child.resetInLove();
             return child;
         }
         return null;
     }
 
-//    @Override
-//    public void handleStatusUpdate(byte id) {
-//        if (! isInLove() && id == 18) {
-//            return;
-//        }
-//        super.handleStatusUpdate(id);
-//    }
-
-    /**
-     * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
-     * the animal type)
-     */
-//    @Override
-//    public boolean isBreedingItem(@Nullable ItemStack stack) {
-//        return true;
-////        return super.isBreedingItem(stack);
-//    }
-
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand, @Nullable ItemStack stack) {
         if (player.getEntityWorld().isRemote) {
             TestMod.network.sendToServer(new ProcessInteractionPackage(this, player, hand, stack));
+
         }
         return super.processInteract(player, hand, stack);
     }
-
-//    @Override
-//    public boolean canMateWith(EntityAnimal otherAnimal) {
-////        return super.canMateWith(otherAnimal);
-//        return true;
-//    }
 
     @Override
     public void setEntityId(int id) {
@@ -160,10 +131,18 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
         this.getInformationFromServer();
     }
 
-//    @Override
-//    public int getGrowingAge() {
-//        return 0;
-//    }
+    /**
+     * Solves strange client-side bug.
+     *
+     * @return
+     */
+    @Override
+    public int getGrowingAge() {
+        if (super.getGrowingAge() > 0) {
+            return 0;
+        }
+        return super.getGrowingAge();
+    }
 
     @Override
     public int getRegisteredId() {
@@ -279,73 +258,108 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     }
 
 
+    /**
+     * Get the headcolor from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getHeadColor() {
         String color = this.properties.getStringProperty("headColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get the bodycolor from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getBodyColor() {
         String color = this.properties.getStringProperty("bodyColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get the wingcolor from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getRightWingColor() {
         String color = this.properties.getStringProperty("rightWingColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get the wingcolor from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getLeftWingColor() {
         String color = this.properties.getStringProperty("leftWingColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get the legcolor from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getRightLegColor() {
         String color = this.properties.getStringProperty("rightLegColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get the legcolor from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getLeftLegColor() {
         String color = this.properties.getStringProperty("leftLegColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get the billcolor from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getBillColor() {
         String color = this.properties.getStringProperty("billColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get the chin from the dna data.
+     * @return An int representing the texture # in CHICKEN_TEXTURE_MULTICOLOR.
+     */
     public int getChinColor() {
         String color = this.properties.getStringProperty("chinColor");
         return colorToTextureIndex(color);
     }
 
+    /**
+     * Get if this chicken is handicapped.
+     */
     public boolean isHandicapped() {
         String handicap = this.properties.getStringProperty("handicap");
         return "handicapped".equals(handicap);
     }
 
     public boolean hasDinoHead() {
-        return true;
+        return "dino".equals(this.properties.getStringProperty("headDino"));
     }
 
     public boolean hasDinoBody() {
-        return false;
+        return "dino".equals(this.properties.getStringProperty("bodyDino"));
     }
 
     public boolean hasDinoLeftArm() {
-        return true;
+        return "dino".equals(this.properties.getStringProperty("leftWingDino"));
     }
 
     public boolean hasDinoRightArm() {
-        return true;
+        return "dino".equals(this.properties.getStringProperty("rightWingDino"));
     }
 
     public boolean hasDinoLeftLeg() {
-        return false;
+        return "dino".equals(this.properties.getStringProperty("leftLegDino"));
     }
 
     public boolean hasDinoRightLeg() {
-        return false;
+        return "dino".equals(this.properties.getStringProperty("rightLegDino"));
     }
 
     private int colorToTextureIndex(String color) {
@@ -367,25 +381,23 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
         return colorNb;
     }
 
+    /**
+     * Is this a big chicken?
+     */
     public boolean isBig() {
         String size = this.properties.getStringProperty("size");
         return "big".equals(size);
     }
 
-    @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        return super.attackEntityFrom(source, amount);
-    }
-
     public ResourceLocation getTexture() {
-//        if ("green".equals(this.properties.getStringProperty("color"))) {
-//            return CHICKEN_TEXTURE_GREEN;
-//        } else {
-//            return CHICKEN_TEXTURE_RED;
-//        }
         return CHICKEN_TEXUTRE_MULTICOLOR;
     }
 
+    /**
+     * Called when the java Object is removed.
+     * Remove this entityid from the storage (for network communication).
+     * @throws Throwable
+     */
     @Override
     public void finalize() throws Throwable {
         TestMod.storage.removeById(this.getEntityId());

@@ -1,6 +1,6 @@
 item.dnaSyringe.name=Dna Syringe
 item.dnaInspector.name=Dna Inspector
-tile.comStone.name=Compressed Stone
+tile.dnaLab.name=Dna Lab
 entity.testmod.dnaChicken.name=Dna Chicken
 gui.write=Write Name
 gui.makeEgg=Make Egg
