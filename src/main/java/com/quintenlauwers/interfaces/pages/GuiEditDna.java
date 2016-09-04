@@ -1,7 +1,6 @@
 package com.quintenlauwers.interfaces.pages;
 
 
-import com.quintenlauwers.backend.DNAData;
 import com.quintenlauwers.backend.DnaProperties;
 import com.quintenlauwers.backend.inventory.RestrictedSlot;
 import com.quintenlauwers.backend.util.UtilDna;
@@ -18,14 +17,12 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by quinten on 18/08/16.
  */
 public class GuiEditDna extends GuiPage {
-    DNAData DNA = new DNAData("chicken");
 
     protected List<GuiButton> buttonList = new ArrayList<GuiButton>();
     protected List<StoredRect> rectangleList = new ArrayList<StoredRect>();
@@ -413,12 +410,6 @@ public class GuiEditDna extends GuiPage {
 
     @Override
     public void commingFromOtherTab() {
-        if (getContainer().getInputSlot() != null) {
-            System.out.println(getContainer().getInputSlot());
-            if (getContainer().getInputSlot() != null) {
-                System.out.println(getContainer().getInputSlot().getStack());
-            }
-        }
         if (getContainer().getInputSlot() != null
                 && getContainer().getInputSlot().getHasStack()
                 && getContainer().getInputSlot().getStack().getItem() instanceof dnaSyringe
@@ -503,22 +494,21 @@ public class GuiEditDna extends GuiPage {
     }
 
     protected void drawGeneMarker(int endIndex) {
-        System.out.println(activeChromosome);
         int realIndex = MendelCraft.dnaConfig.getCodonIndex(activeChromosome, codonIndex);
         int offset = realIndex - codonIndex;
         int[] posBegin = MendelCraft.dnaConfig.positionFromCodonIndex(realIndex);
-        System.out.println(Arrays.toString(posBegin));
         int[] posEnd = MendelCraft.dnaConfig.positionFromCodonIndex(endIndex + offset);
         if (posEnd[0] > posBegin[0]) {
             posEnd[1] = MendelCraft.dnaConfig.positionFromCodonIndex(endIndex + offset - 1)[1] + 1;
         }
         for (int geneNb = posBegin[1]; geneNb <= posEnd[1]; geneNb++) {
-            System.out.println("Drawing gene starts.");
+            if (MendelCraft.dnaConfig.isHiddenGene(posBegin[0], geneNb)) {
+                continue;
+            }
             int geneBegin = MendelCraft.dnaConfig.getCodonIndex(posBegin[0], geneNb, 0);
             int geneEnd = MendelCraft.dnaConfig.getCodonIndex(posBegin[0], geneNb + 1, 0) - 1;
             if (geneBegin >= codonIndex + offset) {
                 if (geneBegin < endIndex + offset) {
-                    System.out.println("start should be visible. " + geneBegin + "    " + codonIndex);
                     rectangleList.add(new StoredRect(
                             toWorldx(20 + xButtonSize * (geneBegin - (codonIndex + offset))),
                             toWorldy(yDNARowPosition - 15),
@@ -592,8 +582,44 @@ public class GuiEditDna extends GuiPage {
         for (int i = 0; i < nubleobases.length(); i++) {
             String letter = Character.toString(nubleobases.charAt(i));
             int xPosition = xBegin + i * 20 + 2;
-            getContainer().getFontRendererObj().drawString(letter, xPosition, yPosition, 0x000000);
+            int color = letterToColor(letter);
+            getContainer().getFontRendererObj().drawString(letter, xPosition, yPosition - 5, color);
+            String compLetter = getComlementaryNucleoBase(letter);
+            int compColor = letterToColor(compLetter);
+            getContainer().getFontRendererObj().drawString(compLetter, xPosition, yPosition + 5, compColor);
         }
+    }
+
+    protected int letterToColor(String letter) {
+        if ("A".equals(letter) || "a".equals(letter)) {
+            return 0x009933;
+        }
+        if ("C".equals(letter) || "c".equals(letter)) {
+            return 0x0000ff;
+        }
+        if ("T".equals(letter) || "t".equals(letter)) {
+            return 0xff0000;
+        }
+        if ("G".equals(letter) || "g".equals(letter)) {
+            return 0xffa500;
+        }
+        return 0;
+    }
+
+    protected String getComlementaryNucleoBase(String letter) {
+        if ("A".equals(letter) || "a".equals(letter)) {
+            return "T";
+        }
+        if ("C".equals(letter) || "c".equals(letter)) {
+            return "G";
+        }
+        if ("T".equals(letter) || "t".equals(letter)) {
+            return "A";
+        }
+        if ("G".equals(letter) || "g".equals(letter)) {
+            return "C";
+        }
+        return "";
     }
 
     protected String getCodonAsString() {

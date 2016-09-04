@@ -6,14 +6,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 /**
  * Created by quinten on 13/08/16.
+ * Class that stores the generic DNA information for every animal (nb of chromosomes, diploid...)
+ * Also provides helper functions to convert positions on DNA to positions in the bytearray of stored DNA and vice versa.
  */
 public class DnaConfig {
 
@@ -27,7 +26,7 @@ public class DnaConfig {
     public DnaConfig(String configFolder, String configFile) {
         this.CONFIGFOLDER = configFolder + "/";
         String fileName = CONFIGFOLDER + configFile;
-        InputStream location = null;
+        InputStream location;
         try {
             location = new FileInputStream(fileName);
         } catch (FileNotFoundException e) {
@@ -39,10 +38,36 @@ public class DnaConfig {
         loadNbOfChromosomes();
     }
 
+    public void reloadMainConfig(byte[] mainConfig) {
+        try {
+            System.out.println("Reloading config");
+            String conf = new String(mainConfig, "utf-8");
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(conf);
+            this.mainConfig = jsonElement.getAsJsonObject();
+            loadDiploid();
+            loadNbOfChromosomes();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reloadAnimal(String animalName, byte[] animalData) {
+        try {
+            System.out.println("reloading " + animalName);
+            String conf = new String(animalData, "utf-8");
+            JsonParser parser = new JsonParser();
+            JsonElement jsonElement = parser.parse(conf);
+            animalConfigs.put(animalName, jsonElement.getAsJsonObject());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static JsonObject convertFileToJSON(InputStream fileName) {
 
         // Read from File to String
-        JsonObject jsonObject = new JsonObject();
+        JsonObject jsonObject;
 
 
         JsonParser parser = new JsonParser();
@@ -258,9 +283,25 @@ public class DnaConfig {
                     }
                 }
             }
+            if (currentProperty.has("editable")) {
+                if ("no".equals(currentProperty.get("editable").getAsString())) {
+                    dnaAsset.setEditable(false);
+                }
+            }
             return dnaAsset;
         }
         return null;
+    }
+
+    public boolean isHiddenGene(int chromosomeNb, int geneNb) {
+        String geneName = "chromosome" + Integer.toString(chromosomeNb) + "gene" + Integer.toString(geneNb);
+        if (mainConfig.has("invisibleGenes")) {
+            JsonObject invisible = mainConfig.getAsJsonObject("invisibleGenes");
+            if (invisible.getAsJsonObject().has(geneName)) {
+                return "invisible".equals(invisible.get(geneName).getAsString());
+            }
+        }
+        return false;
     }
 
     public String[] getPossibleProperties(String animal) {
@@ -315,5 +356,29 @@ public class DnaConfig {
 
             }
         }
+    }
+
+    public byte[] getMainconfigAsBytes() {
+        try {
+            return mainConfig.toString().getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String[] getAnimals() {
+        String[] returnArray = new String[animalConfigs.size()];
+        animalConfigs.keySet().toArray(returnArray);
+        return returnArray;
+    }
+
+    public byte[] getAnimalConfigAsBytes(String animal) {
+        try {
+            return animalConfigs.get(animal).toString().getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

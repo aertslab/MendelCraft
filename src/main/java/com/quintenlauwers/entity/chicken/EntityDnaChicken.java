@@ -97,14 +97,14 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
             EntityDnaChicken child = new EntityDnaChicken(this.worldObj);
             EntityDnaChicken other = (EntityDnaChicken) ageable;
             if (MendelCraft.dnaConfig.isDiploid()) {
-                byte[] dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(dnaData, dnaData2);
-                byte[] dnaFinal2 = MendelCraft.dnaConfig.reduceToSingleDnaString(other.dnaData, other.dnaData2);
+                byte[] dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(this.getDnaData(), this.getDnaData2());
+                byte[] dnaFinal2 = MendelCraft.dnaConfig.reduceToSingleDnaString(other.getDnaData(), other.getDnaData2());
                 if (dnaFinal1 == null || dnaFinal2 == null) {
                     return null;
                 }
                 child.setDnaData(dnaFinal1, dnaFinal2);
             } else {
-                byte[] dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(dnaData, other.dnaData);
+                byte[] dnaFinal1 = MendelCraft.dnaConfig.reduceToSingleDnaString(this.getDnaData(), other.getDnaData());
                 if (dnaFinal1 == null) {
                     return null;
                 }
@@ -157,7 +157,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     }
 
     /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
+     * Protected helper method to write entity data to NBT.
      */
     @Override
     public void writeEntityToNBT(NBTTagCompound compound) {
@@ -171,7 +171,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     }
 
     /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
+     * Protected helper method to read entity data from NBT.
      */
     @Override
     public void readEntityFromNBT(NBTTagCompound compound) {
@@ -185,13 +185,10 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
             if (MendelCraft.dnaConfig.isDiploid() && compound.hasKey("dnaData2")) {
                 this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"),
                         compound.getByteArray("dnaData2"));
-
-                System.out.println("Diploid loaded");
                 return;
             }
             if (!MendelCraft.dnaConfig.isDiploid()) {
                 this.properties = new DnaProperties("chicken", compound.getByteArray("dnaData"));
-                System.out.println("Not diploid");
             }
 
         }
@@ -219,6 +216,8 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     public void setDnaData(byte[] dnaData, byte[] dnaData2) {
         if (dnaData != null) {
             this.properties = new DnaProperties("chicken", dnaData, dnaData2);
+            this.dnaData = dnaData;
+            this.dnaData2 = dnaData2;
 
         }
     }

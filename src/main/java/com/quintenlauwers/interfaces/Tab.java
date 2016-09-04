@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by quinten on 24/08/16.
+ * A class used to store the diffent pages of GuiDnaMain, also provides the icons for the tabs.
  */
 class Tab {
     private ItemStack iconItemStack;

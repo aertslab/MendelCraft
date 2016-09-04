@@ -1,6 +1,7 @@
 package com.quintenlauwers.backend.inventory;
 
 import com.quintenlauwers.item.dnaSyringe;
+import com.quintenlauwers.tileentity.TileEntityLab;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -13,7 +14,7 @@ import net.minecraft.item.ItemStack;
  */
 public class ContainerDna extends Container {
 
-    private static final int INV_START = InventoryItem.SIZE + 1, INV_END = INV_START + 26, HOTBAR_START = INV_END + 1,
+    private static final int INV_START = TileEntityLab.SIZE + 1, INV_END = INV_START + 26, HOTBAR_START = INV_END + 1,
             HOTBAR_END = HOTBAR_START + 8;
 
     protected IInventory dnaInventory;

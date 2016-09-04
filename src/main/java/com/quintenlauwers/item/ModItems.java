@@ -71,7 +71,6 @@ public class ModItems {
     }
 
     public static void registerComplexRender(Item item, int meta, ModelResourceLocation file) {
-        System.out.println("registering on position " + item.getUnlocalizedName().substring(5));
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, file);
     }
 }

@@ -11,6 +11,7 @@ class DnaAsset {
     private HashMap<GenePosition, ArrayList<AlleleInfo>> positionKey = new HashMap<GenePosition, ArrayList<AlleleInfo>>();
     private HashMap<AlleleCombination, String> propertyValueFromAlleles = new HashMap<AlleleCombination, String>();
     private String property;
+    private boolean isEditable = true;
 
     DnaAsset(String property) {
         this.property = property;
@@ -124,6 +125,14 @@ class DnaAsset {
     public String getPropertyValue(String alleleCombination) {
         AlleleCombination cleaned = new AlleleCombination(alleleCombination);
         return this.propertyValueFromAlleles.get(cleaned);
+    }
+
+    public void setEditable(boolean editable) {
+        this.isEditable = editable;
+    }
+
+    public boolean isEditable() {
+        return isEditable;
     }
 
 

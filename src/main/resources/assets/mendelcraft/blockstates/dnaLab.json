@@ -2,12 +2,17 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "mendelcraft:blocks/dnaLaboLogo"
+      "down": "mendelcraft:blocks/dnaLaboBlanco",
+      "up": "mendelcraft:blocks/dnaLaboBlanco",
+      "north": "mendelcraft:blocks/dnaLaboCME",
+      "south": "mendelcraft:blocks/dnaLaboVIB",
+      "east": "mendelcraft:blocks/dnaLaboLogo",
+      "west": "mendelcraft:blocks/dnaLaboLogo"
     }
   },
   "variants": {
     "normal": {
-      "model": "cube_all"
+      "model": "cube"
     },
     "inventory": {
       "model": "cube_all"

@@ -41,7 +41,7 @@ public class GuiEggPage extends GuiEditDna {
     String[] possibleCodons;
     int possibleCodonIndex = 0;
 
-    int codonButtonWiddth = 30;
+    int codonButtonWiddth = 10;
     GuiButton nextCodon;
     GuiButton previousCodon;
 
@@ -84,11 +84,11 @@ public class GuiEggPage extends GuiEditDna {
                 this.cloneButton = new GuiButton(8, toWorldx(5), toWorldy(5),
                         this.xWindowSize / 2 - 5, 20, I18n.format("gui.clone")));
         this.buttonList.add(
-                this.nextCodon = new GuiImageButton(6, toWorldx((this.xWindowSize - codonButtonWiddth) / 2),
-                        toWorldy(yNucleobasePosition - 12), 0, 0, this.codonButtonWiddth, 10, this.codonButtonWiddth, 30, UPCODON, "", 10));
+                this.nextCodon = new GuiButton(6, toWorldx((this.xWindowSize) / 2 + 30),
+                        toWorldy(yNucleobasePosition - 5), this.codonButtonWiddth, 20, ">"));
         this.buttonList.add(
-                this.previousCodon = new GuiImageButton(7, toWorldx((this.xWindowSize - codonButtonWiddth) / 2),
-                        toWorldy(yNucleobasePosition + 10), 0, 0, this.codonButtonWiddth, 10, this.codonButtonWiddth, 30, DOWNCODON, "", 10));
+                this.previousCodon = new GuiButton(7, toWorldx((this.xWindowSize) / 2 - 40),
+                        toWorldy(yNucleobasePosition - 5), this.codonButtonWiddth, 20, "<"));
         this.nextCodon.visible = false;
         this.previousCodon.visible = false;
     }
@@ -98,11 +98,25 @@ public class GuiEggPage extends GuiEditDna {
         if (getContainer().getOutputSlot() != null
                 && getContainer().getOutputSlot().getHasStack()
                 && getContainer().getOutputSlot().getStack().getItem() instanceof ItemMonsterPlacer) {
-            this.createEggButton.displayString = I18n.format("gui.remakeEgg");
-            this.createEggButton.visible = true;
-            this.cloneButton.visible = true;
+            if (canCreateEgg()) {
+                this.createEggButton.displayString = I18n.format("gui.remakeEgg");
+                this.createEggButton.visible = true;
+            } else {
+                this.createEggButton.visible = false;
+            }
+            this.cloneButton.visible = canCloneDna();
             this.dnaData = getContainer().getOutputSlot().getStack().getTagCompound()
                     .getCompoundTag("EntityTag").getByteArray("dnaData");
+            String animal = getContainer().getOutputSlot().getStack().getTagCompound()
+                    .getCompoundTag("EntityTag").getString("animal");
+            if (getContainer().getOutputSlot().getStack().getTagCompound()
+                    .getCompoundTag("EntityTag").hasKey("dnaData2")) {
+                this.dnaData2 = getContainer().getOutputSlot().getStack().getTagCompound()
+                        .getCompoundTag("EntityTag").getByteArray("dnaData2");
+            } else {
+                dnaData2 = null;
+            }
+            this.properties = new DnaProperties(animal, dnaData, dnaData2);
             makeDnaVisible();
         } else {
             if (canCreateEgg()) {
@@ -337,6 +351,7 @@ public class GuiEggPage extends GuiEditDna {
         ItemStack resultStack = new ItemStack(Items.SPAWN_EGG);
         net.minecraft.item.ItemMonsterPlacer.applyEntityIdToItemStack(resultStack, entityName);
         resultStack.getTagCompound().getCompoundTag("EntityTag").setByteArray("dnaData", dnaData);
+        resultStack.getTagCompound().getCompoundTag("EntityTag").setString("animal", properties.getAnimal());
         if (dnaData2 != null) {
             resultStack.getTagCompound().getCompoundTag("EntityTag").setByteArray("dnaData2", dnaData2);
         }

@@ -1,7 +1,13 @@
 Config file save --> Done!!!
-Config file from server to player
+Config file from server to player --> Done!!
 Mark genes --> Done!!!
 Build dinosaur --> Done!!!
 Fix todo's in code --> Mostly done
 Link config to new properties (easy). --> Done!!
-Color nucleobases
+Color nucleobases --> Done!!!
+Remove Prints --> Done!!!
+Change faces block --> Done!!!
+Recipe --> Done!!
+Replace chickens --> Done!!!
+Hide genes --> Done!!!
+Hide editable --> Done!!!

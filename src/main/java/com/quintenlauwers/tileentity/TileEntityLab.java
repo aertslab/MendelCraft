@@ -115,7 +115,6 @@ public class TileEntityLab extends TileEntity implements IInventory {
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        System.out.println("READING");
         // Gets the custom taglist we wrote to this compound, if any
         NBTTagList items = compound.getTagList("ItemInventory", Constants.NBT.TAG_COMPOUND);
 
@@ -138,7 +137,6 @@ public class TileEntityLab extends TileEntity implements IInventory {
      */
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagcompound) {
-        System.out.println("WRITING");
         // Create a new NBT Tag List to store itemstacks as NBT Tags
         NBTTagList items = new NBTTagList();
 

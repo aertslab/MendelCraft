@@ -8,6 +8,12 @@
     "chromosome4": 12,
     "chromosome12": 1
   },
+  "codonNbExceptions": {
+    "chromosome1gene2": 5
+  },
+  "invisibleGenes": {
+    "chromosome1gene2": "invisible"
+  },
   "animals": [
     {
       "name": "chicken",

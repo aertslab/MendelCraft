@@ -1,5 +1,7 @@
 package com.quintenlauwers.backend.network;
 
+import com.quintenlauwers.backend.network.configsync.ConfigHandler;
+import com.quintenlauwers.backend.network.configsync.ConfigPacket;
 import com.quintenlauwers.backend.network.dnadata.NetworkDnaDataHandler;
 import com.quintenlauwers.backend.network.dnadata.NetworkDnaDataPacket;
 import com.quintenlauwers.backend.network.dnarequest.NetworkDnaRequestHandler;
@@ -36,5 +38,6 @@ public class NetworkHelper {
         MendelCraft.network.registerMessage(SlotContentsToSeverHandler.class, SlotContentsToServerPackage.class, 3, Side.SERVER);
         MendelCraft.network.registerMessage(ProcessInteractionHandler.class, ProcessInteractionPackage.class, 4, Side.SERVER);
         MendelCraft.network.registerMessage(EntityChildBirthHandler.class, EntityChildBirthPackage.class, 5, Side.CLIENT);
+        MendelCraft.network.registerMessage(ConfigHandler.class, ConfigPacket.class, 6, Side.CLIENT);
     }
 }

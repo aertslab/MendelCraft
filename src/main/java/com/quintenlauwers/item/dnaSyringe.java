@@ -67,7 +67,6 @@ public class dnaSyringe extends Item {
                 }
                 writeDnaToTag(stack.getTagCompound(), animal);
                 int damage = getDamageFromAnimal(animal);
-                System.out.println("Damage is " + damage);
                 stack.setItemDamage(damage);
             }
             ItemStack inventoryStack = playerIn.inventory.getStackInSlot(playerIn.inventory.currentItem);
@@ -77,7 +76,6 @@ public class dnaSyringe extends Item {
                 }
                 writeDnaToTag(inventoryStack.getTagCompound(), animal);
                 int damage = getDamageFromAnimal(animal);
-                System.out.println("Damage is " + damage);
                 stack.setItemDamage(damage);
             }
             return true;
@@ -90,7 +88,6 @@ public class dnaSyringe extends Item {
      */
     private int getDamageFromAnimal(DnaEntity animal) {
         String color = animal.getProperties().getStringProperty("bloodColor");
-        System.out.println(color);
         int damage = 1;
         if ("redblood".equals(color))
             damage = 1;

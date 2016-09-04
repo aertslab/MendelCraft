@@ -10,6 +10,7 @@ import com.quintenlauwers.item.ModItems;
 import com.quintenlauwers.lib.RefStrings;
 import com.quintenlauwers.tileentity.TileEntityLab;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -29,7 +30,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Random;
 
-@Mod(modid = RefStrings.MODID, name = RefStrings.NAME, version = RefStrings.VERSION)
+@Mod(modid = RefStrings.MODID, name = RefStrings.NAME, version = RefStrings.VERSION, canBeDeactivated = true)
 public class MendelCraft {
 
     @Instance
@@ -71,7 +72,8 @@ public class MendelCraft {
     @EventHandler
     public static void load(FMLInitializationEvent event) {
         System.err.println("Actual load");
-        GameRegistry.addShapelessRecipe(new ItemStack(ModItems.dnaSyringe), new ItemStack(Blocks.OBSIDIAN));
+        GameRegistry.addRecipe(new ItemStack(ModItems.dnaSyringe), " m ", "mgm", "mgm", 'g', new ItemStack(Blocks.GLASS), 'm', new ItemStack(Items.IRON_INGOT));
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.dnaLab), "mmm", "mdm", "mmm", 'm', new ItemStack(Items.IRON_INGOT), 'd', new ItemStack(Items.DIAMOND));
         proxy.registerRenderInfo();
     }
 
@@ -92,7 +94,6 @@ public class MendelCraft {
                 resStreamOut = new FileOutputStream(destFolder + "/" + configFile);
                 while ((readBytes = stream.read(buffer)) > 0) {
                     resStreamOut.write(buffer, 0, readBytes);
-                    System.out.println("writing");
                 }
             } catch (Exception ex) {
                 System.err.println("Could not copy config file " + configFile + " to .minecraft/config");

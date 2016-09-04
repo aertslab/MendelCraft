@@ -7,12 +7,15 @@ import java.util.*;
 
 /**
  * Created by quinten on 11/08/16.
+ * Contains the specific properties for one set of DNA.
+ * Needs the bytearray(s) containing the actual data, is specific to one entity.
  */
 public class DnaProperties {
     byte[] dnaData;
     byte[] dnaData2;
     String animal;
     HashMap<GenePosition, Set<String>> restrictedEntries = null;
+    Set<GenePosition> inEditable = null;
     String[] possibleProperties = null;
     public static DnaConfig dnaConfig = MendelCraft.dnaConfig;
     HashMap<String, String> cachedStringProperty = new HashMap<String, String>();
@@ -40,7 +43,7 @@ public class DnaProperties {
             }
             if (dnaData2 != null) {
                 throw new IllegalArgumentException("dnaData has the wrong length, " + dnaData2.length
-                        + " instead of " + dnaData2.length);
+                        + " instead of " + dnaData.length);
             }
         }
     }
@@ -64,8 +67,11 @@ public class DnaProperties {
     }
 
     public boolean isEditablePosition(int[] position) {
+        if (restrictedEntries == null || inEditable == null) {
+            fillRestrictedEntries();
+        }
         GenePosition pos = new GenePosition(position);
-        return (pos != null && getRestrictedEntries().containsKey(pos));
+        return (pos != null && getRestrictedEntries().containsKey(pos) && !inEditable.contains(pos));
     }
 
     public boolean getBoolProperty(String property) {
@@ -135,6 +141,7 @@ public class DnaProperties {
 
     private void fillRestrictedEntries() {
         restrictedEntries = new HashMap<GenePosition, Set<String>>();
+        inEditable = new HashSet<GenePosition>();
         if (this.possibleProperties == null) {
             loadPossibleProperties();
         }
@@ -149,6 +156,9 @@ public class DnaProperties {
                     restrictedEntries.get(tempPosition).retainAll(codonSet);
                 } else {
                     restrictedEntries.put(tempPosition, new HashSet<String>(codonSet));
+                }
+                if (!asset.isEditable()) {
+                    inEditable.add(tempPosition);
                 }
             }
         }

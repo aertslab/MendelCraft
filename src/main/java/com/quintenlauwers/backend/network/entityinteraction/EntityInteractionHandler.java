@@ -33,8 +33,6 @@ public class EntityInteractionHandler implements IMessageHandler<EntityInteracti
                 Entity possiblePlayer;
                 Entity animalFrom = null;
                 if (Side.SERVER.equals(ctx.side)) {
-                    System.out.println(message.getAnimalId());
-                    System.out.println(message.animalUUID);
                     World serverWorld = ctx.getServerHandler().playerEntity.worldObj;
                     possiblePlayer = serverWorld.getPlayerEntityByUUID(message.getPlayerUUID());
                     for (Entity e : serverWorld.loadedEntityList) {

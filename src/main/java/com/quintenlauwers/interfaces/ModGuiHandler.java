@@ -22,9 +22,8 @@ public class ModGuiHandler implements IGuiHandler {
     @Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == DNA_GUI) {
-            // Use the player's held item to create the inventory
+            // Use the lab block to get the inventory of the lab.
             TileEntity tile_entity = world.getTileEntity(new BlockPos(x, y, z));
-            System.out.println(tile_entity);
             if (tile_entity instanceof TileEntityLab) {
                 SERVERCONTAINER = new ContainerDna(player,
                         player.inventory,
@@ -38,11 +37,9 @@ public class ModGuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == DNA_GUI) {
+            // The lab block contains the inventory.
             TileEntity tile_entity = world.getTileEntity(new BlockPos(x, y, z));
-            System.out.println(tile_entity);
             if (tile_entity instanceof TileEntityLab) {
-                // We have to cast the new container as our custom class
-                // and pass in currently held item for the inventory
                 return new GuiDnaMain(new ContainerDna(player,
                         player.inventory,
                         (TileEntityLab) tile_entity));
@@ -50,7 +47,6 @@ public class ModGuiHandler implements IGuiHandler {
         }
         if (ID == INSPECTOR_GUI) {
             Entity entity = world.getEntityByID(x);
-            System.out.println("Entity: " + entity);
             if (entity != null && entity instanceof DnaEntity) {
                 return new GuiInspector(((DnaEntity) entity).getProperties());
             }

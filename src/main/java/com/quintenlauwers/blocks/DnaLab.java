@@ -55,7 +55,6 @@ DnaLab extends BlockBase implements ITileEntityProvider {
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        System.out.println("creating tile entitiy");
         return new TileEntityLab();
     }
 }

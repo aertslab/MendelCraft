@@ -1,9 +1,14 @@
 package com.quintenlauwers.events;
 
-import com.quintenlauwers.blocks.DnaLab;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import com.quintenlauwers.backend.network.configsync.ConfigPacket;
+import com.quintenlauwers.entity.chicken.EntityDnaChicken;
+import com.quintenlauwers.main.MendelCraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 /**
  * Created by quinten on 8/08/16.
@@ -15,24 +20,43 @@ public class ModEventHandler {
     }
 
     @SubscribeEvent
-    public void TileEntity(AttachCapabilitiesEvent.TileEntity tile) {
-        if (tile != null) {
-            if (tile.getTileEntity() != null) {
-                if (tile.getTileEntity().getBlockType() != null) {
-                    if (tile.getTileEntity().getBlockType().getClass() == DnaLab.class)
-                        System.out.println("Block placed!!");
-                }
+    public void EntityJoinWorldEvent(EntityJoinWorldEvent event) {
+        if (event != null && !event.getWorld().isRemote) {
+            if (event.getEntity() instanceof EntityChicken
+                    && !(event.getEntity() instanceof EntityDnaChicken)) {
+                Entity chicken = event.getEntity();
+                EntityDnaChicken replacement = new EntityDnaChicken(event.getWorld());
+                replacement.setPosition(chicken.posX, chicken.posY, chicken.posZ);
+                chicken.setDead();
+                event.getWorld().removeEntity(chicken);
+                event.getWorld().spawnEntityInWorld(replacement);
             }
         }
     }
 
     @SubscribeEvent
-    public void PlaceEvent(BlockEvent.PlaceEvent event) {
-        if (event != null) {
-            if (event.getPlacedBlock() != null) {
-                if (event.getPlacedBlock().getClass() != null) {
-                }
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.player instanceof EntityPlayerMP) {
+            byte[] mainconfigBytes = MendelCraft.dnaConfig.getMainconfigAsBytes();
+            EntityPlayerMP playerMP = (EntityPlayerMP) event.player;
+            MendelCraft.network.sendTo(new ConfigPacket("mainconfig", mainconfigBytes), playerMP);
+            String[] animals = MendelCraft.dnaConfig.getAnimals();
+            for (String animal : animals) {
+                byte[] animalconfigBytes = MendelCraft.dnaConfig.getAnimalConfigAsBytes(animal);
+                MendelCraft.network.sendTo(new ConfigPacket(animal, animalconfigBytes), playerMP);
             }
         }
+
+//        MendelCraft.network.sendTo(new IMessage() {
+//            @Override
+//            public void fromBytes(ByteBuf buf) {
+//
+//            }
+//
+//            @Override
+//            public void toBytes(ByteBuf buf) {
+//
+//            }
+//        }, (EntityPlayerMP) event.player);
     }
 }
