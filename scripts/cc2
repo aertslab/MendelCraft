@@ -1,0 +1,88 @@
+#!/usr/bin/env python
+
+import json
+import sys
+
+with open("chickenReference.json") as F:
+    j = json.load(F)
+
+traits = set(j.keys())
+effects = dict([(x, set(j[x]['effects'].keys())) for x in traits])
+
+genome = {}
+g = genome
+
+if len(sys.argv) > 1:
+    command = sys.argv[1]
+else:
+    command = 'boring'
+
+
+def add_trait(g, name, chromosome, gene, codon, alleles, effects):
+    g[name] = {}
+    g[name]['codonsInvolved'] = []
+    g[name]['allelesInvolved'] = {}
+    g[name]['effects'] = {}
+
+    if isinstance(alleles, str):
+        alleles = dict([(b, list(set(c.split('/')))) for b, c in [a.split(':') for a in alleles.split()]])
+    if isinstance(effects, str):
+        effects = dict([a.split(':') for a in effects.split()])
+
+    for a, seqs in alleles.items():
+        g[name]['codonsInvolved'].append(
+            dict(
+                chromosome=chromosome, gene=gene, codon=codon, allele=a))
+        g[name]['allelesInvolved'][a] = list(seqs)
+
+    for allele, effect in effects.items():
+        if not effect in g[name]['effects']:
+            g[name]['effects'][effect] = []
+        g[name]['effects'][effect].append(allele)
+
+t = add_trait
+
+if command == 'overview':
+    for i, trait in enumerate(traits):
+        effectlist = list(sorted(effects[trait]))
+        print(trait+ "\t" + " ".join(effectlist))
+elif command == 'template':
+    for i, trait in enumerate(sorted(traits)):
+        effectlist = list(sorted(effects[trait]))
+        ea = effectlist[-1]
+        eb = effectlist[0]
+        ec = effectlist[1]
+
+        print('t(g, %-16s, 0, 0,%2d, "A:AAA/ACC B:TTC/GGA", "AA:%s AB:%s BB:%s")' % (
+            '"' + trait + '"', i, ea, eb, ec))
+elif command == 'production':
+    t(g, "bodyColor"     , 0, 0, 0,  "A:AAA B:AAC", "AA:white AB:white BB:black")
+    t(g, "headColor"     , 0, 0, 0,  "A:AAA B:AAC", "AA:green AB:green BB:brown")
+
+    t(g, "billColor"     , 1, 0, 0,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
+    t(g, "chinColor"     , 1, 0, 1,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
+    t(g, "leftLegColor"  , 1, 0, 2,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
+    t(g, "rightLegColor" , 1, 0, 3,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
+    t(g, "leftWingColor" , 1, 1, 0,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
+    t(g, "rightWingColor", 1, 1, 1,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
+
+    t(g, "size"          , 2, 0, 2, "A:AAA/ACC/GGA B:TTC", "AA:normal AB:normal BB:big")
+    t(g, "bloodColor"    , 2, 0, 3, "A:AAA/ACC/GGA B:TTC", "AA:yellowblood AB:blueblood BB:greenblood")
+    t(g, "handicap"      , 2, 1, 1, "A:AAA/ACC/AGT/TGA/CCA/TGA/TGT/GGC/ B:GGG", "AA:normal AB:normal BB:handicapped")
+
+    t(g, "bodyDino"      , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "headDino"      , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "leftWingDino"  , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "leftLegDino"   , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "rightLegDino"  , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "rightWingDino" , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
+
+elif command == 'boring':
+    for i, trait in enumerate(traits):
+        effectlist = list(sorted(effects[trait]))
+        add_trait(genome, trait, 0, 0, i,
+            alleles=dict(A=('AAA', ) ),
+            effects=dict(AA=effectlist[-1])
+            )
+
+print(json.dumps(genome, sort_keys=True, indent=2))

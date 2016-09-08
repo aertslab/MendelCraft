@@ -1,0 +1,16 @@
+{
+  "name": "jsonConfig",
+  "diploid": true,
+  "chromosomes": 4,
+  "genesPerChromosme": 3,
+  "codonsPerGene": 4,
+  "geneNbExceptions": {
+    "chromosome1": 1
+  },
+  "animals": [
+    {
+      "name": "chicken",
+      "geneFile": "chickenConfig.json"
+    }
+  ]
+}
