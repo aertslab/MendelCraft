@@ -65,7 +65,7 @@ elif command == 'production':
     t(g, "rightWingColor", 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
     t(g, "headColor"     , 0, 0, 1,  "A:GCA B:GCT", "AA:white AB:white BB:black")
 
-    t(g, "bloodColor"    , 1, 0, 3, "A:AAA/GGA B:TTC", "AA:yellowblood AB:greenblood BB:blueblood")
+    t(g, "bloodColor"    , 0, 0, 3, "A:AAA/GGA B:TTC", "AA:yellowblood AB:greenblood BB:blueblood")
 
     t(g, "bodyDino"      , 2, 0, 0, "A:CAA B:GCG", "AA:normal AB:normal BB:dino")
     t(g, "headDino"      , 2, 0, 0, "A:CAA B:GCG", "AA:normal AB:normal BB:dino")

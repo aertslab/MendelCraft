@@ -35,8 +35,8 @@
   "bloodColor": {
     "allelesInvolved": {
       "A": [
-        "GGA",
-        "AAA"
+        "AAA",
+        "GGA"
       ],
       "B": [
         "TTC"
@@ -45,13 +45,13 @@
     "codonsInvolved": [
       {
         "allele": "B",
-        "chromosome": 1,
+        "chromosome": 0,
         "codon": 3,
         "gene": 0
       },
       {
         "allele": "A",
-        "chromosome": 1,
+        "chromosome": 0,
         "codon": 3,
         "gene": 0
       }
