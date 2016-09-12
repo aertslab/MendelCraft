@@ -56,26 +56,26 @@ elif command == 'template':
         print('t(g, %-16s, 0, 0,%2d, "A:AAA/ACC B:TTC/GGA", "AA:%s AB:%s BB:%s")' % (
             '"' + trait + '"', i, ea, eb, ec))
 elif command == 'production':
-    t(g, "bodyColor"     , 0, 0, 0,  "A:AAA B:AAC", "AA:white AB:white BB:black")
-    t(g, "headColor"     , 0, 0, 0,  "A:AAA B:AAC", "AA:green AB:green BB:brown")
+    t(g, "bodyColor"     , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
+    t(g, "billColor"     , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
+    t(g, "chinColor"     , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
+    t(g, "leftLegColor"  , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
+    t(g, "rightLegColor" , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
+    t(g, "leftWingColor" , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
+    t(g, "rightWingColor", 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:black BB:white")
+    t(g, "headColor"     , 0, 0, 1,  "A:GCA B:GCT", "AA:white AB:white BB:black")
 
-    t(g, "billColor"     , 1, 0, 0,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
-    t(g, "chinColor"     , 1, 0, 1,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
-    t(g, "leftLegColor"  , 1, 0, 2,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
-    t(g, "rightLegColor" , 1, 0, 3,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
-    t(g, "leftWingColor" , 1, 1, 0,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
-    t(g, "rightWingColor", 1, 1, 1,  "A:AAA/ACC B:TTC/GGA", "AA:white AB:black BB:brown")
+    t(g, "bloodColor"    , 1, 0, 3, "A:AAA/GGA B:TTC", "AA:yellowblood AB:greenblood BB:blueblood")
 
-    t(g, "size"          , 2, 0, 2, "A:AAA/ACC/GGA B:TTC", "AA:normal AB:normal BB:big")
-    t(g, "bloodColor"    , 2, 0, 3, "A:AAA/ACC/GGA B:TTC", "AA:yellowblood AB:blueblood BB:greenblood")
-    t(g, "handicap"      , 2, 1, 1, "A:AAA/ACC/AGT/TGA/CCA/TGA/TGT/GGC/ B:GGG", "AA:normal AB:normal BB:handicapped")
+    t(g, "bodyDino"      , 2, 0, 0, "A:CAA B:GCG", "AA:normal AB:normal BB:dino")
+    t(g, "headDino"      , 2, 0, 0, "A:CAA B:GCG", "AA:normal AB:normal BB:dino")
+    t(g, "leftWingDino"  , 2, 0, 1, "A:ATG B:TTA", "AA:normal AB:normal BB:dino")
+    t(g, "rightWingDino" , 2, 0, 1, "A:ATG B:TTA", "AA:normal AB:normal BB:dino")
+    t(g, "rightLegDino"  , 2, 0, 2, "A:GGC B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "leftLegDino"   , 2, 0, 2, "A:GGC B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "size"          , 2, 0, 3, "A:AAA B:CGA", "AA:normal AB:normal BB:big")
 
-    t(g, "bodyDino"      , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
-    t(g, "headDino"      , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
-    t(g, "leftWingDino"  , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
-    t(g, "leftLegDino"   , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
-    t(g, "rightLegDino"  , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
-    t(g, "rightWingDino" , 3, 0, 0, "A:AAA/ACC/CTA/GGA B:GGG", "AA:normal AB:normal BB:dino")
+    t(g, "handicap"      , 3, 0, 3, "A:ATA B:TTC", "AA:normal AB:normal BB:handicapped")
 
 elif command == 'boring':
     for i, trait in enumerate(traits):
