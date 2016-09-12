@@ -1,0 +1,635 @@
+{
+  "bodyColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "green": [
+        "AA",
+        "AB"
+      ],
+      "red": [
+        "BB"
+      ]
+    }
+  },
+  "headColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "red": [
+        "AA",
+        "AB"
+      ],
+      "green": [
+        "BB"
+      ]
+    }
+  },
+  "chinColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "green": [
+        "AA",
+        "AB"
+      ],
+      "red": [
+        "BB"
+      ]
+    }
+  },
+  "billColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "red": [
+        "AA",
+        "AB"
+      ],
+      "green": [
+        "BB"
+      ]
+    }
+  },
+  "leftWingColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "green": [
+        "AA",
+        "AB"
+      ],
+      "red": [
+        "BB"
+      ]
+    }
+  },
+  "rightWingColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "green": [
+        "AA",
+        "AB"
+      ],
+      "red": [
+        "BB"
+      ]
+    }
+  },
+  "rightLegColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "green": [
+        "AA",
+        "AB"
+      ],
+      "red": [
+        "BB"
+      ]
+    }
+  },
+  "leftLegColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 0,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "ATG"
+      ],
+      "B": [
+        "CGG"
+      ]
+    },
+    "effects": {
+      "white": [],
+      "black": [],
+      "brown": [],
+      "green": [
+        "AA",
+        "AB"
+      ],
+      "red": [
+        "BB"
+      ]
+    }
+  },
+  "size": {
+    "codonsInvolved": [
+      {
+        "chromosome": 1,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 1,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "big": [
+        "BB"
+      ]
+    }
+  },
+  "handicap": {
+    "codonsInvolved": [
+      {
+        "chromosome": 2,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 2,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA",
+        "GTC",
+        "ACT",
+        "GGG",
+        "CCC"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "handicapped": [
+        "BB"
+      ]
+    }
+  },
+  "bloodColor": {
+    "codonsInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "C"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA"
+      ],
+      "B": [
+        "GTA"
+      ],
+      "C": [
+        "CCC"
+      ]
+    },
+    "effects": {
+      "redblood": [
+        "AB"
+      ],
+      "blueblood": [
+        "BB"
+      ],
+      "greenblood": [
+        "CC"
+      ],
+      "orangeblood": [
+        "AC"
+      ],
+      "purpleblood": [
+        "BC"
+      ],
+      "yellowblood": [
+        "AA"
+      ]
+    }
+  },
+  "headDino": {
+    "codonsInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA",
+        "GTC",
+        "ACT",
+        "GGG",
+        "CCC"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "dino": [
+        "BB"
+      ]
+    }
+  },
+  "bodyDino": {
+    "codonsInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA",
+        "GTC",
+        "ACT",
+        "GGG",
+        "CCC"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "dino": [
+        "BB"
+      ]
+    }
+  },
+  "leftLegDino": {
+    "codonsInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA",
+        "GTC",
+        "ACT",
+        "GGG",
+        "CCC"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "dino": [
+        "BB"
+      ]
+    }
+  },
+  "rightLegDino": {
+    "codonsInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA",
+        "GTC",
+        "ACT",
+        "GGG",
+        "CCC"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "dino": [
+        "BB"
+      ]
+    }
+  },
+  "leftWingDino": {
+    "codonsInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA",
+        "GTC",
+        "ACT",
+        "GGG",
+        "CCC"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "dino": [
+        "BB"
+      ]
+    }
+  },
+  "rightWingDino": {
+    "codonsInvolved": [
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "A"
+      },
+      {
+        "chromosome": 3,
+        "gene": 0,
+        "codon": 0,
+        "allele": "B"
+      }
+    ],
+    "allelesInvolved": {
+      "A": [
+        "AAA",
+        "GTC",
+        "ACT",
+        "GGG",
+        "CCC"
+      ],
+      "B": [
+        "GTA"
+      ]
+    },
+    "effects": {
+      "normal": [
+        "AA",
+        "AB"
+      ],
+      "dino": [
+        "BB"
+      ]
+    }
+  }
+}
