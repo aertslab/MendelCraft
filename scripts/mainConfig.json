@@ -5,7 +5,6 @@
   "genesPerChromosme": 1,
   "codonsPerGene": 4,
   "geneNbExceptions": {
-    "chromosome1": 1
   },
   "animals": [
     {

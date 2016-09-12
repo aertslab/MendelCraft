@@ -24,8 +24,8 @@
     ],
     "effects": {
       "black": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ],
       "white": [
         "BB"
@@ -35,8 +35,8 @@
   "bloodColor": {
     "allelesInvolved": {
       "A": [
-        "AAA",
-        "GGA"
+        "GGA",
+        "AAA"
       ],
       "B": [
         "TTC"
@@ -45,13 +45,13 @@
     "codonsInvolved": [
       {
         "allele": "B",
-        "chromosome": 0,
+        "chromosome": 1,
         "codon": 3,
         "gene": 0
       },
       {
         "allele": "A",
-        "chromosome": 0,
+        "chromosome": 1,
         "codon": 3,
         "gene": 0
       }
@@ -93,8 +93,8 @@
     ],
     "effects": {
       "black": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ],
       "white": [
         "BB"
@@ -129,8 +129,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -159,8 +159,8 @@
     ],
     "effects": {
       "black": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ],
       "white": [
         "BB"
@@ -195,8 +195,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -228,8 +228,8 @@
         "BB"
       ],
       "white": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -261,8 +261,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -291,8 +291,8 @@
     ],
     "effects": {
       "black": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ],
       "white": [
         "BB"
@@ -327,8 +327,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -357,8 +357,8 @@
     ],
     "effects": {
       "black": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ],
       "white": [
         "BB"
@@ -393,8 +393,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -423,8 +423,8 @@
     ],
     "effects": {
       "black": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ],
       "white": [
         "BB"
@@ -459,8 +459,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -489,8 +489,8 @@
     ],
     "effects": {
       "black": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ],
       "white": [
         "BB"
@@ -525,8 +525,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   },
@@ -558,8 +558,8 @@
         "BB"
       ],
       "normal": [
-        "AA",
-        "AB"
+        "AB",
+        "AA"
       ]
     }
   }
