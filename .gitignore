@@ -20,15 +20,3 @@ build
 # other
 eclipse
 run
-
-CREDITS-fml.txt
-LICENSE-new.txt
-MinecraftForge-Credits.txt
-Pauluscode\ IBXM Library\ License.txt
-Pauluscode\ SoundSystem\ CodecIBXM\ License.txt
-README.txt
-*.gradle
-forge-*
-gradlew
-gradle/
-gradlew.bat
