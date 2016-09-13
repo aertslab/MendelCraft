@@ -53,7 +53,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
             this.dnaData2 = new byte[dnaData.length];
             rand.nextBytes(this.dnaData2);
         }
-        properties = new DnaProperties("chicken", this.dnaData, this.dnaData2);
+        properties = new DnaProperties("chicken", this.dnaData, this.dnaData2, true);
 
     }
 

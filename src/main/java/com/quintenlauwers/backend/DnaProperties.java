@@ -21,10 +21,16 @@ public class DnaProperties {
     HashMap<String, String> cachedStringProperty = new HashMap<String, String>();
 
     public DnaProperties(String animal, byte[] dnaData) {
+        // expect that this is a haploid animal
         this(animal, dnaData, null);
     }
 
     public DnaProperties(String animal, byte[] dnaData, byte[] dnaData2) {
+        // when instantiating without isRandom - assume it was with non-random DNA
+        this(animal, dnaData, dnaData2, false);
+    }
+
+    public DnaProperties(String animal, byte[] dnaData, byte[] dnaData2, boolean isRandom) {
         if (dnaData != null && dnaData.length >= dnaConfig.getTotalNbOfGenes()) {
             this.animal = animal;
             setDna(dnaData);
@@ -32,7 +38,7 @@ public class DnaProperties {
             if (dnaData == null) {
                 throw new IllegalArgumentException("dnaData is nonexistent.");
             } else {
-                throw new IllegalArgumentException("dnaData only has lenght: " + dnaData.length);
+                throw new IllegalArgumentException("dnaData only has length: " + dnaData.length);
             }
         }
         if (dnaData2 != null && dnaData2.length == dnaData.length) {
@@ -47,6 +53,7 @@ public class DnaProperties {
             }
         }
     }
+
 
     public String[] getPossibleCodons(int[] position) {
         GenePosition pos = new GenePosition(position);
@@ -114,6 +121,10 @@ public class DnaProperties {
     }
 
     public void filterDna(byte[] data) {
+        filterDna(data, false);
+    }
+
+    public void filterDna(byte[] data, boolean isRandom) {
         if (restrictedEntries == null) {
             fillRestrictedEntries();
         }
@@ -125,6 +136,8 @@ public class DnaProperties {
                 if (!entry.getValue().contains(code)) {
 
                     Set<String> value = entry.getValue();
+
+                    // TODO: implement population allele frequencies here
                     int size = value.size();
                     int item = new Random().nextInt(size); // In real life, the Random object should be rather more shared than this
                     int i = 0;
@@ -166,9 +179,13 @@ public class DnaProperties {
 
     }
 
-    public void setDna(byte[] dnaData) {
+    public void setDna(byte[] dnaData, boolean isRandom) {
         this.dnaData = dnaData;
-        filterDna(this.dnaData);
+        filterDna(this.dnaData, isRandom);
+    }
+
+    public void setDna(byte[] dnaData) {
+        setDna(dnaData, false);
     }
 
     public void setDna2(byte[] dnaData2) {
