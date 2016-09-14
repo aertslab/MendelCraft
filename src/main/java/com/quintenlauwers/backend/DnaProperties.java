@@ -128,6 +128,8 @@ public class DnaProperties {
         if (restrictedEntries == null) {
             fillRestrictedEntries();
         }
+
+
         for (Map.Entry<GenePosition, Set<String>> entry : restrictedEntries.entrySet()) {
             int index = dnaConfig.getCodonIndex(entry.getKey().getCoordinate());
             if (index < data.length) {

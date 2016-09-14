@@ -1,5 +1,26 @@
+bodyColor {'B': ['GGC'], 'A': ['ACT']} {'ACT', 'GGC'}
+billColor {'B': ['GGC'], 'A': ['ACT']} {'ACT', 'GGC'}
+chinColor {'B': ['GGC'], 'A': ['ACT']} {'ACT', 'GGC'}
+leftLegColor {'B': ['GGC'], 'A': ['ACT']} {'ACT', 'GGC'}
+rightLegColor {'B': ['GGC'], 'A': ['ACT']} {'ACT', 'GGC'}
+leftWingColor {'B': ['GGC'], 'A': ['ACT']} {'ACT', 'GGC'}
+rightWingColor {'B': ['GGC'], 'A': ['ACT']} {'ACT', 'GGC'}
+headColor {'B': ['GCT'], 'A': ['GCA']} {'GCT', 'GCA'}
+bloodColor {'B': ['TTC'], 'A': ['GGA', 'AAA']} {'GGA', 'AAA', 'TTC'}
+bodyDino {'B': ['GCG'], 'A': ['CAA']} {'GCG', 'CAA'}
+headDino {'B': ['GCG'], 'A': ['CAA']} {'GCG', 'CAA'}
+leftWingDino {'B': ['TTA'], 'A': ['ATG']} {'TTA', 'ATG'}
+rightWingDino {'B': ['TTA'], 'A': ['ATG']} {'TTA', 'ATG'}
+rightLegDino {'B': ['GGG'], 'A': ['GGC']} {'GGC', 'GGG'}
+leftLegDino {'B': ['GGG'], 'A': ['GGC']} {'GGC', 'GGG'}
+size {'B': ['CGA'], 'A': ['AAA']} {'CGA', 'AAA'}
+handicap {'B': ['TTC'], 'A': ['TTA', 'ATA']} {'TTA', 'TTC', 'ATA'}
 {
   "billColor": {
+    "alleleFrequencies": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -24,8 +45,8 @@
     ],
     "effects": {
       "black": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ],
       "white": [
         "BB"
@@ -33,6 +54,11 @@
     }
   },
   "bloodColor": {
+    "alleleFrequencies": {
+      "AAA": 1,
+      "GGA": 1,
+      "TTC": 1
+    },
     "allelesInvolved": {
       "A": [
         "GGA",
@@ -69,6 +95,10 @@
     }
   },
   "bodyColor": {
+    "alleleFrequencies": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -93,8 +123,8 @@
     ],
     "effects": {
       "black": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ],
       "white": [
         "BB"
@@ -102,6 +132,10 @@
     }
   },
   "bodyDino": {
+    "alleleFrequencies": {
+      "CAA": 1,
+      "GCG": 1
+    },
     "allelesInvolved": {
       "A": [
         "CAA"
@@ -129,12 +163,16 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "chinColor": {
+    "alleleFrequencies": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -159,8 +197,8 @@
     ],
     "effects": {
       "black": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ],
       "white": [
         "BB"
@@ -168,8 +206,14 @@
     }
   },
   "handicap": {
+    "alleleFrequencies": {
+      "ATA": 80,
+      "TTA": 1,
+      "TTC": 2
+    },
     "allelesInvolved": {
       "A": [
+        "TTA",
         "ATA"
       ],
       "B": [
@@ -195,12 +239,16 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "headColor": {
+    "alleleFrequencies": {
+      "GCA": 1,
+      "GCT": 1
+    },
     "allelesInvolved": {
       "A": [
         "GCA"
@@ -228,12 +276,16 @@
         "BB"
       ],
       "white": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "headDino": {
+    "alleleFrequencies": {
+      "CAA": 1,
+      "GCG": 1
+    },
     "allelesInvolved": {
       "A": [
         "CAA"
@@ -261,12 +313,16 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "leftLegColor": {
+    "alleleFrequencies": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -291,8 +347,8 @@
     ],
     "effects": {
       "black": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ],
       "white": [
         "BB"
@@ -300,6 +356,10 @@
     }
   },
   "leftLegDino": {
+    "alleleFrequencies": {
+      "GGC": 1,
+      "GGG": 1
+    },
     "allelesInvolved": {
       "A": [
         "GGC"
@@ -327,12 +387,16 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "leftWingColor": {
+    "alleleFrequencies": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -357,8 +421,8 @@
     ],
     "effects": {
       "black": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ],
       "white": [
         "BB"
@@ -366,6 +430,10 @@
     }
   },
   "leftWingDino": {
+    "alleleFrequencies": {
+      "ATG": 1,
+      "TTA": 1
+    },
     "allelesInvolved": {
       "A": [
         "ATG"
@@ -393,12 +461,16 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "rightLegColor": {
+    "alleleFrequencies": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -423,8 +495,8 @@
     ],
     "effects": {
       "black": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ],
       "white": [
         "BB"
@@ -432,6 +504,10 @@
     }
   },
   "rightLegDino": {
+    "alleleFrequencies": {
+      "GGC": 1,
+      "GGG": 1
+    },
     "allelesInvolved": {
       "A": [
         "GGC"
@@ -459,12 +535,16 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "rightWingColor": {
+    "alleleFrequencies": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -489,8 +569,8 @@
     ],
     "effects": {
       "black": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ],
       "white": [
         "BB"
@@ -498,6 +578,10 @@
     }
   },
   "rightWingDino": {
+    "alleleFrequencies": {
+      "ATG": 1,
+      "TTA": 1
+    },
     "allelesInvolved": {
       "A": [
         "ATG"
@@ -525,12 +609,16 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   },
   "size": {
+    "alleleFrequencies": {
+      "AAA": 1,
+      "CGA": 1
+    },
     "allelesInvolved": {
       "A": [
         "AAA"
@@ -558,8 +646,8 @@
         "BB"
       ],
       "normal": [
-        "AB",
-        "AA"
+        "AA",
+        "AB"
       ]
     }
   }
