@@ -1,9 +1,13 @@
 package com.quintenlauwers.backend.util;
 
 import java.nio.ByteBuffer;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by quinten on 10/08/16.
+ *
+ * Some utilities for manipulating DNA data
  */
 public class UtilDna {
     /**
@@ -26,6 +30,23 @@ public class UtilDna {
         return concatenated;
     }
 
+    public static String getWeightedCodon(Map<String, Double> freqs) {
+        double totWeight = 0.0d;
+        for (Map.Entry<String, Double> freq : freqs.entrySet()) {
+            totWeight += freq.getValue();
+        }
+        double r = new Random().nextDouble() * totWeight;
+        double countWeight = 0.0;
+        for (Map.Entry<String, Double> freq : freqs.entrySet()) {
+            countWeight += freq.getValue();
+            if (countWeight >= r) {
+                return freq.getKey();
+            }
+        }
+        return "";
+    }
+
+
     public static int byteToInt(byte[] bytes) {
         int val = 0;
         for (byte aByte : bytes) {
@@ -39,14 +60,6 @@ public class UtilDna {
         ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.putInt(integer);
         return buffer.array();
-    }
-
-    public static boolean byteToBool(byte value){
-        return (value != 0);
-    }
-
-    public static byte boolToByte(boolean value){
-        return value ? (byte) 1: (byte) 0;
     }
 
     public static String byteNucleobaseToString(byte nucleobase) {

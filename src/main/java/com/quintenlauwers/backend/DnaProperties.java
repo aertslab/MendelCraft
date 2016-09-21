@@ -2,6 +2,8 @@ package com.quintenlauwers.backend;
 
 import com.quintenlauwers.backend.util.UtilDna;
 import com.quintenlauwers.main.MendelCraft;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 
 import java.util.*;
 
@@ -11,14 +13,14 @@ import java.util.*;
  * Needs the bytearray(s) containing the actual data, is specific to one entity.
  */
 public class DnaProperties {
-    byte[] dnaData;
-    byte[] dnaData2;
+    private byte[] dnaData;
+    private byte[] dnaData2;
     String animal;
-    HashMap<GenePosition, Set<String>> restrictedEntries = null;
-    Set<GenePosition> inEditable = null;
-    String[] possibleProperties = null;
-    public static DnaConfig dnaConfig = MendelCraft.dnaConfig;
-    HashMap<String, String> cachedStringProperty = new HashMap<String, String>();
+    private HashMap<GenePosition, Set<String>> restrictedEntries = null;
+    private Set<GenePosition> inEditable = null;
+    private String[] possibleProperties = null;
+    private static DnaConfig dnaConfig = MendelCraft.dnaConfig;
+    private HashMap<String, String> cachedStringProperty = new HashMap<String, String>();
 
     public DnaProperties(String animal, byte[] dnaData) {
         // expect that this is a haploid animal
@@ -30,7 +32,7 @@ public class DnaProperties {
         this(animal, dnaData, dnaData2, false);
     }
 
-    public DnaProperties(String animal, byte[] dnaData, byte[] dnaData2, boolean isRandom) {
+    private DnaProperties(String animal, byte[] dnaData, byte[] dnaData2, boolean isRandom) {
         if (dnaData != null && dnaData.length >= dnaConfig.getTotalNbOfGenes()) {
             this.animal = animal;
             setDna(dnaData);
@@ -81,20 +83,6 @@ public class DnaProperties {
         return (pos != null && getRestrictedEntries().containsKey(pos) && !inEditable.contains(pos));
     }
 
-    public boolean getBoolProperty(String property) {
-        String finalValue = getGenericProperty(property);
-        return finalValue != null && "true".equals(finalValue.toLowerCase());
-    }
-
-    public int getIntProperty(String property) {
-        String finalValue = getGenericProperty(property);
-        if (finalValue == null) {
-            return 0;
-        }
-        return Integer.parseInt(finalValue);
-    }
-
-
     public String getStringProperty(String property) {
         if (!this.cachedStringProperty.containsKey(property)) {
             cachedStringProperty.put(property, getGenericProperty(property));
@@ -134,10 +122,7 @@ public class DnaProperties {
                 byte rawCode = data[index];
                 String code = UtilDna.byteNucleobaseToString(rawCode);
                 if (!entry.getValue().contains(code)) {
-
                     Set<String> value = entry.getValue();
-
-                    // TODO: implement population allele frequencies here
                     int size = value.size();
                     int item = new Random().nextInt(size); // In real life, the Random object should be rather more shared than this
                     int i = 0;
@@ -158,11 +143,17 @@ public class DnaProperties {
         if (this.possibleProperties == null) {
             loadPossibleProperties();
         }
-        for (String property : this.possibleProperties) {
+        for (String property : this.possibleProperties) { // Gets a feature i.e. headColor
             DnaAsset asset = dnaConfig.getDnaAsset(this.animal, property);
-            int[][] positions = asset.getRelevantPositions();
+            int[][] positions = asset.getRelevantPositions(); //  Returns associated gene position i.e. [0, 0, 1]
             for (int[] position : positions) {
-                String[] codons = asset.getPossibleCodonValuesOnPosition(position);
+                Map<String, Double> freqs = asset.getAlleleFreqs();
+                String[] codons = asset.getPossibleCodonValuesOnPosition(position); // Returns all codons possible for this location
+//                System.out.println("Codons are as follows:- ");
+
+                for (String codon : codons) {
+//                    System.out.println(codon);
+                }
                 List<String> codonSet = Arrays.asList(codons);
                 GenePosition tempPosition = new GenePosition(position);
                 if (restrictedEntries.containsKey(tempPosition)) {
@@ -209,6 +200,44 @@ public class DnaProperties {
 
     private void loadPossibleProperties() {
         this.possibleProperties = dnaConfig.getPossibleProperties(this.animal);
+    }
+
+    public Map<NBTTagCompound, String[]> getDnaNBT() {
+        String stringDna[] = new String[dnaConfig.getTotalNbOfCodons()];
+        Map<NBTTagCompound, String[]> dnaMap = new HashMap<NBTTagCompound, String[]>();
+        NBTTagCompound dna = new NBTTagCompound();
+        int codonNum = 0;
+        for (int i = 0; i < MendelCraft.dnaConfig.getNbOfChromosomes(); i++) {
+            dna.setTag("Chr" + i, new NBTTagCompound());
+            for (int j = 0; j < MendelCraft.dnaConfig.getNbOfGenes(i); j++) {
+                NBTTagCompound Gene = dna.getCompoundTag("Chr" + i);
+                Gene.setTag("Gene_" + j, new NBTTagCompound());
+                for (int k = 0; k < MendelCraft.dnaConfig.getNbOfCodons(i, j); k++) {
+                    NBTTagCompound Codon = Gene.getCompoundTag("Gene_" + j);
+                    String position = Integer.toString(i) + Integer.toString(j) + Integer.toString(k);
+                    String property = DnaConfig.getPropertyFromPos(position);
+                    String codon = "";
+                    if (property != null) {
+                    DnaAsset asset = dnaConfig.getDnaAsset(this.animal, property);
+                    codon = UtilDna.getWeightedCodon(asset.getFrequencies());
+                    } else {
+                        String alpha = "ACGT";
+                        Random r = new Random();
+                        for (int l = 0; l < 3; l++) {
+                            codon += alpha.charAt(r.nextInt(alpha.length()));
+                        }
+                    }
+                    Codon.setTag("Codon_" + k, new NBTTagString(codon));
+                    stringDna[codonNum] = codon;
+                    codonNum += 1;
+
+                }
+
+            }
+        }
+        dnaMap.put(dna, stringDna);
+//        System.out.println("Finished NBT");
+        return dnaMap;
     }
 
     public byte[] getDnaData() {

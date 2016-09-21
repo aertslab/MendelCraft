@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import com.quintenlauwers.backend.DnaProperties;
 import com.quintenlauwers.backend.network.entityinteraction.EntityChildBirthPackage;
 import com.quintenlauwers.backend.network.entityinteraction.ProcessInteractionPackage;
+import com.quintenlauwers.backend.util.UtilDna;
 import com.quintenlauwers.entity.DnaEntity;
 import com.quintenlauwers.lib.RefStrings;
 import com.quintenlauwers.main.MendelCraft;
@@ -26,6 +27,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -37,6 +39,8 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     private byte[] dnaData = new byte[MendelCraft.dnaConfig.getTotalNbOfCodons()];
     private byte[] dnaData2;
+    private NBTTagCompound dnaNBT;
+    private NBTTagCompound dnaNBT2;
     private DnaProperties properties;
     private int myId = 0;
     int incremental = 0;
@@ -47,13 +51,36 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
         this.setSize(0.4F, 0.7F); // Only sets the hitbox
         this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         this.setPathPriority(PathNodeType.WATER, 0.0F);
+
         Random rand = new Random();
         rand.nextBytes(dnaData);
         if (MendelCraft.dnaConfig.isDiploid()) {
             this.dnaData2 = new byte[dnaData.length];
             rand.nextBytes(this.dnaData2);
         }
-        properties = new DnaProperties("chicken", this.dnaData, this.dnaData2, true);
+        properties = new DnaProperties("chicken", this.dnaData, this.dnaData2);
+
+        // This is rather hacky, we should convert to full NBT data
+
+        Map<NBTTagCompound, String[]> dnaMap = properties.getDnaNBT();
+        Map<NBTTagCompound, String[]> dnaMap2 = properties.getDnaNBT();
+        for (Map.Entry<NBTTagCompound, String[]> dna : dnaMap.entrySet()) {
+            this.dnaNBT = dna.getKey();
+            int codonNum = 0;
+            for (String b : dna.getValue()) {
+                dnaData[codonNum] = UtilDna.stringNucleobaseToByte(b);
+                codonNum++;
+            }
+        }
+        for (Map.Entry<NBTTagCompound, String[]> dna : dnaMap2.entrySet()) {
+            this.dnaNBT2 = dna.getKey();
+            int codonNum = 0;
+            for (String b : dna.getValue()) {
+                dnaData2[codonNum] = UtilDna.stringNucleobaseToByte(b);
+                codonNum++;
+            }
+        }
+        properties = new DnaProperties("chicken", this.dnaData, this.dnaData2);
 
     }
 
@@ -165,10 +192,16 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
         compound.setBoolean("IsChickenJockey", this.chickenJockey);
         compound.setInteger("EggLayTime", this.timeUntilNextEgg);
         compound.setByteArray("dnaData", this.getDnaData());
+
+        compound.setTag("DNAposStrand", this.dnaNBT);
+        compound.setTag("DNAnegStrand", this.dnaNBT2);
+
         if (MendelCraft.dnaConfig.isDiploid()) {
             compound.setByteArray("dnaData2", this.getDnaData2());
         }
+
     }
+
 
     /**
      * Protected helper method to read entity data from NBT.
@@ -203,6 +236,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
     public byte[] getDnaData2() {
         return this.properties.getDnaData2();
     }
+
 
     @Override
     public void setDnaData(byte[] dnaData) {
