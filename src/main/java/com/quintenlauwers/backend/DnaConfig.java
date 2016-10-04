@@ -18,6 +18,7 @@ public class DnaConfig {
 
     private JsonObject mainConfig;
     private HashMap<String, JsonObject> animalConfigs = new HashMap<String, JsonObject>();
+    public static HashMap<String, String> propertyMap = new HashMap<String, String>();
     private final String CONFIGFOLDER;
     private boolean diploid;
     private int nbOfChromosomes;
@@ -107,7 +108,7 @@ public class DnaConfig {
         return total;
     }
 
-    private int getNbOfCodons(int chromosomeNumber, int geneNumber) {
+    public int getNbOfCodons(int chromosomeNumber, int geneNumber) {
         String geneName = "chromosome" + Integer.toString(chromosomeNumber) + "gene" + Integer.toString(geneNumber);
         if (mainConfig.has("codonNbExceptions")) {
             JsonObject exception = mainConfig.getAsJsonObject("codonNbExceptions");
@@ -241,6 +242,7 @@ public class DnaConfig {
      * @return DnaAsset of property. Null if error.
      */
     public DnaAsset getDnaAsset(String animal, String property) {
+//        System.out.println("Making asset");
         JsonObject animalConfig = this.animalConfigs.get(animal.toLowerCase());
         if (animalConfig == null) {
             System.err.println("Config file is wrong, missing animal: " + animal);
@@ -263,6 +265,15 @@ public class DnaConfig {
                             propertyPosition.get("codon").getAsInt()};
                     String allele = propertyPosition.get("allele").getAsString();
                     dnaAsset.addFromPosition(position, allele);
+
+                    String posString = "";
+                    for (int pos = 0; pos < position.length; pos++) {
+                        posString += position[pos];
+                    }
+//                    System.out.println("Putting " + property + " at position" + posString);
+                    if (propertyMap.get(posString) == null) {
+                        propertyMap.put(posString, property);
+                    }
                 }
             }
             Set<Map.Entry<String, JsonElement>> entries = currentProperty.getAsJsonObject("allelesInvolved").entrySet();
@@ -273,6 +284,13 @@ public class DnaConfig {
                     codeArray[i] = codeStringJsonArray.get(i).getAsString();
                 }
                 dnaAsset.addAlleleInfo(entry.getKey(), codeArray);
+
+                JsonObject entries2 = currentProperty.getAsJsonObject("allelesInvolvedFreq");
+                HashMap<String, Double> freqs = new HashMap<String, Double>();
+                for (Map.Entry<String, JsonElement> allele : entries2.entrySet()) {
+                    freqs.put(allele.getKey(), allele.getValue().getAsDouble());
+                }
+                dnaAsset.setFrequencies(freqs);
             }
             if (currentProperty.has("effects")) {
                 entries = currentProperty.getAsJsonObject("effects").entrySet();
@@ -288,6 +306,7 @@ public class DnaConfig {
                     dnaAsset.setEditable(false);
                 }
             }
+//            System.out.println("Finished Asset");
             return dnaAsset;
         }
         return null;
@@ -380,5 +399,9 @@ public class DnaConfig {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getPropertyFromPos(String position) {
+        return propertyMap.get(position);
     }
 }

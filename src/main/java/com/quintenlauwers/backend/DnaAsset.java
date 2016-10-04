@@ -4,12 +4,18 @@ import java.util.*;
 
 /**
  * Created by quinten on 13/08/16.
+ *
+ * Modified by Kris Davie
+ *  - Added allele frequencies within AlleleInfo
+ *  - Removed unused code
  */
 class DnaAsset {
 
     private HashMap<String, AlleleInfo> allelesKey = new HashMap<String, AlleleInfo>();
     private HashMap<GenePosition, ArrayList<AlleleInfo>> positionKey = new HashMap<GenePosition, ArrayList<AlleleInfo>>();
     private HashMap<AlleleCombination, String> propertyValueFromAlleles = new HashMap<AlleleCombination, String>();
+    private Map<String, Double> frequencies;
+
     private String property;
     private boolean isEditable = true;
 
@@ -25,6 +31,11 @@ class DnaAsset {
         }
         String[] returnArray = new String[possibleList.size()];
         return possibleList.toArray(returnArray);
+    }
+
+    public Map<String, Double> getAlleleFreqs() {
+        Map<String, Double> frequencies = this.getFrequencies();
+        return frequencies;
     }
 
     public String getAlleleOnPosition(int[] position, String code) {
@@ -64,21 +75,6 @@ class DnaAsset {
         }
         int[][] returnArray = new int[postionsAsCoordinates.size()][3];
         postionsAsCoordinates.toArray(returnArray);
-//        int[][] returnArray = (int[][]) positions.stream().map(GenePosition::getCoordinate).toArray();
-        return returnArray;
-    }
-
-    public String getProperty() {
-        return "color";
-    }
-
-    public String[] getPossibleAllelesOnPosition(int[] positionCoordinate) {
-        GenePosition position = new GenePosition(positionCoordinate);
-        ArrayList<AlleleInfo> tempList = this.positionKey.get(position);
-        String[] returnArray = new String[tempList.size()];
-        for (int i = 0; i < tempList.size(); i++) {
-            returnArray[i] = tempList.get(i).name;
-        }
         return returnArray;
     }
 
@@ -115,6 +111,14 @@ class DnaAsset {
         }
     }
 
+    public void setFrequencies(HashMap<String, Double> freqs) {
+        this.frequencies = freqs;
+    }
+
+    public Map<String, Double> getFrequencies() {
+        return this.frequencies;
+    }
+
     public void addPropertyValue(String alleleCombination, String value) {
         AlleleCombination cleaned = new AlleleCombination(alleleCombination);
         if (!this.propertyValueFromAlleles.containsKey(cleaned)) {
@@ -143,10 +147,6 @@ class DnaAsset {
 
         AlleleInfo(String Allele) {
             this(Allele, new ArrayList<String>(), new ArrayList<GenePosition>());
-        }
-
-        AlleleInfo(String Allele, ArrayList<String> code) {
-            this(Allele, code, new ArrayList<GenePosition>());
         }
 
         AlleleInfo(String Allele, ArrayList<String> code, ArrayList<GenePosition> positions) {
@@ -185,7 +185,6 @@ class DnaAsset {
             return this.possibleCodes;
         }
     }
-
 
     final class AlleleCombination {
 
@@ -227,7 +226,7 @@ final class GenePosition {
 
     GenePosition(int[] position) {
         if (position.length < 3) {
-            throw new IllegalArgumentException("Position should at least have lenght 3 (chromosome, gene, codon).");
+            throw new IllegalArgumentException("Position should at least have length 3 (chromosome, gene, codon).");
         }
         this.chromosome = position[0];
         this.gene = position[1];
