@@ -44,7 +44,7 @@ def add_trait(g, name, chromosome, gene, codon, alleles, effects, frequencies=''
             g[name]['effects'][effect] = []
         g[name]['effects'][effect].append(allele)
 
-    g[name]['alleleFrequencies'] = {}
+    g[name]['allelesInvolvedFreq'] = {}
 
     if frequencies.strip():
         frequencies = [x.split(':') for x in frequencies.split()]
@@ -54,9 +54,9 @@ def add_trait(g, name, chromosome, gene, codon, alleles, effects, frequencies=''
 
     for a in all_alleles:
         if a in frequencies:
-            g[name]['alleleFrequencies'][a] = frequencies[a]
+            g[name]['allelesInvolvedFreq'][a] = frequencies[a]
         else:
-            g[name]['alleleFrequencies'][a] = 1
+            g[name]['allelesInvolvedFreq'][a] = 1
     print(name, alleles, all_alleles)
 
 t = add_trait
