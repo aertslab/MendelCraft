@@ -29,11 +29,13 @@ public class EntityChildBirthHandler implements IMessageHandler<EntityChildBirth
         mainThread.addScheduledTask(new Runnable() {
             @Override
             public void run() {
+                boolean isLocal = false;
                 Entity father = null;
                 Entity mother = null;
                 try {
                     Minecraft innerMinecraft = Minecraft.getMinecraft();
                     if(innerMinecraft.getIntegratedServer() != null) {
+                        isLocal = true;
                         father = innerMinecraft.getIntegratedServer().getServer().getEntityFromUuid(message.getFatherId());
                         mother = innerMinecraft.getIntegratedServer().getEntityFromUuid(message.getMotherId());
                     }
@@ -66,10 +68,14 @@ public class EntityChildBirthHandler implements IMessageHandler<EntityChildBirth
                 if (father != null && father instanceof DnaEntity && father instanceof EntityAnimal) {
                     ((EntityAnimal) father).resetInLove();
                     ((EntityAnimal) father).setGrowingAge(-3);
+                    if (!isLocal)
+                        ((EntityAnimal) father).setGrowingAge(0);
                 }
                 if (mother != null && mother instanceof DnaEntity && mother instanceof EntityAnimal) {
                     ((EntityAnimal) mother).resetInLove();
                     ((EntityAnimal) mother).setGrowingAge(-3);
+                    if (!isLocal)
+                        ((EntityAnimal) mother).setGrowingAge(0);
                 }
             }
         });
