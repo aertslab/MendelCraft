@@ -381,8 +381,8 @@ public class ModelDnaChicken extends ModelChicken {
             } else {
                 ModelRenderer[] returnArray = {
                         this.heads[isBigIndex][headIndex],
-                        this.chins[chinIndex][headIndex],
-                        this.bills[billIndex][headIndex]};
+                        this.chins[isBigIndex][chinIndex],
+                        this.bills[isBigIndex][billIndex]};
                 return returnArray;
             }
         }
