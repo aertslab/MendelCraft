@@ -1,6 +1,6 @@
 {
   "billColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ACT": 1,
       "GGC": 1
     },
@@ -37,7 +37,7 @@
     }
   },
   "bloodColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "AAA": 1,
       "GGA": 1,
       "TTC": 1
@@ -78,7 +78,7 @@
     }
   },
   "bodyColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ACT": 1,
       "GGC": 1
     },
@@ -115,7 +115,7 @@
     }
   },
   "bodyDino": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "CAA": 1,
       "GCG": 1
     },
@@ -152,7 +152,7 @@
     }
   },
   "chinColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ACT": 1,
       "GGC": 1
     },
@@ -189,7 +189,7 @@
     }
   },
   "handicap": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ATA": 80,
       "TTA": 1,
       "TTC": 2
@@ -228,7 +228,7 @@
     }
   },
   "headColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "GCA": 1,
       "GCT": 1
     },
@@ -265,7 +265,7 @@
     }
   },
   "headDino": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "CAA": 1,
       "GCG": 1
     },
@@ -302,7 +302,7 @@
     }
   },
   "leftLegColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ACT": 1,
       "GGC": 1
     },
@@ -339,7 +339,7 @@
     }
   },
   "leftLegDino": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "GGC": 1,
       "GGG": 1
     },
@@ -376,7 +376,7 @@
     }
   },
   "leftWingColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ACT": 1,
       "GGC": 1
     },
@@ -413,7 +413,7 @@
     }
   },
   "leftWingDino": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ATG": 1,
       "TTA": 1
     },
@@ -450,7 +450,7 @@
     }
   },
   "rightLegColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ACT": 1,
       "GGC": 1
     },
@@ -487,7 +487,7 @@
     }
   },
   "rightLegDino": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "GGC": 1,
       "GGG": 1
     },
@@ -524,7 +524,7 @@
     }
   },
   "rightWingColor": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ACT": 1,
       "GGC": 1
     },
@@ -561,7 +561,7 @@
     }
   },
   "rightWingDino": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "ATG": 1,
       "TTA": 1
     },
@@ -598,7 +598,7 @@
     }
   },
   "size": {
-    "alleleFrequencies": {
+    "allelesInvolvedFreq": {
       "AAA": 1,
       "CGA": 1
     },
