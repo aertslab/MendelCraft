@@ -14,13 +14,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -28,8 +28,10 @@
     ],
     "effects": {
       "black": [
-        "AB",
         "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
         "BB"
@@ -39,8 +41,8 @@
   "bloodColor": {
     "allelesInvolved": {
       "A": [
-        "AAA",
-        "GGA"
+        "GGA",
+        "AAA"
       ],
       "B": [
         "TTC"
@@ -53,13 +55,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 1,
         "codon": 3,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 1,
         "codon": 3,
         "gene": 0
@@ -92,13 +94,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -106,8 +108,10 @@
     ],
     "effects": {
       "black": [
-        "AB",
         "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
         "BB"
@@ -129,13 +133,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
@@ -166,13 +170,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -180,8 +184,10 @@
     ],
     "effects": {
       "black": [
-        "AB",
         "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
         "BB"
@@ -205,13 +211,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 3,
         "codon": 3,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 3,
         "codon": 3,
         "gene": 0
@@ -230,37 +236,39 @@
   "headColor": {
     "allelesInvolved": {
       "A": [
-        "GCA"
+        "ACT"
       ],
       "B": [
-        "GCT"
+        "GGC"
       ]
     },
     "allelesInvolvedFreq": {
-      "GCA": 0.5,
-      "GCT": 0.5
+      "ACT": 0.5,
+      "GGC": 0.5
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
-        "codon": 1,
+        "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
-        "codon": 1,
+        "codon": 0,
         "gene": 0
       }
     ],
     "effects": {
       "black": [
-        "BB"
+        "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
-        "AB",
-        "AA"
+        "BB"
       ]
     }
   },
@@ -279,13 +287,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
@@ -316,13 +324,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -330,8 +338,10 @@
     ],
     "effects": {
       "black": [
-        "AB",
         "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
         "BB"
@@ -353,13 +363,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
@@ -390,13 +400,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -404,8 +414,10 @@
     ],
     "effects": {
       "black": [
-        "AB",
         "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
         "BB"
@@ -427,13 +439,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
@@ -464,13 +476,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -478,8 +490,10 @@
     ],
     "effects": {
       "black": [
-        "AB",
         "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
         "BB"
@@ -501,13 +515,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
@@ -538,13 +552,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -552,8 +566,10 @@
     ],
     "effects": {
       "black": [
-        "AB",
         "AA"
+      ],
+      "red": [
+        "AB"
       ],
       "white": [
         "BB"
@@ -575,13 +591,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
@@ -612,13 +628,13 @@
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 3,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 3,
         "gene": 0
