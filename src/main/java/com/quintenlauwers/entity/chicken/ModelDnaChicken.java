@@ -366,6 +366,8 @@ public class ModelDnaChicken extends ModelChicken {
         } else {
             EntityDnaChicken chicken = (EntityDnaChicken) animal;
             int headIndex = chicken.getHeadColor();
+            int chinIndex = chicken.getChinColor();
+            int billIndex = chicken.getBillColor();
             int isBigIndex = chicken.isBig() ? 1 : 0;
             isBigIndex = this.isChild ? 2 : isBigIndex;
 
@@ -379,8 +381,8 @@ public class ModelDnaChicken extends ModelChicken {
             } else {
                 ModelRenderer[] returnArray = {
                         this.heads[isBigIndex][headIndex],
-                        this.chins[isBigIndex][headIndex],
-                        this.bills[isBigIndex][headIndex]};
+                        this.chins[isBigIndex][chinIndex],
+                        this.bills[isBigIndex][billIndex]};
                 return returnArray;
             }
         }
