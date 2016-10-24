@@ -229,11 +229,13 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     @Override
     public byte[] getDnaData() {
+
         return this.properties.getDnaData();
     }
 
     @Override
     public byte[] getDnaData2() {
+
         return this.properties.getDnaData2();
     }
 
@@ -258,11 +260,13 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
 
     @Override
     public String getAnimalName() {
+
         return "chicken";
     }
 
     @Override
     public DnaProperties getProperties() {
+
         return this.properties;
     }
 

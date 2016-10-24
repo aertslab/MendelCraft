@@ -142,20 +142,18 @@ public class DnaProperties {
     private void fillRestrictedEntries() {
         restrictedEntries = new HashMap<GenePosition, Set<String>>();
         inEditable = new HashSet<GenePosition>();
+
         if (this.possibleProperties == null) {
             loadPossibleProperties();
         }
+
         for (String property : this.possibleProperties) { // Gets a feature i.e. headColor
             DnaAsset asset = dnaConfig.getDnaAsset(this.animal, property);
             int[][] positions = asset.getRelevantPositions(); //  Returns associated gene position i.e. [0, 0, 1]
             for (int[] position : positions) {
-                Map<String, Double> freqs = asset.getAlleleFreqs();
-                String[] codons = asset.getPossibleCodonValuesOnPosition(position); // Returns all codons possible for this location
-//                System.out.println("Codons are as follows:- ");
 
-                for (String codon : codons) {
-//                    System.out.println(codon);
-                }
+                String[] codons = asset.getPossibleCodonValuesOnPosition(position); // Returns all codons possible for this location
+
                 List<String> codonSet = Arrays.asList(codons);
                 GenePosition tempPosition = new GenePosition(position);
                 if (restrictedEntries.containsKey(tempPosition)) {
@@ -238,7 +236,7 @@ public class DnaProperties {
             }
         }
         dnaMap.put(dna, stringDna);
-//        System.out.println("Finished NBT");
+
         return dnaMap;
     }
 

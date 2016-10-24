@@ -330,9 +330,9 @@ public class DnaConfig {
             System.err.println("Config file is wrong, missing animal: " + animal);
             return properties;
         }
-        Set<Map.Entry<String, JsonElement>> propertieSet = animalConfig.entrySet();
+        Set<Map.Entry<String, JsonElement>> propertySet = animalConfig.entrySet();
         ArrayList<String> propertyList = new ArrayList<String>();
-        for (Map.Entry<String, JsonElement> entry : propertieSet) {
+        for (Map.Entry<String, JsonElement> entry : propertySet) {
             propertyList.add(entry.getKey());
         }
         properties = new String[propertyList.size()];
