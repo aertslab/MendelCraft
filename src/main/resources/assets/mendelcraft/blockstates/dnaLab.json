@@ -5,9 +5,9 @@
       "down": "mendelcraft:blocks/dnaLaboBlanco",
       "up": "mendelcraft:blocks/dnaLaboBlanco",
       "north": "mendelcraft:blocks/dnaLaboCME",
-      "south": "mendelcraft:blocks/dnaLaboVIB",
+      "south": "mendelcraft:blocks/dnaLaboVIBLogo",
       "east": "mendelcraft:blocks/dnaLaboLogo",
-      "west": "mendelcraft:blocks/dnaLaboLogo"
+      "west": "mendelcraft:blocks/dnaLaboVIB"
     }
   },
   "variants": {
