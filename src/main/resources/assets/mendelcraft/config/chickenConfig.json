@@ -1,47 +1,42 @@
 {
   "billColor": {
-    "allelesInvolvedFreq": {
-      "ACT": 1,
-      "GGC": 1
-    },
     "allelesInvolved": {
       "A": [
-        "ACT"
+        "GCA"
       ],
       "B": [
-        "GGC"
+        "GCT"
       ]
+    },
+    "allelesInvolvedFreq": {
+      "GCA": 1,
+      "GCT": 1
     },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
-        "codon": 0,
+        "codon": 1,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
-        "codon": 0,
+        "codon": 1,
         "gene": 0
       }
     ],
     "effects": {
-      "black": [
-        "AA",
-        "AB"
+      "red": [
+        "BB"
       ],
       "white": [
-        "BB"
+        "AA",
+        "AB"
       ]
     }
   },
   "bloodColor": {
-    "allelesInvolvedFreq": {
-      "AAA": 1,
-      "GGA": 1,
-      "TTC": 1
-    },
     "allelesInvolved": {
       "A": [
         "GGA",
@@ -51,15 +46,20 @@
         "TTC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "AAA": 1,
+      "GGA": 1,
+      "TTC": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 1,
         "codon": 3,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 1,
         "codon": 3,
         "gene": 0
@@ -78,10 +78,6 @@
     }
   },
   "bodyColor": {
-    "allelesInvolvedFreq": {
-      "ACT": 1,
-      "GGC": 1
-    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -90,15 +86,19 @@
         "GGC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -106,7 +106,9 @@
     ],
     "effects": {
       "black": [
-        "AA",
+        "AA"
+      ],
+      "gray": [
         "AB"
       ],
       "white": [
@@ -115,10 +117,6 @@
     }
   },
   "bodyDino": {
-    "allelesInvolvedFreq": {
-      "CAA": 1,
-      "GCG": 1
-    },
     "allelesInvolved": {
       "A": [
         "CAA"
@@ -127,15 +125,19 @@
         "GCG"
       ]
     },
+    "allelesInvolvedFreq": {
+      "CAA": 90,
+      "GCG": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
@@ -152,10 +154,6 @@
     }
   },
   "chinColor": {
-    "allelesInvolvedFreq": {
-      "ACT": 1,
-      "GGC": 1
-    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -164,54 +162,54 @@
         "GGC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       }
     ],
     "effects": {
-      "black": [
+      "red": [
+        "BB",
         "AA",
         "AB"
-      ],
-      "white": [
-        "BB"
       ]
     }
   },
   "handicap": {
-    "allelesInvolvedFreq": {
-      "ATA": 80,
-      "TTA": 1,
-      "TTC": 2
-    },
     "allelesInvolved": {
       "A": [
-        "TTA",
         "ATA"
       ],
       "B": [
         "TTC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ATA": 80,
+      "TTC": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 3,
         "codon": 3,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 3,
         "codon": 3,
         "gene": 0
@@ -228,10 +226,6 @@
     }
   },
   "headColor": {
-    "allelesInvolvedFreq": {
-      "GCA": 1,
-      "GCT": 1
-    },
     "allelesInvolved": {
       "A": [
         "GCA"
@@ -240,15 +234,19 @@
         "GCT"
       ]
     },
+    "allelesInvolvedFreq": {
+      "GCA": 1,
+      "GCT": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 1,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 1,
         "gene": 0
@@ -265,10 +263,6 @@
     }
   },
   "headDino": {
-    "allelesInvolvedFreq": {
-      "CAA": 1,
-      "GCG": 1
-    },
     "allelesInvolved": {
       "A": [
         "CAA"
@@ -277,15 +271,19 @@
         "GCG"
       ]
     },
+    "allelesInvolvedFreq": {
+      "CAA": 90,
+      "GCG": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 0,
         "gene": 0
@@ -302,10 +300,6 @@
     }
   },
   "leftLegColor": {
-    "allelesInvolvedFreq": {
-      "ACT": 1,
-      "GGC": 1
-    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -314,15 +308,19 @@
         "GGC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -330,7 +328,9 @@
     ],
     "effects": {
       "black": [
-        "AA",
+        "AA"
+      ],
+      "gray": [
         "AB"
       ],
       "white": [
@@ -339,10 +339,6 @@
     }
   },
   "leftLegDino": {
-    "allelesInvolvedFreq": {
-      "GGC": 1,
-      "GGG": 1
-    },
     "allelesInvolved": {
       "A": [
         "GGC"
@@ -351,15 +347,19 @@
         "GGG"
       ]
     },
+    "allelesInvolvedFreq": {
+      "GGC": 90,
+      "GGG": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
@@ -376,10 +376,6 @@
     }
   },
   "leftWingColor": {
-    "allelesInvolvedFreq": {
-      "ACT": 1,
-      "GGC": 1
-    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -388,15 +384,19 @@
         "GGC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -404,7 +404,9 @@
     ],
     "effects": {
       "black": [
-        "AA",
+        "AA"
+      ],
+      "gray": [
         "AB"
       ],
       "white": [
@@ -413,10 +415,6 @@
     }
   },
   "leftWingDino": {
-    "allelesInvolvedFreq": {
-      "ATG": 1,
-      "TTA": 1
-    },
     "allelesInvolved": {
       "A": [
         "ATG"
@@ -425,15 +423,19 @@
         "TTA"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ATG": 90,
+      "TTA": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
@@ -450,10 +452,6 @@
     }
   },
   "rightLegColor": {
-    "allelesInvolvedFreq": {
-      "ACT": 1,
-      "GGC": 1
-    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -462,15 +460,19 @@
         "GGC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -478,7 +480,9 @@
     ],
     "effects": {
       "black": [
-        "AA",
+        "AA"
+      ],
+      "gray": [
         "AB"
       ],
       "white": [
@@ -487,10 +491,6 @@
     }
   },
   "rightLegDino": {
-    "allelesInvolvedFreq": {
-      "GGC": 1,
-      "GGG": 1
-    },
     "allelesInvolved": {
       "A": [
         "GGC"
@@ -499,15 +499,19 @@
         "GGG"
       ]
     },
+    "allelesInvolvedFreq": {
+      "GGC": 90,
+      "GGG": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 2,
         "gene": 0
@@ -524,10 +528,6 @@
     }
   },
   "rightWingColor": {
-    "allelesInvolvedFreq": {
-      "ACT": 1,
-      "GGC": 1
-    },
     "allelesInvolved": {
       "A": [
         "ACT"
@@ -536,15 +536,19 @@
         "GGC"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ACT": 1,
+      "GGC": 1
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 0,
         "codon": 0,
         "gene": 0
@@ -552,7 +556,9 @@
     ],
     "effects": {
       "black": [
-        "AA",
+        "AA"
+      ],
+      "gray": [
         "AB"
       ],
       "white": [
@@ -561,10 +567,6 @@
     }
   },
   "rightWingDino": {
-    "allelesInvolvedFreq": {
-      "ATG": 1,
-      "TTA": 1
-    },
     "allelesInvolved": {
       "A": [
         "ATG"
@@ -573,15 +575,19 @@
         "TTA"
       ]
     },
+    "allelesInvolvedFreq": {
+      "ATG": 90,
+      "TTA": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 1,
         "gene": 0
@@ -598,10 +604,6 @@
     }
   },
   "size": {
-    "allelesInvolvedFreq": {
-      "AAA": 1,
-      "CGA": 1
-    },
     "allelesInvolved": {
       "A": [
         "AAA"
@@ -610,15 +612,19 @@
         "CGA"
       ]
     },
+    "allelesInvolvedFreq": {
+      "AAA": 90,
+      "CGA": 10
+    },
     "codonsInvolved": [
       {
-        "allele": "B",
+        "allele": "A",
         "chromosome": 2,
         "codon": 3,
         "gene": 0
       },
       {
-        "allele": "A",
+        "allele": "B",
         "chromosome": 2,
         "codon": 3,
         "gene": 0

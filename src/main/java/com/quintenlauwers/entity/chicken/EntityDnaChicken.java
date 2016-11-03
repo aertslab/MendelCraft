@@ -411,7 +411,7 @@ public class EntityDnaChicken extends EntityChicken implements DnaEntity {
             colorNb = 2;
         else if ("green".equals(color))
             colorNb = 3;
-        else if ("red".equals(color))
+        else if ("gray".equals(color) || "red".equals(color))
             colorNb = 4;
         else
             colorNb = 0;

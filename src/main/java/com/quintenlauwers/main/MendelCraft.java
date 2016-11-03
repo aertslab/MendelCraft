@@ -74,6 +74,7 @@ public class MendelCraft {
         System.err.println("Actual load");
         GameRegistry.addRecipe(new ItemStack(ModItems.dnaSyringe), " m ", "mgm", "mgm", 'g', new ItemStack(Blocks.GLASS), 'm', new ItemStack(Items.IRON_INGOT));
         GameRegistry.addRecipe(new ItemStack(ModBlocks.dnaLab), "mmm", "mdm", "mmm", 'm', new ItemStack(Items.IRON_INGOT), 'd', new ItemStack(Items.DIAMOND));
+        GameRegistry.addRecipe(new ItemStack(ModItems.inspector), "ddd", "dgd", "ddd", 'g', new ItemStack(Blocks.GLASS), 'd', new ItemStack(Items.DIAMOND));
         proxy.registerRenderInfo();
     }
 

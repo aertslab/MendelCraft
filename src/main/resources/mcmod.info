@@ -1,11 +1,11 @@
 [
 {
   "modid": "mendelcraft",
-  "name": "Mendel Craft",
+  "name": "MendelCraft",
   "description": "A mod to teach children the laws of Mendel.",
-  "version": "0.1",
+  "version": "1.0",
   "mcversion": "1.10.2",
-  "authorList": ["Quinten Lauwers"],
+  "authorList": ["Quinten Lauwers", "Kris Davie", "Mark Fiers"],
   "credits": "The Forge and FML guys, for providing the tools."
 }
 ]
