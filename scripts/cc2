@@ -77,14 +77,15 @@ elif command == 'template':
 elif command == 'production':
     
     t(g, "bodyColor"     , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:gray BB:white")
-    t(g, "chinColor"     , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:gray BB:white")
     t(g, "leftLegColor"  , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:gray BB:white")
     t(g, "rightLegColor" , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:gray BB:white")
     t(g, "leftWingColor" , 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:gray BB:white")
     t(g, "rightWingColor", 0, 0, 0,  "A:ACT B:GGC", "AA:black AB:gray BB:white")
-    
-    t(g, "headColor"     , 0, 0, 1,  "A:GCA B:GCT", "AA:black AB:black BB:white")
-    t(g, "billColor"     , 0, 0, 1,  "A:GCA B:GCT", "AA:black AB:black BB:white")
+
+    t(g, "chinColor"     , 0, 0, 0,  "A:ACT B:GGC", "AA:red AB:red BB:red")
+
+    t(g, "headColor"     , 0, 0, 1,  "A:GCA B:GCT", "AA:white AB:white BB:black")
+    t(g, "billColor"     , 0, 0, 1,  "A:GCA B:GCT", "AA:white AB:white BB:red")
 
     t(g, "bloodColor"    , 1, 0, 3, "A:AAA/GGA B:TTC", "AA:yellowblood AB:greenblood BB:blueblood")
 
