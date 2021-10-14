@@ -1,42 +1,17 @@
 {
-    "parent": "builtin/generated",
-    "textures": {
-      "layer0": "mendelcraft:items/syringe"
-    },
-    "display": {
-      "thirdperson_righthand": {
-        "rotation": [
-          0,
-          0,
-          0.5
-        ],
-        "translation": [
-          0,
-          0,
-          0
-        ],
-        "scale": [
-          0.55,
-          0.55,
-          0.55
-        ]
-        },
-      "firstperson_righthand": {
-        "rotation": [
-          0,
-          0,
-          110
-        ],
-        "translation": [
-          0,
-          1,
-          0
-        ],
-        "scale": [
-          0.5,
-          0.5,
-          0.5
-        ]
-        }
-    }
+  "parent": "item/generated",
+    "overrides": [
+          {
+          "predicate": {
+                  "mendelcraft:colored": 0
+                  },
+			 "model": "mendelcraft:item/dnasyringeempty"
+          },
+         {
+          "predicate": {
+                      "mendelcraft:colored": 1
+                  },
+     		"model": "mendelcraft:item/dnasyringefull"
+  		}
+     ]
 }

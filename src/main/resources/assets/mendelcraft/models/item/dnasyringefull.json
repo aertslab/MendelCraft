@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+    "textures": {
+        "layer0": "mendelcraft:item/dnasyringefull",
+        "layer1": "mendelcraft:item/dnasyringefluid"
+    }
+}

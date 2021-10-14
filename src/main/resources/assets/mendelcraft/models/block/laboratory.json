@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mendelcraft:block/dnalaboblanco",
+    "up": "mendelcraft:block/dnalaboblanco",
+    "north": "mendelcraft:block/dnalabocme",
+    "south": "mendelcraft:block/dnalaboviblogo",
+    "east": "mendelcraft:block/dnalabologo",
+    "west": "mendelcraft:block/dnalabokul",
+    "particle": "mendelcraft:block/dnalaboblanco"
+    }
+}

@@ -1,6 +1,6 @@
 {
-  "parent": "mendelcraft:item/dnaSyringe",
-  "textures": {
-    "layer0": "mendelcraft:items/syringe"
-  }
+  "parent": "item/generated",
+    "textures": {
+        "layer0": "mendelcraft:item/dnasyringe"
+    }
 }
