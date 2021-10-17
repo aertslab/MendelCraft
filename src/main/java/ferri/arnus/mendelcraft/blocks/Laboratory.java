@@ -41,7 +41,7 @@ public class Laboratory extends Block implements EntityBlock{
 
                     @Override
                     public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
-                        return new LaboratoryContainer(i, pLevel, pPos, playerInventory, playerEntity);
+                        return new LaboratoryContainer(i, pLevel, pPos, playerInventory);
                     }
                 };
                 NetworkHooks.openGui((ServerPlayer) pPlayer, containerProvider, tileEntity.getBlockPos());
