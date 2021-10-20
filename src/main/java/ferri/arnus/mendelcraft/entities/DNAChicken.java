@@ -38,16 +38,15 @@ public class DNAChicken extends Chicken{
 	}
 	
 	@Override
-	public void deserializeNBT(CompoundTag nbt) {
-		super.deserializeNBT(nbt);
-		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(nbt.getCompound("DNA")));
+	public boolean save(CompoundTag pCompound) {
+		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> pCompound.put("DNA", s.serializeNBT()));
+		return super.save(pCompound);
 	}
 	
 	@Override
-	public CompoundTag serializeNBT() {
-		CompoundTag nbt = super.serializeNBT();
-		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> nbt.put("DNA", s.serializeNBT()));
-		return nbt;
+	public void load(CompoundTag nbt) {
+		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(nbt.getCompound("DNA")));
+		super.load(nbt);
 	}
 	
 	@Override

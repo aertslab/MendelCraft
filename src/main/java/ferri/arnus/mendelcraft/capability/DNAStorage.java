@@ -9,8 +9,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 
 public class DNAStorage implements IDNAStorage{
-	private Map<String,List<String>> chromosomes1;
-	private Map<String,List<String>> chromosomes2;
+	private Map<String,List<String>> chromosomes1 = new HashMap<String, List<String>>();
+	private Map<String,List<String>> chromosomes2 = new HashMap<String, List<String>>();
 	private boolean empty = true;
 	
 	public DNAStorage() {

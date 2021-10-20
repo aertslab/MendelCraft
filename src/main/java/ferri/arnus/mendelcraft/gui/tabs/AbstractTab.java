@@ -21,5 +21,7 @@ public abstract class AbstractTab {
 		return icon;
 	}
 	
-	public abstract void renderBg(PoseStack pPoseStack, float pPartialTicks, int pMouseX, int pMouseY);
+	public abstract void render(PoseStack pPoseStack, float pPartialTicks, int pMouseX, int pMouseY );
+	
+	public abstract void init(int relX, int relY);
 }
