@@ -21,10 +21,15 @@ public class ModConfig {
 		chromosomes.add("re");
 		chromosomes.add("ra");
 		f.add("Chromosomes.list", chromosomes);
+		f.add("Chromosomes.re.amount", 5);
 		ArrayList<String> gen = new ArrayList<String>();
 		gen.add("ATA");
 		gen.add("TUC");
 		f.add("Chromosomes.re.gen.0", gen);
+		
+		f.add("Chromosomes.ra.amount", 3);
+		
+		
 		f.add("Effect.re.0.type", "body");
 		ArrayList<String> match = new ArrayList<String>();
 		ArrayList<List<String>> list = new ArrayList<>();

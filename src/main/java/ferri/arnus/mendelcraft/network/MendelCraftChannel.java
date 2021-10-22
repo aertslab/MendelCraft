@@ -17,5 +17,6 @@ public class MendelCraftChannel {
 	
 	public static void register() {
 		INSTANCE.registerMessage(0, UpdateDNAEntityPacket.class, UpdateDNAEntityPacket::encode, UpdateDNAEntityPacket::decode, UpdateDNAEntityPacket::handle);
+		INSTANCE.registerMessage(1, LaboratoryPacket.class, LaboratoryPacket::encode, LaboratoryPacket::decode, LaboratoryPacket::handle);
 	}
 }

@@ -38,6 +38,9 @@ public class ChromosomeButton extends Button{
 		}else {
 			ContainerScreen.blit(pMatrixStack, this.x, this.y, DNAUtil.getChromosomes().indexOf(chromosome)*20, 20*i, this.width, this.height, 600, 60);
 		}
+		if (this.isHovered()) {
+			this.renderToolTip(pMatrixStack, pMouseX, pMouseY);
+	    }
 	}
 
 

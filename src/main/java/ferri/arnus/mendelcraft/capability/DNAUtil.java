@@ -111,7 +111,7 @@ public class DNAUtil {
 		Map<String,List<String>> map = new HashMap<>();
 		List<String> list = new ArrayList<>();
 		for (String chrom : getChromosomes()) {
-			for (int i= 0; i<4; i++) {
+			for (int i= 0; i<DNAUtil.getGeneAmount(chrom); i++) {
 				list.add(randomGenes(chrom, i, level));
 			}
 			map.put(chrom, new ArrayList<>(list));
@@ -125,9 +125,17 @@ public class DNAUtil {
 		return ModConfig.CONFIG.get().get("Chromosomes.list");
 	}
 	
+	public static int getGeneAmount(String chromosome) {
+		return ModConfig.CONFIG.get().get("Chromosomes." + chromosome + ".amount");
+	}
+	
+	public static List<String> getPossibleGenes(String chromosome, int gen) {
+		return ModConfig.CONFIG.get().get("Chromosomes." + chromosome + ".gen." + gen);
+	}
+	
 	private static String randomGenes(String chromosome, int gen, Level level){
 		try {
-			List<String> list = ModConfig.CONFIG.get().get("Chromosomes." + chromosome + ".gen." + gen);
+			List<String> list = DNAUtil.getPossibleGenes(chromosome, gen);
 			return list.get(level.random.nextInt(list.size()));
 		}catch (Exception e){
 			
@@ -143,8 +151,8 @@ public class DNAUtil {
 	
 	private static Map<String,Integer> Chromosome(String type){
 		Map<String,Integer> map = new HashMap<>();
-		for (int i=0; i<4;i++) {
-			for (String chroms : getChromosomes()) {
+		for (String chroms : getChromosomes()) {
+			for (int i=0; i<DNAUtil.getGeneAmount(chroms);i++) {
 				try {
 					String types = ModConfig.CONFIG.get().get("Effect." + chroms + "." + i +".type");
 					if (types.equals(type)) {

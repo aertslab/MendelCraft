@@ -58,7 +58,7 @@ public class DNAStorage implements IDNAStorage{
 		 for (String chromosome : DNAUtil.getChromosomes()) {
 			 List<String> list = new ArrayList<>();
 			 CompoundTag gene = tag.getCompound(chromosome);
-			 for (int i=0; i<4; i++) {
+			 for (int i=0; i<DNAUtil.getGeneAmount(chromosome); i++) {
 				 list.add(gene.getString(i+""));
 			 }
 			 chromosomes1.put(chromosome, list);
@@ -69,7 +69,7 @@ public class DNAStorage implements IDNAStorage{
 		 for (String chromosome : DNAUtil.getChromosomes()) {
 			 List<String> list = new ArrayList<>();
 			 CompoundTag gene = tag2.getCompound(chromosome);
-			 for (int i=0; i<4; i++) {
+			 for (int i=0; i<DNAUtil.getGeneAmount(chromosome); i++) {
 				 list.add(gene.getString(i+""));
 			 }
 			 chromosomes2.put(chromosome, list);
@@ -115,9 +115,14 @@ public class DNAStorage implements IDNAStorage{
 	}
 
 	@Override
-	public void setGene(List<String> chromosome, int[] place, List<String> sequence) {
-		// TODO Auto-generated method stub
+	public void setGene(String chromosome, int place, List<String> sequence) {
+		List<String> list1 = this.chromosomes1.get(chromosome);
+		list1.set(place, sequence.get(0));
+		this.chromosomes1.put(chromosome, list1);
 		
+		List<String> list2 = this.chromosomes2.get(chromosome);
+		list2.set(place, sequence.get(1));
+		this.chromosomes2.put(chromosome, list2);
 	}
 
 	@Override

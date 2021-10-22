@@ -14,12 +14,15 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class LaboratoryContainer extends AbstractContainerMenu{
 	
+	private BlockPos pos;
+
 	public LaboratoryContainer(final int windowId, Inventory playerInventory, final FriendlyByteBuf data) {
 		 this(windowId, playerInventory.player.level, data.readBlockPos(), playerInventory);
 	}
 
 	public LaboratoryContainer(final int windowId, Level world, BlockPos pos, Inventory playerInventory) {
 		super(ContainerRegistry.LABORATORY.get(), windowId);
+		this.pos = pos;
 		LaboratoryBlockEntity laboratory = (LaboratoryBlockEntity) world.getBlockEntity(pos);
 		laboratory.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(cap -> {
 			addSlot(new HideableSlot(cap, 0, 26, 31));
@@ -28,6 +31,10 @@ public class LaboratoryContainer extends AbstractContainerMenu{
 		});
 		
 		this.bindPlayerInventory(new InvWrapper(playerInventory));
+	}
+	
+	public BlockPos getPos() {
+		return pos;
 	}
 
 	private void bindPlayerInventory(IItemHandler inventory) {

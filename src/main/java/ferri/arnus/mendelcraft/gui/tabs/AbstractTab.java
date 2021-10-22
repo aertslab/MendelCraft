@@ -24,4 +24,6 @@ public abstract class AbstractTab {
 	public abstract void render(PoseStack pPoseStack, float pPartialTicks, int pMouseX, int pMouseY );
 	
 	public abstract void init(int relX, int relY);
+	
+	public void clear() {}
 }

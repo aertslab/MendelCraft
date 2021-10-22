@@ -24,4 +24,5 @@ public class HideableSlot extends SlotItemHandler{
 	public boolean isActive() {
 		return this.active;
 	}
+	
 }

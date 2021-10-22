@@ -54,5 +54,4 @@ public class LaboratoryBlockEntity extends BlockEntity{
 		itemstHandler.deserializeNBT(pTag.getCompound("dnaitem"));
 		super.load(pTag);
 	}
-
 }

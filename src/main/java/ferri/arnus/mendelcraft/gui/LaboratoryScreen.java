@@ -7,6 +7,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import ferri.arnus.mendelcraft.gui.tabs.AbstractTab;
+import ferri.arnus.mendelcraft.gui.tabs.EditDNATab;
 import ferri.arnus.mendelcraft.gui.tabs.InventoryTab;
 import ferri.arnus.mendelcraft.gui.tabs.SyringeTab;
 import ferri.arnus.mendelcraft.items.ItemRegistry;
@@ -32,6 +33,7 @@ public class LaboratoryScreen extends AbstractContainerScreen<LaboratoryContaine
 		tabs.add(new InventoryTab(0, Items.CHEST, this));
 		tabs.add(new SyringeTab(1, ItemRegistry.DNASYRINGE.get(),0, this));
 		tabs.add(new SyringeTab(2, ItemRegistry.DNASYRINGE.get(),1, this));
+		tabs.add(new EditDNATab(3, ItemRegistry.DNACHICKENSPAWNEGG.get(), this));
 	}
 	
 	@Override
@@ -81,9 +83,10 @@ public class LaboratoryScreen extends AbstractContainerScreen<LaboratoryContaine
 		double d0 = pMouseX - (double)this.leftPos;
         double d1 = pMouseY - (double)this.topPos;
 		for (AbstractTab laboratorytab: tabs) {
-			if (this.checkTabClicked(laboratorytab, d0, d1)) {
+			if (this.checkTabClicked(laboratorytab, d0, d1) && this.selectedtab != laboratorytab.getId()) {
+				laboratorytab.clear();
 				this.selectedtab = laboratorytab.getId();
-				laboratorytab.init((this.width - this.getXSize()) / 2, (this.height - this.getYSize()) / 2);
+				laboratorytab.init((this.width - this.getXSize()) / 2, (this.height - this.getYSize()) / 2 + 20);
 			}
 		}
 		return super.mouseReleased(pMouseX, pMouseY, pButton);

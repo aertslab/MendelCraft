@@ -13,18 +13,22 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GeneButton extends Button{
 
-	private static final ResourceLocation BUTTON = new ResourceLocation(MendelCraft.MODID, "textures/gui/dnabutton.png");
+	private ResourceLocation button = new ResourceLocation(MendelCraft.MODID, "textures/gui/dnabutton.png");
 	private SyringeTab tab;
 	private String chromosome;
 	private int gene = 0;
 	private int parent = 0;
 
 	public GeneButton(int pX, int pY, OnPress pOnPress, OnTooltip pOnTooltip, SyringeTab tab, String chromosome, int gene, int parent) {
-		super(pX + 34*gene + 20, pY, 34, 20, new TextComponent(""), pOnPress, pOnTooltip);
+		super(pX + 34*(gene%4) + 20, pY, 34, 20, new TextComponent(""), pOnPress, pOnTooltip);
 		this.tab = tab;
 		this.chromosome = chromosome;
 		this.gene = gene;
 		this.parent = parent;
+	}
+	
+	public void setButtonTexture(ResourceLocation button) {
+		this.button = button;
 	}
 	
 	@Override
@@ -39,7 +43,7 @@ public class GeneButton extends Button{
 	@Override
 	public void renderButton(PoseStack pMatrixStack, int pMouseX, int pMouseY, float pPartialTicks) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, BUTTON);
+		RenderSystem.setShaderTexture(0, button);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
 		int i = this.getYImage(this.isHovered());
 		RenderSystem.enableBlend();
@@ -52,6 +56,9 @@ public class GeneButton extends Button{
 			ContainerScreen.blit(pMatrixStack, this.x, this.y, 0, 20*i, this.width / 2, 20, 34, 60);
 			ContainerScreen.blit(pMatrixStack, this.x + this.width / 2, this.y, 34 - this.width / 2, 20*i, this.width / 2, this.height, 34, 60);
 		}
+		if (this.isHovered()) {
+			this.renderToolTip(pMatrixStack, pMouseX, pMouseY);
+	    }
 	}
 
 

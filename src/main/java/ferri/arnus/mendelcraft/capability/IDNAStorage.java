@@ -18,7 +18,7 @@ public interface IDNAStorage extends INBTSerializable<CompoundTag>{
 	
 	List<String> getGene(String chromosome, int place);
 	
-	void setGene(List<String> chromosome, int[] place, List<String> sequence);
+	void setGene(String chromosome, int place, List<String> sequence);
 	
 	boolean isEmpty();
 	
