@@ -45,6 +45,7 @@ public class DNAChicken extends Chicken{
 	
 	@Override
 	public void load(CompoundTag nbt) {
+		System.out.println(nbt);
 		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(nbt.getCompound("DNA")));
 		super.load(nbt);
 	}
