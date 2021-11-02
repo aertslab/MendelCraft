@@ -174,8 +174,6 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 			this.dino_lip_lower.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 			this.dino_lip_upper.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 			this.dino_neck_upper.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
- 			this.dino_tail_lower.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
-			this.dino_tail_mid.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 		} else {
 			Color color = new Color(DNAUtil.getHeadColor(chicken));
 			this.head.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay, color.getRed()/255F, color.getGreen()/255F, color.getBlue()/255F, color.getAlpha()/255F);
@@ -187,6 +185,8 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 			this.dino_tail_upper.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 			this.dino_thigh_left.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 			this.dino_thigh_rigth.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
+			this.dino_tail_lower.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
+			this.dino_tail_mid.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 		} else {
 			Color color = new Color(DNAUtil.getBodyColor(chicken));
 			this.body.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay, color.getRed()/255F, color.getGreen()/255F, color.getBlue()/255F, color.getAlpha()/255F);
@@ -197,8 +197,9 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 			this.dino_thigh_left.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 			this.dino_thigh_rigth.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 		} else {
-			Color color = new Color(DNAUtil.getHeadColor(chicken));
-			this.legParts().forEach(part -> part.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay, color.getRed()/255F, color.getGreen()/255F, color.getBlue()/255F, color.getAlpha()/255F));
+			//Color color = new Color(DNAUtil.getBodyColor(chicken));
+			//this.legParts().forEach(part -> part.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay, color.getRed()/255F, color.getGreen()/255F, color.getBlue()/255F, color.getAlpha()/255F));
+			this.legParts().forEach(part -> part.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha));
 		}
 		if (DNAUtil.isDinoWings(chicken)) {
 			this.dino_arm_left.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);

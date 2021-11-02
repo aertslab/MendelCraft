@@ -49,6 +49,7 @@ public class LaboratoryPacket {
 					h.extractItem(message.slot, h.getStackInSlot(message.slot).getCount(), false);
 					message.storage.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
 						cap.deserializeNBT(message.tag);
+						System.out.println(cap.serializeNBT());
 					});
 					h.insertItem(message.slot, message.storage, false);
 				});

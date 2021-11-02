@@ -14,7 +14,6 @@ import ferri.arnus.mendelcraft.gui.buttons.ChromosomeButton;
 import ferri.arnus.mendelcraft.gui.buttons.GeneButton;
 import ferri.arnus.mendelcraft.gui.slots.HideableSlot;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.TextComponent;
@@ -32,10 +31,10 @@ public class SyringeTab extends AbstractTab {
 	private int chromosomerow = 0;
 	private int generow = 0;
 	private static final ResourceLocation GUI = new ResourceLocation(MendelCraft.MODID, "textures/gui/background.png");
-	private AbstractContainerScreen<?> screen;
+	private LaboratoryScreen screen;
 	private String draw = "";
 
-	public SyringeTab(int id, Item icon, int slot, AbstractContainerScreen<?> screen) {
+	public SyringeTab(int id, Item icon, int slot, LaboratoryScreen screen) {
 		super(id, icon);
 		this.slot = slot;
 		this.screen = screen;
@@ -73,7 +72,7 @@ public class SyringeTab extends AbstractTab {
 		this.draw = draw;
 	}
 	
-	public AbstractContainerScreen<?> getScreen() {
+	public LaboratoryScreen getScreen() {
 		return screen;
 	}
 
@@ -105,7 +104,7 @@ public class SyringeTab extends AbstractTab {
 	@Override
 	public void init(int relX, int relY) {
 		getScreen().getMenu().slots.forEach(s -> ((HideableSlot) s).setActive(false));
-		((LaboratoryScreen) getScreen()).clearWidgets();
+		getScreen().clearWidgets();
 		this.addChrormosomeButtons(relX, relY);
 		this.addGeneButtons(this.selectedChromosome, getScreen(), relX, relY);
 	}
@@ -113,13 +112,13 @@ public class SyringeTab extends AbstractTab {
 	public void addChrormosomeButtons(int relX, int relY) {
 		ItemStack item = getScreen().getMenu().slots.get(getSlot()).getItem();
 		item.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
-			((LaboratoryScreen) getScreen()).addRenderableWidget(new Button(relX + 5, relY + 20, 10, 20,
+			getScreen().addRenderableWidget(new Button(relX + 5, relY + 20, 10, 20,
 					new TextComponent("<"), b -> this.decreaseChromosome(b, relX, relY)));
-			((LaboratoryScreen) getScreen()).addRenderableWidget(new Button(relX + getScreen().getXSize() - 15,
+			getScreen().addRenderableWidget(new Button(relX + getScreen().getXSize() - 15,
 					relY + 20, 10, 20, new TextComponent(">"), b -> this.increaseChromosome(b, relX, relY)));
 			for (int i = chromosomerow * 4; i < Math.min(chromosomerow + 4, DNAUtil.getChromosomes().size()); i++) {
 				AtomicReference<String> atom = new AtomicReference<String>(DNAUtil.getChromosomes().get(i));
-				((LaboratoryScreen) getScreen()).addRenderableWidget(
+				getScreen().addRenderableWidget(
 						new ChromosomeButton(relX + 20 + 25 * (i % 4), relY + 20, (b) -> setChrome(relX, relY, atom),
 								(b, p, x, y) -> getScreen().renderTooltip(p,
 										new TranslatableComponent("chromosome.").append(atom.get()), x, y),
@@ -151,21 +150,21 @@ public class SyringeTab extends AbstractTab {
 		this.init(relX, relY);
 	}
 
-	public void addGeneButtons(String chromosome, AbstractContainerScreen<?> screen, int relX, int relY) {
+	public void addGeneButtons(String chromosome, LaboratoryScreen screen, int relX, int relY) {
 		ItemStack item = screen.getMenu().slots.get(getSlot()).getItem();
 		item.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
-			((LaboratoryScreen) screen).addRenderableWidget(new Button(relX + 5, relY + 65, 10, 20,
+			screen.addRenderableWidget(new Button(relX + 5, relY + 65, 10, 20,
 					new TextComponent("<"), b -> this.decreaseGene(b, relX, relY)));
-			((LaboratoryScreen) screen).addRenderableWidget(new Button(relX + screen.getXSize() - 15, relY + 65, 10, 20,
+			screen.addRenderableWidget(new Button(relX + screen.getXSize() - 15, relY + 65, 10, 20,
 					new TextComponent(">"), b -> this.increaseGene(b, chromosome, relX, relY)));
 			for (int i = generow * 4; i < Math.min(generow + 4, DNAUtil.getGeneAmount(chromosome)); i++) {
 				AtomicInteger atom = new AtomicInteger(i);
-				((LaboratoryScreen) screen).addRenderableWidget(new GeneButton(relX, relY + 50,
+				screen.addRenderableWidget(new GeneButton(relX, relY + 50,
 						(b) -> this.drawGenes(b, cap.getGene(chromosome, atom.get()).get(0), atom.get(), 0),
 						(b, p, x, y) -> screen.renderTooltip(p,
 								new TranslatableComponent("gene").append(" " + atom.get()), x, y),
 						this, chromosome, i, 0));
-				((LaboratoryScreen) screen).addRenderableWidget(new GeneButton(relX, relY + 80,
+				screen.addRenderableWidget(new GeneButton(relX, relY + 80,
 						(b) -> this.drawGenes(b, cap.getGene(chromosome, atom.get()).get(1), atom.get(), 1),
 						(b, p, x, y) -> screen.renderTooltip(p,
 								new TranslatableComponent("gene").append(" " + atom.get()), x, y),

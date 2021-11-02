@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import ferri.arnus.mendelcraft.MendelCraft;
 import ferri.arnus.mendelcraft.gui.LaboratoryScreen;
 import ferri.arnus.mendelcraft.gui.slots.HideableSlot;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -15,9 +14,9 @@ import net.minecraft.world.item.Item;
 public class InventoryTab extends AbstractTab{
 	
 	private static final ResourceLocation GUI = new ResourceLocation(MendelCraft.MODID, "textures/gui/labocontainer.png");
-	private AbstractContainerScreen<?> screen;
+	private LaboratoryScreen screen;
 
-	public InventoryTab(int id, Item icon, AbstractContainerScreen<?> screen) {
+	public InventoryTab(int id, Item icon, LaboratoryScreen screen) {
 		super(id, icon);
 		this.screen = screen;
 	}
@@ -36,6 +35,6 @@ public class InventoryTab extends AbstractTab{
 	@Override
 	public void init(int relX, int relY) {
 		screen.getMenu().slots.forEach(s -> ((HideableSlot) s).setActive(true));
-        ((LaboratoryScreen)screen).clearWidgets();
+        screen.clearWidgets();
 	}
 }

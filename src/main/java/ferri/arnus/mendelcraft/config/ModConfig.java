@@ -1,8 +1,5 @@
 package ferri.arnus.mendelcraft.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.core.Config;
 import com.electronwill.nightconfig.toml.TomlFormat;
@@ -16,51 +13,36 @@ public class ModConfig {
 	public static ConfigValue<Config> CONFIG;
 	public static CommentedConfig conf() {
 		CommentedConfig f = TomlFormat.newConcurrentConfig();
-		f.setComment("Chromosomes.list", "define your chromosomes here");
-		ArrayList<String> chromosomes = new ArrayList<String>();
-		chromosomes.add("re");
-		chromosomes.add("ra");
-		f.add("Chromosomes.list", chromosomes);
-		f.add("Chromosomes.re.amount", 5);
-		ArrayList<String> gen = new ArrayList<String>();
-		gen.add("ATA");
-		gen.add("TUC");
-		f.add("Chromosomes.re.gen.0", gen);
+
+		ConfigBuilder.chromosomes(f, "Chrom1", "Chrom2", "Chrom3", "Chrom4");
 		
-		f.add("Chromosomes.ra.amount", 3);
+		ConfigBuilder.geneAmount(f, "Chrom1", 5);
+		ConfigBuilder.defineGene(f, "Chrom1", 0, "ACT", "GGC");
+		ConfigBuilder.defineGene(f, "Chrom1", 1, "GCA", "GCT");
+		ConfigBuilder.geneColorBody(f, "Chrom1", 0);
+		ConfigBuilder.geneColorHead(f, "Chrom1", 1);
 		
+		ConfigBuilder.geneAmount(f, "Chrom2", 4);
+		ConfigBuilder.defineGene(f, "Chrom2", 3, "AAA", "GGA", "TTC");
+		ConfigBuilder.geneColorBlood(f, "Chrom2", 3);
 		
-		f.add("Effect.re.0.type", "body");
-		ArrayList<String> match = new ArrayList<String>();
-		ArrayList<List<String>> list = new ArrayList<>();
-		match.add("ATA");
-		match.add("ATA");
-		list.add((List<String>) match.clone());
-		match.clear();
-		match.add("ATA");
-		match.add("TUC");
-		list.add((List<String>) match.clone());
-		match.clear();
-		match.add("TUC");
-		match.add("ATA");
-		list.add((List<String>) match.clone());
-		match.clear();
-		match.add("TUC");
-		match.add("TUC");
-		list.add((List<String>) match.clone());
-		match.clear();
-		ArrayList<Integer> color = new ArrayList<>();
-		color.add(0x202020);
-		color.add(0xA9A9A9);
-		color.add(0xA9A9A9);
-		color.add(0xffffff);
-		f.add("Effect.re.0.match", list);
-		f.add("Effect.re.0.color", color);
+		ConfigBuilder.geneAmount(f, "Chrom3", 7);
+		ConfigBuilder.defineGene(f, "Chrom3", 0, "CAA", "GCG");
+		ConfigBuilder.defineGene(f, "Chrom3", 1, "CAA", "GCG");
+		ConfigBuilder.defineGene(f, "Chrom3", 2, "ATG", "TTA");
+		ConfigBuilder.defineGene(f, "Chrom3", 3, "GGC", "GGG");
+		ConfigBuilder.geneDinoHead(f, "Chrom3", 0);
+		ConfigBuilder.geneDinoBody(f, "Chrom3", 1);
+		ConfigBuilder.geneDinoWings(f, "Chrom3", 2);
+		ConfigBuilder.geneDinoLegs(f, "Chrom3", 3);	
+		
+		ConfigBuilder.geneAmount(f, "Chrom4", 8);
+		
 		return f;
 	}
 	
 	static {
-		CONFIG = BUILDER.comment("t").define("Dna", conf() );
+		CONFIG = BUILDER.comment("DNA config").define("Dna", conf() );
 		SPEC = BUILDER.build();
 	}
 
