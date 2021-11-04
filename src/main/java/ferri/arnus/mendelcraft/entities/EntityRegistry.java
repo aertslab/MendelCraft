@@ -16,6 +16,6 @@ public class EntityRegistry {
 		ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 	
-	public static final RegistryObject<EntityType<DNAChicken>> DNACHICKEN = ENTITIES.register("dnachicken", ()-> EntityType.Builder.<DNAChicken>of(DNAChicken::new, MobCategory.AMBIENT).build("dnachicken"));
+	public static final RegistryObject<EntityType<DNAChicken>> DNACHICKEN = ENTITIES.register("dnachicken", ()-> EntityType.Builder.<DNAChicken>of(DNAChicken::new, MobCategory.AMBIENT).sized(0.4F, 0.7F).clientTrackingRange(10).build("dnachicken"));
 
 }

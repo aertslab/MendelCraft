@@ -34,10 +34,10 @@ public class EditDNATab extends SyringeTab{
 		item.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
 			screen.addRenderableWidget(new Button(relX + 5, relY+65, 10, 20, new TextComponent("<"), b -> this.decreaseGene(b, relX, relY)));
 			screen.addRenderableWidget(new Button(relX + screen.getXSize() -15, relY+65, 10, 20, new TextComponent(">"), b -> this.increaseGene(b, chromosome, relX, relY)));
-			for (int i = getGenerow()*4; i < Math.min(getGenerow() + 4, DNAUtil.getGeneAmount(chromosome)); i++) {
+			for (int i = getGenerow()*4; i < Math.min(getGenerow()*4 + 4, DNAUtil.getGeneAmount(chromosome)); i++) {
 				AtomicInteger atom = new AtomicInteger(i);
-				screen.addRenderableWidget(new EditButton(relX, relY + 50, (b) -> this.ChangeGene(screen, relX, relY, b, cap.getGene(chromosome, atom.get()).get(0), atom.get(), 0), (b,p,x,y) -> screen.renderTooltip(p, new TranslatableComponent("gene").append(" " +atom.get()), x, y), this, chromosome, i%4, 0));
-				screen.addRenderableWidget(new EditButton(relX, relY + 80, (b) -> this.ChangeGene(screen, relX, relY, b, cap.getGene(chromosome, atom.get()).get(1), atom.get(), 1), (b,p,x,y) -> screen.renderTooltip(p, new TranslatableComponent("gene").append(" " +atom.get()), x, y), this, chromosome, i%4, 1));
+				screen.addRenderableWidget(new EditButton(relX, relY + 50, (b) -> this.ChangeGene(screen, relX, relY, b, cap.getGene(chromosome, atom.get()).get(0), atom.get(), 0), (b,p,x,y) -> screen.renderTooltip(p, new TranslatableComponent("gene").append(" " +atom.get()), x, y), this, chromosome, i, 0));
+				screen.addRenderableWidget(new EditButton(relX, relY + 80, (b) -> this.ChangeGene(screen, relX, relY, b, cap.getGene(chromosome, atom.get()).get(1), atom.get(), 1), (b,p,x,y) -> screen.renderTooltip(p, new TranslatableComponent("gene").append(" " +atom.get()), x, y), this, chromosome, i, 1));
 			}
 		});
 	}

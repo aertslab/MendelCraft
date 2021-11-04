@@ -36,8 +36,12 @@ public class ModConfig {
 		ConfigBuilder.geneDinoWings(f, "Chrom3", 2);
 		ConfigBuilder.geneDinoLegs(f, "Chrom3", 3);	
 		
-		ConfigBuilder.geneAmount(f, "Chrom4", 8);
-		
+		ConfigBuilder.geneAmount(f, "Chrom4", 6);
+		ConfigBuilder.defineGene(f, "Chrom4", 0, "AAA", "CGA");
+		ConfigBuilder.defineGene(f, "Chrom4", 5, "ATA", "TTC");
+		ConfigBuilder.geneBig(f, "Chrom4", 0);
+		ConfigBuilder.geneStrange(f, "Chrom4", 5);
+				
 		return f;
 	}
 	

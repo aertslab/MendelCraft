@@ -157,7 +157,7 @@ public class SyringeTab extends AbstractTab {
 					new TextComponent("<"), b -> this.decreaseGene(b, relX, relY)));
 			screen.addRenderableWidget(new Button(relX + screen.getXSize() - 15, relY + 65, 10, 20,
 					new TextComponent(">"), b -> this.increaseGene(b, chromosome, relX, relY)));
-			for (int i = generow * 4; i < Math.min(generow + 4, DNAUtil.getGeneAmount(chromosome)); i++) {
+			for (int i = generow * 4; i < Math.min(generow*4 + 4, DNAUtil.getGeneAmount(chromosome)); i++) {
 				AtomicInteger atom = new AtomicInteger(i);
 				screen.addRenderableWidget(new GeneButton(relX, relY + 50,
 						(b) -> this.drawGenes(b, cap.getGene(chromosome, atom.get()).get(0), atom.get(), 0),

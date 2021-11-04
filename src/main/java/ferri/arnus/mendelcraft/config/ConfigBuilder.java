@@ -185,5 +185,27 @@ public class ConfigBuilder {
 		list.add((List<String>) match.clone());
 		f.add("Effect."+name+"."+gene+".match", list);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static void geneBig(CommentedConfig f, String name, int gene) {
+		f.add("Effect."+name+"."+gene+".type", "big");
+		ArrayList<String> match = new ArrayList<String>();
+		ArrayList<List<String>> list = new ArrayList<>();
+		match.add("CGA");
+		match.add("CGA");
+		list.add((List<String>) match.clone());
+		f.add("Effect."+name+"."+gene+".match", list);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void geneStrange(CommentedConfig f, String name, int gene) {
+		f.add("Effect."+name+"."+gene+".type", "strange");
+		ArrayList<String> match = new ArrayList<String>();
+		ArrayList<List<String>> list = new ArrayList<>();
+		match.add("TTC");
+		match.add("TTC");
+		list.add((List<String>) match.clone());
+		f.add("Effect."+name+"."+gene+".match", list);
+	}
 
 }

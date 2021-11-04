@@ -107,6 +107,30 @@ public class DNAUtil {
 		return dino[0];
 	}
 	
+	public static boolean isBig(Entity entity) {
+		boolean[] dino = new boolean[] {false};
+		entity.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
+			Chromosome("big").forEach((s,i) -> {
+				if (dinoList(s, i).contains(cap.getGene(s, i))) {
+					dino[0] = true;
+				}
+			});	
+		});
+		return dino[0];
+	}
+	
+	public static boolean isStrange(Entity entity) {
+		boolean[] dino = new boolean[] {false};
+		entity.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
+			Chromosome("strange").forEach((s,i) -> {
+				if (dinoList(s, i).contains(cap.getGene(s, i))) {
+					dino[0] = true;
+				}
+			});	
+		});
+		return dino[0];
+	}
+	
 	public static Map<String,List<String>> randomChromosone(Level level){
 		Map<String,List<String>> map = new HashMap<>();
 		List<String> list = new ArrayList<>();
@@ -138,7 +162,7 @@ public class DNAUtil {
 			List<String> list = DNAUtil.getPossibleGenes(chromosome, gen);
 			return list.get(level.random.nextInt(list.size()));
 		}catch (Exception e){
-			
+
 		}
 		return "";
 	}
