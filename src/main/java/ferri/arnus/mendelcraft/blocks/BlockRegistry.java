@@ -1,6 +1,7 @@
 package ferri.arnus.mendelcraft.blocks;
 
 import ferri.arnus.mendelcraft.MendelCraft;
+import ferri.arnus.mendelcraft.items.ItemRegistry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
@@ -21,5 +22,5 @@ public class BlockRegistry {
 	}
 	
 	public static final RegistryObject<Block> LABORATORY = BLOCKS.register("laboratory", ()-> new Laboratory());
-	public static final RegistryObject<Item> LABORATORY_ITEM = ITEMS.register("laboratory", () -> new BlockItem(LABORATORY.get(), new Properties()));
+	public static final RegistryObject<Item> LABORATORY_ITEM = ITEMS.register("laboratory", () -> new BlockItem(LABORATORY.get(), new Properties().tab(ItemRegistry.DNA)));
 }

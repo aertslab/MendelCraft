@@ -154,19 +154,35 @@ public class DNAUtil {
 	}
 	
 	public static List<String> getPossibleGenes(String chromosome, int gen) {
-		return ModConfig.CONFIG.get().get("Chromosomes." + chromosome + ".gen." + gen);
+		return ModConfig.CONFIG.get().get("Chromosomes." + chromosome + ".gen." + gen +".sequence");
 	}
 	
 	private static String randomGenes(String chromosome, int gen, Level level){
 		try {
 			List<String> list = DNAUtil.getPossibleGenes(chromosome, gen);
-			return list.get(level.random.nextInt(list.size()));
+			List<Double> chance = DNAUtil.getPossibleGenesChance(chromosome, gen);
+			if (list == null) {
+				return "";
+			}
+			float random = level.random.nextFloat();
+			float j = 0;
+			for (int i = 0; i < DNAUtil.getGeneAmount(chromosome)-1; i++) {
+				j += chance.get(i);
+				if (random <= j) {
+					return list.get(i);
+				}
+			}
+			return list.get(DNAUtil.getGeneAmount(chromosome));
 		}catch (Exception e){
-
+			System.out.println(e.getStackTrace() + " " + chromosome + " " + gen);
 		}
 		return "";
 	}
 	
+	private static List<Double> getPossibleGenesChance(String chromosome, int gen) {
+		return ModConfig.CONFIG.get().get("Chromosomes." + chromosome + ".gen." + gen + ".chance");
+	}
+
 	private static Map<List<String>,Integer> cololorMap(String chromosome, int gen){
 		List<Integer> color = ModConfig.CONFIG.get().get("Effect." + chromosome + "." + gen +".color");
 		List<List<String>> list = ModConfig.CONFIG.get().get("Effect." + chromosome + "." + gen +".match");

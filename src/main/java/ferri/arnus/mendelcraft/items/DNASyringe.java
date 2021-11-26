@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 public class DNASyringe extends Item{
 
 	public DNASyringe() {
-		super(new Properties().stacksTo(1));
+		super(new Properties().stacksTo(1).tab(ItemRegistry.DNA));
 	}
 	
 	@Override

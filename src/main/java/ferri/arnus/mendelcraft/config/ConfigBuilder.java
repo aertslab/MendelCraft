@@ -24,7 +24,15 @@ public class ConfigBuilder {
 		for (String s: possible) {
 			gen.add(s);
 		}
-		f.add("Chromosomes."+name+".gen." + gene, gen);
+		f.add("Chromosomes."+name+".gen." + gene + ".sequence", gen);
+	}
+	
+	public static void defineGeneChance(CommentedConfig f, String name, int gene, float...chance) {
+		ArrayList<Float> chances = new ArrayList<Float>();
+		for (float c: chance) {
+			chances.add(c);
+		}
+		f.add("Chromosomes."+name+".gen." + gene + ".chance", chances);
 	}
 	
 	@SuppressWarnings("unchecked")

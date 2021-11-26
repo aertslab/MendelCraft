@@ -37,7 +37,7 @@ public class DNAChickenSpawnEgg extends SpawnEggItem{
 	private RegistryObject<EntityType<DNAChicken>> type;
 
 	public DNAChickenSpawnEgg(RegistryObject<EntityType<DNAChicken>> dnachicken, int pBackgroundColor, int pHighlightColor) {
-		super(null, pBackgroundColor, pHighlightColor, new Properties());
+		super(null, pBackgroundColor, pHighlightColor, new Properties().tab(ItemRegistry.DNA));
 		this.type = dnachicken;
 	}
 	
