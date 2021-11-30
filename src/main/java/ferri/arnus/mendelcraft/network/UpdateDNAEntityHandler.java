@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import ferri.arnus.mendelcraft.capability.DNAProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
+import net.minecraftforge.network.NetworkEvent.Context;
 
 public class UpdateDNAEntityHandler {
 

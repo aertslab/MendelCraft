@@ -45,7 +45,7 @@ public class GeneButton extends Button{
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, button);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-		int i = this.getYImage(this.isHovered());
+		int i = this.getYImage(this.isHoveredOrFocused());
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableDepthTest();
@@ -56,7 +56,7 @@ public class GeneButton extends Button{
 			ContainerScreen.blit(pMatrixStack, this.x, this.y, 0, 20*i, this.width / 2, 20, 34, 60);
 			ContainerScreen.blit(pMatrixStack, this.x + this.width / 2, this.y, 34 - this.width / 2, 20*i, this.width / 2, this.height, 34, 60);
 		}
-		if (this.isHovered()) {
+		if (this.isHoveredOrFocused()) {
 			this.renderToolTip(pMatrixStack, pMouseX, pMouseY);
 	    }
 	}

@@ -18,7 +18,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BaseSpawner;
 import net.minecraft.world.level.ClipContext;
@@ -31,26 +30,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.registries.RegistryObject;
 
-public class DNAChickenSpawnEgg extends SpawnEggItem{
-	private RegistryObject<EntityType<DNAChicken>> type;
+public class DNAChickenSpawnEgg extends ForgeSpawnEggItem{
 
 	public DNAChickenSpawnEgg(RegistryObject<EntityType<DNAChicken>> dnachicken, int pBackgroundColor, int pHighlightColor) {
-		super(null, pBackgroundColor, pHighlightColor, new Properties().tab(ItemRegistry.DNA));
-		this.type = dnachicken;
-	}
-	
-	@Override
-	public EntityType<?> getType(CompoundTag pNbt) {
-		if (pNbt != null && pNbt.contains("EntityTag", 10)) {
-			CompoundTag compoundtag = pNbt.getCompound("EntityTag");
-			if (compoundtag.contains("id", 8)) {
-				return EntityType.byString(compoundtag.getString("id")).orElse(this.type.get());
-			}
-		}
-		
-		return this.type.get();
+		super(dnachicken, pBackgroundColor, pHighlightColor, new Properties().tab(ItemRegistry.DNA));
 	}
 	
 	@Override

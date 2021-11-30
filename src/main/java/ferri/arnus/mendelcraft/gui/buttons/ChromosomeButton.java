@@ -29,7 +29,7 @@ public class ChromosomeButton extends Button{
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, BUTTON);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-		int i = this.getYImage(this.isHovered());
+		int i = this.getYImage(this.isHoveredOrFocused());
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableDepthTest();
@@ -38,7 +38,7 @@ public class ChromosomeButton extends Button{
 		}else {
 			ContainerScreen.blit(pMatrixStack, this.x, this.y, DNAUtil.getChromosomes().indexOf(chromosome)*20, 20*i, this.width, this.height, 600, 60);
 		}
-		if (this.isHovered()) {
+		if (this.isHoveredOrFocused()) {
 			this.renderToolTip(pMatrixStack, pMouseX, pMouseY);
 	    }
 	}

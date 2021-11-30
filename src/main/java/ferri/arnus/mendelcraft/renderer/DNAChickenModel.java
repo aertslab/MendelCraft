@@ -204,7 +204,7 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 			this.dino_thigh_left.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 			this.dino_thigh_rigth.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 		} else {
-			Color color = new Color(DNAUtil.getHeadColor(chicken));
+			Color color = new Color(DNAUtil.getBodyColor(chicken));
 			this.legParts().forEach(part -> part.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay, color.getRed()/255F, color.getGreen()/255F, color.getBlue()/255F, color.getAlpha()/255F));
 		}
 		if (DNAUtil.isDinoWings(chicken)) {

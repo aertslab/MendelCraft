@@ -2,8 +2,8 @@ package ferri.arnus.mendelcraft.network;
 
 import ferri.arnus.mendelcraft.MendelCraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fmllegacy.network.NetworkRegistry;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 public class MendelCraftChannel {
 	private static final String PROTOCOL_VERSION = "1";
