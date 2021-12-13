@@ -31,20 +31,18 @@ public class DNAStorage implements IDNAStorage{
 		CompoundTag chromosome2list = new CompoundTag();
 		this.chromosomes1.forEach((s,l) -> {
 			CompoundTag genelist = new CompoundTag();
-			for (String gene: l) {
-				genelist.putString(l.indexOf(gene) + "", gene);
+			for (int i=0; i<DNAUtil.getGeneAmount(s); i++) {
+				genelist.putString(i+ "", l.get(i));
 			}
 			chromosome1list.put(s, genelist.copy());
-			genelist = new CompoundTag();
 		});
 		tag.put("chromosome1", chromosome1list);
 		this.chromosomes2.forEach((s,l) -> {
 			CompoundTag genelist = new CompoundTag();
-			for (String gene: l) {
-				genelist.putString(l.indexOf(gene) + "", gene);
+			for (int i=0; i<DNAUtil.getGeneAmount(s); i++) {
+				genelist.putString(i+ "", l.get(i));
 			}
 			chromosome2list.put(s, genelist.copy());
-			genelist = new CompoundTag();
 		});
 		tag.put("chromosome2", chromosome2list);
 		return tag;

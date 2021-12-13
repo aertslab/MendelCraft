@@ -36,7 +36,7 @@ public class Laboratory extends Block implements EntityBlock{
                 MenuProvider containerProvider = new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
-                        return new TranslatableComponent("screen.medelcraft.laboratory");
+                        return new TranslatableComponent("screen.mendelcraft.laboratory");
                     }
 
                     @Override

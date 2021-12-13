@@ -130,6 +130,7 @@ public class SyringeTab extends AbstractTab {
 	public void increaseChromosome(Button b, int relX, int relY) {
 		if ((this.chromosomerow + 1) * 4 < DNAUtil.getChromosomes().size()) {
 			this.chromosomerow += 1;
+			this.draw = "";
 		}
 		this.init(relX, relY);
 	}
@@ -137,6 +138,7 @@ public class SyringeTab extends AbstractTab {
 	public void decreaseChromosome(Button b, int relX, int relY) {
 		if (this.chromosomerow > 0) {
 			this.chromosomerow -= 1;
+			this.draw = "";
 		}
 		this.init(relX, relY);
 	}
@@ -177,6 +179,7 @@ public class SyringeTab extends AbstractTab {
 		if ((this.generow + 1) * 4 < DNAUtil.getGeneAmount(chromosome)) {
 			this.generow += 1;
 			this.selectedgene = -1;
+			this.draw = "";
 		}
 		this.init(relX, relY);
 	}
@@ -185,6 +188,7 @@ public class SyringeTab extends AbstractTab {
 		if (this.generow > 0) {
 			this.generow -= 1;
 			this.selectedgene = -1;
+			this.draw = "";
 		}
 		this.init(relX, relY);
 	}
