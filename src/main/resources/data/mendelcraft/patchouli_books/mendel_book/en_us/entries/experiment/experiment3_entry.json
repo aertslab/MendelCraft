@@ -1,0 +1,16 @@
+{
+    "name": "Experiment 3",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 2,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Go to the next chicken enclosure and try breeding those chickens togheter 5 time. What are the colors you get now? Write down how many of each color you got."
+       },
+       {
+           "type": "patchouli:text",
+           "text": "placement image"
+       }
+    ]
+}

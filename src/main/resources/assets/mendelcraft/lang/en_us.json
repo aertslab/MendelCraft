@@ -3,5 +3,6 @@
   "item.mendelcraft.dnachickenspawnegg": "DNA Chicken Spawn Egg",
   "block.mendelcraft.laboratory": "Laboratory",
   "itemGroup.mendelcraft" : "MendelCraft",
-  "button.mendelcraft.makeegg": "Make Spawn Egg"
+  "button.mendelcraft.makeegg": "Make Spawn Egg",
+  "screen.mendelcraft.laboratory": "Laboratory"
 }

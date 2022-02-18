@@ -1,0 +1,15 @@
+{
+    "name": "Introduction",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:introduction_category",
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "Welcom to Mendelcraft, a Minecraft mod that lets you experiment with Mendelian genetics on chickens. But first what does \"Mendelian\" mean? $(br) Mendelian genetics are based on the research of Gregor Mendel. He did experiments with plants and noticed that, for example the color and shape of peas depend on the color and shape of their parents."
+        },
+        {
+           "type": "patchouli:text",
+           "text": "We are howerever not going to use plants, but chickens!"
+       }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Experiment 1",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 0,
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "As a first experiment, we are going to breed some chickens. To breed a chicken, right click 2 chikens with $(item)seeds$(), they will make hearts appear and come closer, afterwich a new chicken is born. In the first encolsure you can find $(l)Black$() and $(l)White$() chickens. Try breeding 2 chickens of the $(l)same color$()? What color would you expect the child to have?"
+        },
+        {
+            "type": "patchouli:text",
+            "text": "placeholder for image?"
+        }
+    ]
+}

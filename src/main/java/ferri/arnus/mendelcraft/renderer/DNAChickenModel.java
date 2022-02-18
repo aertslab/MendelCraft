@@ -129,8 +129,8 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 	
 	@Override
 	public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-		this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-		this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
+		this.head.xRot = pHeadPitch * 0.017453292F * strange  * 0.8F - (float) (-10. / 180 * Math.PI) + (strange - 1);
+		this.head.yRot = pNetHeadYaw * 0.017453292F * strange * strange * strange - (strange - 1);
 		this.beak.xRot = this.head.xRot;
 		this.beak.yRot = this.head.yRot;
 		this.redThing.xRot = this.head.xRot;
@@ -173,8 +173,8 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 		pMatrixStack.pushPose();
 		if (!DNAUtil.isBig(chicken)) {
 			
-			pMatrixStack.scale(1.05F, 1.05F, 1.05F);
-			pMatrixStack.translate(0, -0.1D, 0);
+			pMatrixStack.scale(1.07F, 1.07F, 1.07F);
+			pMatrixStack.translate(0, -0.11D, 0);
 		}
 		if (DNAUtil.isDinoHead(chicken)) {
 			this.dino_head.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);

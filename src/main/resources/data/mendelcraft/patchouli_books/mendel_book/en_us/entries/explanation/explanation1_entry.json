@@ -1,0 +1,28 @@
+{
+    "name": "Explanation 1",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 3,
+    "pages": [
+      {
+          "type": "patchouli:text",
+          "text": "As you have seen now, breeding 2 $(l)Black or White$() chikens gives a child with the same color. Breeding $(l)Black$() and $(l)White$() chickens gives you a $(l)Grey$() chicken. But breeding 2 $(l)Grey$() chickens can give you $(l)Black$(), $(l)White$() and $(l)Grey$() chickens"
+      },
+      {
+          "type": "patchouli:text",
+          "text": "placeholder image"
+      },
+      {
+          "type": "patchouli:text",
+          "text": "Why does this happen? How can 2 $(l)Grey$() chickens give you a $(l)Black$() or $(l)White$() one? Well Each chicken has Chromosomes, which are 2 DNA strands that contain genes. One strand comes from its father and the other from its mother. Those strands contain genes, and those genes define the color of the chicken. For the $(l)Black$() and $(l)White$() chickens, both strands have the $(l)Black$() or $(l)White$() gene respectively, while the $(l)Grey$() chickens have both $(l)Black$() and $(l)White$() genes."
+      },
+      {
+          "type": "patchouli:text",
+          "text": "This explains why breeding 2 $(l)Grey$() chickens can give you $(l)Black$(), $(l)White$() and $(l)Grey$() chickens. $(l)Grey$() chickens have both $(l)Black$() and $(l)White$() genes, so their childeren can have 2 $(l)Black$(), 2 $(l)White$() or $(l)Black$() and $(l)White$() genes. Using this information we can make a \"square of Punnett\", which represents all possible gene combinations with the genes of the mother and father. This is a usefull tool to tell how high the change is for a child to have a certain characteristic."
+      },
+      {
+          "type": "patchouli:text",
+          "text": "For example 2 $(Grey) chickens have a 50% chance to get a $(l)Grey$() baby, and a 25% chance to get either $(l)Black$() or $(l)White$()"
+      }
+    ]
+}
