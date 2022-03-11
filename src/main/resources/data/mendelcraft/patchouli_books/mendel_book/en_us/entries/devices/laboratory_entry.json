@@ -3,9 +3,29 @@
     "icon": "minecraft:writable_book",
     "category": "mendelcraft:devices_category",
     "pages": [
-        {
+       {
            "type": "patchouli:text",
-           "text": "The laboratory"
+           "text": "The laboratory is a block that is used to view and change DNA. First up, to be able to view the DNA of a chicken, we need a bloodsample of the chicken. For this we make use of a syringe. Using this on a chicken will draw its blood. This syringe can than be placed in the first (or second) slot of the laboratory."
+       },
+       {
+           "type": "patchouli:text",
+           "text": "In the second (or third) tab you can now see the DNA data of the chicken. The top row lists all the chromosones the chicken has. When you click on one, two new rows appear, repesenting the two DNA strands of the chromosome. You can see that these strands have multiple 'genes'. Some of those don't show anything when pressed,"
+       },
+       {
+           "type": "patchouli:text",
+           "text": "but this is because those genes are not relevant for this mod. Some of them do however show a sequence when selected, containing 'T', 'A', 'C' and 'G'. These are the four base that make up all DNA"
+       },
+       {
+           "type": "patchouli:text",
+           "text": "Now we can view the DNA, next up is changing it. First up is artificialy making a new chicken. For this you need 2 filled syringes, and put them in slots one and two of the Laboratory. Next up go to the last tab. Than you press the 'Make egg' button to create a chicken as if it is a child of chickens who's blood you used in the syringes."
+       },
+       {
+           "type": "patchouli:text",
+           "text": "After a child is made, you can find it in the third slot of the first tab of the Laboratory. After a child has been made, you can change it's genes in the last tab, where you also pressed the button to make the child. The layout is the same as for viewing the DNA, but now if you select a 'gene', you can cycle through gene possibilities."
+       },
+       {
+           "type": "patchouli:text",
+           "text": ""
        }
     ]
 }

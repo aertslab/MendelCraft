@@ -1,0 +1,16 @@
+{
+    "name": "Experiment 4",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 4,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Now use the $(item)Laboratory$() to figure out which base sequence results in a $(l)Black$() gene and which results in a $(l)White$() gene. The gene you are looking for is gene 1 in chromosome 2." 
+       },
+       {
+           "type": "patchouli:text",
+           "text": "" 
+       }
+    ]
+}

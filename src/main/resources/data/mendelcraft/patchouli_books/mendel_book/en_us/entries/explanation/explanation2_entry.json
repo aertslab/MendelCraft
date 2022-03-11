@@ -1,0 +1,16 @@
+{
+    "name": "Explanation 1",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 3,
+    "pages": [
+      {
+          "type": "patchouli:text",
+          "text": "You noticed that unlike the body, the head only can be black or white. This is because the combination of black and white genes does not give you gray, but white. Genes like the white gene are called dominant genes, while the black genes are called recessive genes."
+      },
+      {
+          "type": "patchouli:text",
+          "text": "This means that if a dominant gene is present, the trait will be that of the dominant gene. Or if we say it in therms of the recessive gene, you need to have 2 recessive genes to get its trait."
+      }
+    ]
+}

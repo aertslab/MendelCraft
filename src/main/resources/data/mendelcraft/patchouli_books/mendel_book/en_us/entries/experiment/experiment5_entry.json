@@ -1,0 +1,16 @@
+{
+    "name": "Experiment 4",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 4,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Next up, we are going to look at head color. You can again see 2 colors before you, black and white. What color do you get if you breed 5 black colored ones togheter? What about 5 white? And 5 black and white chickens?"
+       },
+       {
+           "type": "patchouli:text",
+           "text": "" 
+       }
+    ]
+}
