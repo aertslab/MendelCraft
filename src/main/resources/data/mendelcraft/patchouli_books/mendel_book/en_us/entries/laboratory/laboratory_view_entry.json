@@ -1,0 +1,28 @@
+{
+    "name": "Viewing DNA",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:laboratory_category",
+    "sortnum": 0,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "The laboratory is a block that is used to view and change DNA. First up, to be able to view the DNA of a chicken, we need a bloodsample of the chicken. For this we make use of a syringe. Using this on a chicken will draw its blood. This syringe can than be placed in the first (or second) slot of the laboratory."
+       },
+       {
+           "type": "patchouli:image",
+           "images": ["mendelcraft:textures/entries/syringetab2.png"]
+       },
+       {
+           "type": "patchouli:text",
+           "text": "In the second (or third) tab you can now see the DNA data of the chicken. The top row lists all the chromosones the chicken has. When you click on one, two new rows appear, repesenting the two DNA strands of the chromosome. You can see that these strands have multiple 'genes'. Some of those don't show anything when pressed,"
+       },
+       {
+           "type": "patchouli:text",
+           "text": "but this is because those genes are not relevant for this mod. Some of them do however show a sequence when selected, containing 'T', 'A', 'C' and 'G'. These are the four base that make up all DNA"
+       },
+       {
+           "type": "patchouli:image",
+           "images": ["mendelcraft:textures/entries/view_genes.png"]
+       }
+    ]
+}

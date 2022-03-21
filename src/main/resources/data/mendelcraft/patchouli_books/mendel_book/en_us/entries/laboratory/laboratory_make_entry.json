@@ -1,0 +1,20 @@
+{
+    "name": "Changing DNA",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:laboratory_category",
+    "sortnum": 1,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Now we can view the DNA, next up is changing it. First up is artificialy making a new chicken. For this you need 1 (or 2) filled syringes, and put them in slots one (and two) of the Laboratory. Next up go to the last tab. Than you press the 'Make egg' button to create a chicken as if it is a child of chickens who's blood you used in the syringes."
+       },
+       {
+           "type": "patchouli:text",
+           "text": "After a child is made, you can find it in the third slot of the first tab of the Laboratory. After a child has been made, you can change it's genes in the last tab, where you also pressed the button to make the child. The layout is the same as for viewing the DNA, but now if you select a 'gene', you can cycle through gene possibilities."
+       },
+       {
+           "type": "patchouli:text",
+           "text": ""
+       }
+    ]
+}
