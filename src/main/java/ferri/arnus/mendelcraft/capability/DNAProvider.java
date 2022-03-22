@@ -19,7 +19,6 @@ public class DNAProvider implements ICapabilitySerializable<CompoundTag>{
 	public static final Capability<IDNAStorage> DNASTORAGE = CapabilityManager.get(new CapabilityToken<>(){});
 	
 	public DNAProvider() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public DNAProvider(Level level) {

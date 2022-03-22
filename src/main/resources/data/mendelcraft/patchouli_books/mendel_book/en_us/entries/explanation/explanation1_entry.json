@@ -10,10 +10,6 @@
       },
       {
           "type": "patchouli:text",
-          "text": "placeholder image"
-      },
-      {
-          "type": "patchouli:text",
           "text": "Why does this happen? How can 2 $(l)Grey$() chickens give you a $(l)Black$() or $(l)White$() one? Well Each chicken has Chromosomes, which are 2 DNA strands that contain genes. One strand comes from its father and the other from its mother. Those strands contain genes, and those genes define the color of the chicken. For the $(l)Black$() and $(l)White$() chickens, both strands have the $(l)Black$() or $(l)White$() gene respectively, while the $(l)Grey$() chickens have both $(l)Black$() and $(l)White$() genes."
       },
       {

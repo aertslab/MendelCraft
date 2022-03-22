@@ -38,16 +38,28 @@ public class DNAChicken extends Chicken{
 	}
 	
 	@Override
-	public boolean save(CompoundTag pCompound) {
-		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> pCompound.put("DNA", s.serializeNBT()));
-		return super.save(pCompound);
+	public void addAdditionalSaveData(CompoundTag p_28257_) {
+		super.addAdditionalSaveData(p_28257_);
+		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> p_28257_.put("DNA", s.serializeNBT()));
 	}
 	
 	@Override
-	public void load(CompoundTag nbt) {
-		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(nbt.getCompound("DNA")));
-		super.load(nbt);
+	public void readAdditionalSaveData(CompoundTag p_28243_) {
+		super.readAdditionalSaveData(p_28243_);
+		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(p_28243_.getCompound("DNA")));
 	}
+	
+//	@Override
+//	public boolean save(CompoundTag pCompound) {
+//		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> pCompound.put("DNA", s.serializeNBT()));
+//		return super.save(pCompound);
+//	}
+	
+//	@Override
+//	public void load(CompoundTag nbt) {
+//		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(nbt.getCompound("DNA")));
+//		super.load(nbt);
+//	}
 	
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> cap) {

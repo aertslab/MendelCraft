@@ -2,7 +2,7 @@
     "name": "Explanation 2",
     "icon": "minecraft:writable_book",
     "category": "mendelcraft:experiment_category",
-    "sortnum": 3,
+    "sortnum": 6,
     "pages": [
       {
           "type": "patchouli:text",

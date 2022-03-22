@@ -1,6 +1,6 @@
 {
     "name": "Viewing DNA",
-    "icon": "minecraft:writable_book",
+    "icon": "mendelcraft:dnasyringe",
     "category": "mendelcraft:laboratory_category",
     "sortnum": 0,
     "pages": [
@@ -22,7 +22,7 @@
        },
        {
            "type": "patchouli:image",
-           "images": ["mendelcraft:textures/entries/view_genes.png"]
+           "images": ["mendelcraft:textures/entries/view_genes2.png"]
        }
     ]
 }

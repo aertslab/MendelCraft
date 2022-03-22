@@ -23,4 +23,7 @@ public class BlockRegistry {
 	
 	public static final RegistryObject<Block> LABORATORY = BLOCKS.register("laboratory", ()-> new Laboratory());
 	public static final RegistryObject<Item> LABORATORY_ITEM = ITEMS.register("laboratory", () -> new BlockItem(LABORATORY.get(), new Properties().tab(ItemRegistry.DNA)));
+	
+	public static final RegistryObject<Monitor> MONITOR = BLOCKS.register("monitor", ()-> new Monitor());
+	public static final RegistryObject<Item> MONITOR_ITEM = ITEMS.register("monitor", () -> new BlockItem(MONITOR.get(), new Properties().tab(ItemRegistry.DNA)));
 }

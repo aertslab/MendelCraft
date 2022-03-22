@@ -1,20 +1,16 @@
 {
     "name": "Experiment 7",
-    "icon": "minecraft:writable_book",
+    "icon": "minecraft:paper",
     "category": "mendelcraft:experiment_category",
-    "sortnum": 4,
+    "sortnum": 8,
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "THe color of the head and body are not the only genes the chicken has, try to find what each gene does in the dna of the chicken (remeber that if a gene can not be clicked, it does nothing in this mod)." 
+           "text": "The color of the head and body are not the only genes the chicken has, try to find what each gene does in the dna of the chicken (remeber that if a gene can not be clicked, it does nothing in this mod)." 
        },
        {
            "type": "patchouli:text",
-           "text": "To do this you could run around taking samples of different chickens if you see some strange trait, but that would take a lot od time. Instead we are going to use the laboratory to edit genes. Read the explenation on changing genes and try to find them all" 
-       },
-       {
-           "type": "patchouli:text",
-           "text": "" 
+           "text": "To do this you could run around taking samples of different chickens if you see some strange trait, but that would take a lot off time. Instead we are going to use the laboratory to edit genes. Read the explenation on changing genes and try to find them all" 
        }
     ]
 }

@@ -174,7 +174,7 @@ public class DNAUtil {
 			}
 			return list.get(DNAUtil.getGeneAmount(chromosome));
 		}catch (Exception e){
-			System.out.println(e.getStackTrace() + " " + chromosome + " " + gen);
+			System.err.println(e.getStackTrace() + " " + chromosome + " " + gen);
 		}
 		return "";
 	}

@@ -16,5 +16,6 @@ public class BlockEntityRegistry {
 		BLOCKENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 	
-	public static final RegistryObject<BlockEntityType<?>> LABORATORY = BLOCKENTITIES.register("laboratory", () -> BlockEntityType.Builder.of((p,s) -> new LaboratoryBlockEntity(p, s), BlockRegistry.LABORATORY.get()).build(null));
+	public static final RegistryObject<BlockEntityType<LaboratoryBlockEntity>> LABORATORY = BLOCKENTITIES.register("laboratory", () -> BlockEntityType.Builder.of((p,s) -> new LaboratoryBlockEntity(p, s), BlockRegistry.LABORATORY.get()).build(null));
+	public static final RegistryObject<BlockEntityType<MonitorBlockEntity>> MONITOR = BLOCKENTITIES.register("monitor", () -> BlockEntityType.Builder.of((p,s) -> new MonitorBlockEntity(p, s), BlockRegistry.MONITOR.get()).build(null));
 }

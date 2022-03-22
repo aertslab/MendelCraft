@@ -16,6 +16,8 @@ public class ContainerRegistry {
 	}
 	
 	public static final RegistryObject<MenuType<LaboratoryContainer>> LABORATORY = CONTAINERS.register("laboratory", ()-> IForgeMenuType.create(LaboratoryContainer::new));
+	public static final RegistryObject<MenuType<MonitorMenu>> MONITOR = CONTAINERS.register("monitor", ()-> IForgeMenuType.create(MonitorMenu::new));
+
 
 }
 

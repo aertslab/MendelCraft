@@ -29,10 +29,9 @@ public class DNASyringe extends Item{
 						});
 						pPlayer.addItem(newStack);
 					}else {
-					stack.setChromosomes(chicken.getChromosomes());
-					stack.setEmpty(false);
+						stack.setChromosomes(chicken.getChromosomes());
+						stack.setEmpty(false);
 					}
-					System.out.println(chicken.getChromosomes() + " " + pInteractionTarget.level.isClientSide());
 				});
 			});
 			return InteractionResult.SUCCESS;
@@ -43,7 +42,6 @@ public class DNASyringe extends Item{
 	@Override
 	public CompoundTag getShareTag(ItemStack stack) {
 		CompoundTag tag = super.getShareTag(stack)==null? stack.getOrCreateTag() : super.getShareTag(stack);
-		System.out.println("help");
 		stack.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
 			tag.put("DNA", cap.serializeNBT());
 		});

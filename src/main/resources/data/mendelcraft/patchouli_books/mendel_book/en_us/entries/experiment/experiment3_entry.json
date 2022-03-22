@@ -1,6 +1,6 @@
 {
     "name": "Experiment 3",
-    "icon": "minecraft:writable_book",
+    "icon": "minecraft:paper",
     "category": "mendelcraft:experiment_category",
     "sortnum": 2,
     "pages": [
@@ -9,8 +9,10 @@
            "text": "Go to the next chicken enclosure and try breeding those chickens togheter 5 time. What are the colors you get now? Write down how many of each color you got."
        },
        {
-           "type": "patchouli:text",
-           "text": "placement image"
-       }
+            "type": "patchouli:entity",
+            "entity": "mendelcraft:dnachicken{'DNA':{'chromosome1':{'Chrom1':{'0':'GGC','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'AAA'},'Chrom3':{'0':'CAA','1':'CAA','2':'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'TTC'}},'chromosome2':{'Chrom1':{'0':'ACT','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'TTC'},'Chrom3':{'0':'CAA','1':'CAA',2:'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'ATA'}},'empty':'1b'}}",
+            "scale": 0.9,
+            "text": "A Gray Chicken"
+        }
     ]
 }

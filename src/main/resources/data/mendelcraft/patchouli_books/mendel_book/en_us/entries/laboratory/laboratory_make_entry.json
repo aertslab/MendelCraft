@@ -1,6 +1,6 @@
 {
     "name": "Changing DNA",
-    "icon": "minecraft:writable_book",
+    "icon": "mendelcraft:dnachickenspawnegg",
     "category": "mendelcraft:laboratory_category",
     "sortnum": 1,
     "pages": [

@@ -2,6 +2,7 @@ package ferri.arnus.mendelcraft;
 
 import ferri.arnus.mendelcraft.capability.DNAProvider;
 import ferri.arnus.mendelcraft.entities.EntityRegistry;
+import ferri.arnus.mendelcraft.gui.MonitorScreen;
 import ferri.arnus.mendelcraft.gui.ContainerRegistry;
 import ferri.arnus.mendelcraft.gui.LaboratoryScreen;
 import ferri.arnus.mendelcraft.items.ItemRegistry;
@@ -41,6 +42,7 @@ public class ClientSetup {
 		EntityRenderers.register(EntityRegistry.DNACHICKEN.get(), (c) -> new DNAChickenRenderer(c));
 		
 		MenuScreens.register(ContainerRegistry.LABORATORY.get(), LaboratoryScreen::new);
+		MenuScreens.register(ContainerRegistry.MONITOR.get(), MonitorScreen::new);
 		
 		ItemProperties.register(ItemRegistry.DNASYRINGE.get(), new ResourceLocation(MendelCraft.MODID,"colored"), (s,l,e,i) -> {
 			boolean[] empty = new boolean[] {true};

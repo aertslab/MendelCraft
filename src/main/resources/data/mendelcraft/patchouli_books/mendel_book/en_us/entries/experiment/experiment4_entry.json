@@ -1,12 +1,12 @@
 {
     "name": "Experiment 4",
-    "icon": "minecraft:writable_book",
+    "icon": "minecraft:paper",
     "category": "mendelcraft:experiment_category",
     "sortnum": 4,
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "Now we know why 2 $(l)Grey$() chickens can make a $(l)Black$(), but not all genes are that simple. If we want to really experiment with them we will need a way to see (and edit) the genes of a chicken. Luckely we can make use of the $(l:entryid)laboratory$() to do just that (click the link and read the instruction on how to use the $(item)Laboratory$() to see genes)."
+           "text": "Now we know why 2 $(l)Grey$() chickens can make a $(l)Black$(), but not all genes are that simple. If we want to really experiment with them we will need a way to see (and edit) the genes of a chicken. Luckely we can make use of the $(l:laboratory/laboratory_view_entry) laboratory $() to do just that (click the link and read the instruction on how to use the $(item)Laboratory$() to see genes)."
        },
        {
            "type": "patchouli:text",

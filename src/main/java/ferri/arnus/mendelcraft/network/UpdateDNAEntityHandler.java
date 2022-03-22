@@ -13,7 +13,6 @@ public class UpdateDNAEntityHandler {
 		Entity entity = Minecraft.getInstance().level.getEntity(message.getId());
 		entity.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
 			cap.deserializeNBT(message.getTag());
-			System.out.println(cap.serializeNBT().toString().equals(message.getTag().toString()));
 		});
 	}
 
