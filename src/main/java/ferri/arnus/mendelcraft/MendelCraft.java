@@ -42,8 +42,7 @@ public class MendelCraft {
 		
 		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(this::registerAtributes);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ferri.arnus.mendelcraft.config.ModConfig.SPEC); 
-		
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ferri.arnus.mendelcraft.config.ModConfig.SPEC); 
 	}
 	
 	private void registerAtributes(EntityAttributeCreationEvent event) {

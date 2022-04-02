@@ -1,0 +1,10 @@
+{
+  "components": [
+    {
+      "type": "patchouli:custom",
+      "class": "ferri.arnus.mendelcraft.book.PageInput",
+      "x": 10,
+      "y": 40
+    }
+  ]
+}
