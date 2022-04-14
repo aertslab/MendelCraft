@@ -1,0 +1,17 @@
+{
+  "parent": "item/generated",
+    "overrides": [
+          {
+          "predicate": {
+                  "mendelcraft:colored": 0
+                  },
+			 "model": "mendelcraft:item/dnasyringeempty"
+          },
+         {
+          "predicate": {
+                      "mendelcraft:colored": 1
+                  },
+     		"model": "mendelcraft:item/dnasyringefull"
+  		}
+     ]
+}
