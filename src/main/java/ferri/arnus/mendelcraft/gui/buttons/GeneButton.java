@@ -1,5 +1,4 @@
 package ferri.arnus.mendelcraft.gui.buttons;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -15,8 +14,8 @@ public class GeneButton extends Button{
 
 	private ResourceLocation button = new ResourceLocation(MendelCraft.MODID, "textures/gui/dnabutton.png");
 	private SyringeTab tab;
-	private String chromosome;
-	private int gene = 0;
+	public String chromosome;
+	public int gene = 0;
 	private int parent = 0;
 
 	public GeneButton(int pX, int pY, OnPress pOnPress, OnTooltip pOnTooltip, SyringeTab tab, String chromosome, int gene, int parent) {
@@ -27,8 +26,8 @@ public class GeneButton extends Button{
 		this.parent = parent;
 	}
 	
-	public void setButtonTexture(ResourceLocation button) {
-		this.button = button;
+	public ResourceLocation getButtonTexture() {
+		return button;
 	}
 	
 	@Override
@@ -43,7 +42,7 @@ public class GeneButton extends Button{
 	@Override
 	public void renderButton(PoseStack pMatrixStack, int pMouseX, int pMouseY, float pPartialTicks) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, button);
+		RenderSystem.setShaderTexture(0, getButtonTexture());
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
 		int i = this.getYImage(this.isHoveredOrFocused());
 		RenderSystem.enableBlend();
