@@ -22,6 +22,7 @@ import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -31,8 +32,6 @@ public class DNAChicken extends Chicken implements PlayerRideableJumping{
 	protected boolean isJumping;
 	protected float playerJumpPendingScale;
 
-
-	
 	public DNAChicken(EntityType<? extends Chicken> p_28236_, Level p_28237_) {
 		super(EntityRegistry.DNACHICKEN.get(), p_28237_);
 	}
@@ -64,6 +63,46 @@ public class DNAChicken extends Chicken implements PlayerRideableJumping{
 	public void readAdditionalSaveData(CompoundTag p_28243_) {
 		super.readAdditionalSaveData(p_28243_);
 		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(p_28243_.getCompound("DNA")));
+	}
+	
+	@Override
+	protected AABB makeBoundingBox() {
+		if (!DNAUtil.isBig(this)) {
+			return super.makeBoundingBox();
+		}
+		return new AABB(this.position().x - 0.3, this.position().y, this.position().z - 0.3, this.position().x + 0.3, this.position().y + 1.05, this.position().z + 0.3);
+	}
+	
+	@Override
+	public double getPassengersRidingOffset() {
+		if (DNAUtil.isBig(this)) {
+			return super.getPassengersRidingOffset()+1;
+		}
+		return super.getPassengersRidingOffset();
+	}
+	
+	@Override
+	public double getX(double p_20166_) {
+		if (DNAUtil.isBig(this)) {
+			return this.position().x + 0.6D * p_20166_;
+		}
+		return super.getX(p_20166_);
+	}
+	
+	@Override
+	public double getY(double p_20228_) {
+		if (DNAUtil.isBig(this)) {
+			return this.position().y + 1.5D * p_20228_;
+		}		
+		return super.getY(p_20228_);
+	}
+	
+	@Override
+	public double getZ(double p_20247_) {
+		if (DNAUtil.isBig(this)) {
+			return this.position().z + 0.6D * p_20247_;
+		}		
+		return super.getZ(p_20247_);
 	}
 	
 	@Override

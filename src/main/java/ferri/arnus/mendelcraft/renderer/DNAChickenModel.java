@@ -45,7 +45,7 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 	private final ModelPart dino_leg_left;
 	private float strange = 1;
 	private T chicken;
-	
+		
 	
 	public DNAChickenModel(ModelPart p_170490_) {
 		this.head = p_170490_.getChild("head");
@@ -171,10 +171,10 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 	@Override
 	public void renderToBuffer(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
 		pMatrixStack.pushPose();
-		if (!DNAUtil.isBig(chicken)) {
-			
-			pMatrixStack.scale(1.07F, 1.07F, 1.07F);
-			pMatrixStack.translate(0, -0.11D, 0);
+		if (DNAUtil.isBig(chicken)) {
+
+			pMatrixStack.scale(1.5F, 1.5F, 1.5F);
+			pMatrixStack.translate(0, -0.50D, 0);
 		}
 		if (DNAUtil.isDinoHead(chicken)) {
 			this.dino_head.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
@@ -204,8 +204,8 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 			this.dino_thigh_left.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 			this.dino_thigh_rigth.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
 		} else {
-			Color color = new Color(DNAUtil.getBodyColor(chicken));
-			this.legParts().forEach(part -> part.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay, color.getRed()/255F, color.getGreen()/255F, color.getBlue()/255F, color.getAlpha()/255F));
+			//Color color = new Color(DNAUtil.getBodyColor(chicken));
+			this.legParts().forEach(part -> part.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay));
 		}
 		if (DNAUtil.isDinoWings(chicken)) {
 			this.dino_arm_left.render(pMatrixStack, pBuffer, pPackedLight, pPackedOverlay);
