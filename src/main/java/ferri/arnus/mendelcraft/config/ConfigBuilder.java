@@ -56,11 +56,11 @@ public class ConfigBuilder {
 		match.add("GGC");
 		list.add((List<String>) match.clone());
 		match.clear();
-		ArrayList<Integer> color = new ArrayList<>();
-		color.add(0x202020);
-		color.add(0xA9A9A9);
-		color.add(0xA9A9A9);
-		color.add(0xffffff);
+		ArrayList<String> color = new ArrayList<>();
+		color.add("202020");
+		color.add("A9A9A9");
+		color.add("A9A9A9");
+		color.add("ffffff");
 		f.add("Effect."+name+"."+gene+".match", list);
 		f.add("Effect."+name+"."+gene+".color", color);
 	}
@@ -86,11 +86,11 @@ public class ConfigBuilder {
 		match.add("GCA");
 		list.add((List<String>) match.clone());
 		match.clear();
-		ArrayList<Integer> color = new ArrayList<>();
-		color.add(0x202020);
-		color.add(0xffffff);
-		color.add(0xffffff);
-		color.add(0xffffff);
+		ArrayList<String> color = new ArrayList<>();
+		color.add("202020");
+		color.add("ffffff");
+		color.add("ffffff");
+		color.add("ffffff");
 		f.add("Effect."+name+"."+gene+".match", list);
 		f.add("Effect."+name+"."+gene+".color", color);
 	}
@@ -136,16 +136,16 @@ public class ConfigBuilder {
 		match.add("GGA");
 		list.add((List<String>) match.clone());
 		match.clear();
-		ArrayList<Integer> color = new ArrayList<>();
-		color.add(0xFFF033);
-		color.add(0x36AE11);
-		color.add(0x36AE11);
-		color.add(0x113CAE);
-		color.add(0xFFF033);
-		color.add(0x36AE11);
-		color.add(0x36AE11);
-		color.add(0xFFF033);
-		color.add(0xFFF033);
+		ArrayList<String> color = new ArrayList<>();
+		color.add("FFF033");
+		color.add("36AE11");
+		color.add("36AE11");
+		color.add("113CAE");
+		color.add("FFF033");
+		color.add("36AE11");
+		color.add("36AE11");
+		color.add("FFF033");
+		color.add("FFF033");
 		f.add("Effect."+name+"."+gene+".match", list);
 		f.add("Effect."+name+"."+gene+".color", color);
 	}

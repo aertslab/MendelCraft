@@ -22,7 +22,6 @@ import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -63,14 +62,6 @@ public class DNAChicken extends Chicken implements PlayerRideableJumping{
 	public void readAdditionalSaveData(CompoundTag p_28243_) {
 		super.readAdditionalSaveData(p_28243_);
 		this.getCapability(DNAProvider.DNASTORAGE).ifPresent(s -> s.deserializeNBT(p_28243_.getCompound("DNA")));
-	}
-	
-	@Override
-	protected AABB makeBoundingBox() {
-		if (!DNAUtil.isBig(this)) {
-			return super.makeBoundingBox();
-		}
-		return new AABB(this.position().x - 0.3, this.position().y, this.position().z - 0.3, this.position().x + 0.3, this.position().y + 1.05, this.position().z + 0.3);
 	}
 	
 	@Override

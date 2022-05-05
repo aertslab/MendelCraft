@@ -121,7 +121,7 @@ public class SyringeTab extends AbstractTab {
 				getScreen().addRenderableWidget(
 						new ChromosomeButton(relX + 20 + 25 * (i % 4), relY + 20, (b) -> setChrome(relX, relY, atom),
 								(b, p, x, y) -> getScreen().renderTooltip(p,
-										new TranslatableComponent("chromosome.").append(atom.get()), x, y),
+										new TranslatableComponent("mendelcraft.chromosome.").append(atom.get()), x, y),
 								this, DNAUtil.getChromosomes().get(i)));
 			}
 		});
@@ -164,12 +164,12 @@ public class SyringeTab extends AbstractTab {
 				screen.addRenderableWidget(new GeneButton(relX, relY + 50,
 						(b) -> this.drawGenes(b, cap.getGene(chromosome, atom.get()).get(0), atom.get(), 0),
 						(b, p, x, y) -> screen.renderTooltip(p,
-								new TranslatableComponent("gene").append(" " + atom.get()), x, y),
+								new TranslatableComponent("mendelcraft.gene", (atom.get()+1)), x, y),
 						this, chromosome, i, 0));
 				screen.addRenderableWidget(new GeneButton(relX, relY + 80,
 						(b) -> this.drawGenes(b, cap.getGene(chromosome, atom.get()).get(1), atom.get(), 1),
 						(b, p, x, y) -> screen.renderTooltip(p,
-								new TranslatableComponent("gene").append(" " + atom.get()), x, y),
+								new TranslatableComponent("mendelcraft.gene", (atom.get()+1)), x, y),
 						this, chromosome, i, 1));
 			}
 		});

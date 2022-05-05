@@ -4,5 +4,10 @@
   "block.mendelcraft.laboratory": "Laboratory",
   "itemGroup.mendelcraft" : "MendelCraft",
   "button.mendelcraft.makeegg": "Make Spawn Egg",
-  "screen.mendelcraft.laboratory": "Laboratory"
+  "screen.mendelcraft.laboratory": "Laboratory",
+  
+  "mendelcraft.chromosome.Chrome1" : "Chromosome 1",
+  "mendelcraft.chromosome.Chrome2" : "Chromosome 2",
+  
+  "mendelcraft.gene" : "Gene %1$s"
 }

@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GeneButton extends Button{
 
-	private ResourceLocation button = new ResourceLocation(MendelCraft.MODID, "textures/gui/dnabutton.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(MendelCraft.MODID, "textures/gui/dnabutton.png");
 	private SyringeTab tab;
 	public String chromosome;
 	public int gene = 0;
@@ -27,7 +27,7 @@ public class GeneButton extends Button{
 	}
 	
 	public ResourceLocation getButtonTexture() {
-		return button;
+		return TEXTURE;
 	}
 	
 	@Override

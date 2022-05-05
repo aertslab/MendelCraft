@@ -184,9 +184,9 @@ public class DNAUtil {
 	}
 
 	private static Map<List<String>,Integer> cololorMap(String chromosome, int gen){
-		List<Integer> color = ModConfig.CONFIG.get().get("Effect." + chromosome + "." + gen +".color");
+		List<String> color = ModConfig.CONFIG.get().get("Effect." + chromosome + "." + gen +".color");
 		List<List<String>> list = ModConfig.CONFIG.get().get("Effect." + chromosome + "." + gen +".match");
-		return IntStream.range(0, list.size()).boxed().collect(Collectors.toMap(list::get, color::get));
+		return IntStream.range(0, list.size()).boxed().collect(Collectors.toMap(list::get, (i) -> Integer.parseInt(color.get(i), 16)));
 	}
 	
 	private static Map<String,Integer> Chromosome(String type){

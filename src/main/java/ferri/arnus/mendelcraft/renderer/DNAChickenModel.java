@@ -16,6 +16,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.AABB;
 
 public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 	public static final String RED_THING = "red_thing";
@@ -45,6 +46,7 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 	private final ModelPart dino_leg_left;
 	private float strange = 1;
 	private T chicken;
+	private AABB box;
 		
 	
 	public DNAChickenModel(ModelPart p_170490_) {
@@ -166,13 +168,14 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 		super.prepareMobModel(p_102614_, p_102615_, p_102616_, p_102617_);
 		this.chicken = p_102614_;
 		this.strange = DNAUtil.isStrange(p_102614_)? 1.751728F : 1;
+		this.box = new AABB(chicken.position().x - 0.3, chicken.position().y, chicken.position().z - 0.3, chicken.position().x + 0.3, chicken.position().y + 1.05, chicken.position().z + 0.3);
 	}
 	
 	@Override
 	public void renderToBuffer(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
 		pMatrixStack.pushPose();
 		if (DNAUtil.isBig(chicken)) {
-
+			chicken.setBoundingBox(box);
 			pMatrixStack.scale(1.5F, 1.5F, 1.5F);
 			pMatrixStack.translate(0, -0.50D, 0);
 		}
