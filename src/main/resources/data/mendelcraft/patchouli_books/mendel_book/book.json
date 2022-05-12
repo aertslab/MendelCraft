@@ -1,5 +1,6 @@
 {
     "name": "MENDELCRAFT GUIDE",
     "landing_text": "A GUIDE FOR MENDELIAN GENETICS",
-    "version": 1
+    "version": 1,
+    "creative_tab": "mendelcraft"
 }

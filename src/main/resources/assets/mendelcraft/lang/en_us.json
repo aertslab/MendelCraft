@@ -1,13 +1,22 @@
 {
   "item.mendelcraft.dnasyringe": "Syringe",
   "item.mendelcraft.dnachickenspawnegg": "DNA Chicken Spawn Egg",
+  
   "block.mendelcraft.laboratory": "Laboratory",
+  
   "itemGroup.mendelcraft" : "MendelCraft",
+  
+  "entity.mendelcraft.dnachicken": "Mendelian Chicken",
+  
   "button.mendelcraft.makeegg": "Make Spawn Egg",
   "screen.mendelcraft.laboratory": "Laboratory",
   
-  "mendelcraft.chromosome.Chrome1" : "Chromosome 1",
-  "mendelcraft.chromosome.Chrome2" : "Chromosome 2",
+  "mendelcraft.chromosome.Chrom1" : "Chromosome 1",
+  "mendelcraft.chromosome.Chrom2" : "Chromosome 2",
+  "mendelcraft.chromosome.Chrom3" : "Chromosome 3",
+  "mendelcraft.chromosome.Chrom4" : "Chromosome 4",
+  "mendelcraft.chromosome.Chrom5" : "Chromosome 5",
+  "mendelcraft.chromosome.Chrom6" : "Chromosome 6",
   
   "mendelcraft.gene" : "Gene %1$s"
 }

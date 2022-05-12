@@ -19,9 +19,6 @@
             "entity": "mendelcraft:dnachicken{'DNA':{'chromosome1':{'Chrom1':{'0':'ACT','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'AAA'},'Chrom3':{'0':'CAA','1':'CAA','2':'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'TTC'}},'chromosome2':{'Chrom1':{'0':'ACT','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'TTC'},'Chrom3':{'0':'CAA','1':'CAA',2:'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'ATA'}},'empty':'1b'}}",
             "scale": 0.9,
             "text": "A Black Chicken"
-        },
-        {
-            "type": "mendelcraft:input"
         }
     ]
 }
