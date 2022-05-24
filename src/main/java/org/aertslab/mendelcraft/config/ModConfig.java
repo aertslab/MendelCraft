@@ -32,13 +32,13 @@ public class ModConfig {
 		
 		ConfigBuilder.geneAmount(f, "Chrom3", 7);
 		ConfigBuilder.defineGene(f, "Chrom3", 0, "CAA", "GCG");
-		ConfigBuilder.defineGeneChance(f, "Chrom3", 0, 0.5F, 0.50F);
+		ConfigBuilder.defineGeneChance(f, "Chrom3", 0, 0.90F, 0.10F);
 		ConfigBuilder.defineGene(f, "Chrom3", 1, "CAA", "GCG");
-		ConfigBuilder.defineGeneChance(f, "Chrom3", 1, 0.5F, 0.50F);
+		ConfigBuilder.defineGeneChance(f, "Chrom3", 1, 0.90F, 0.10F);
 		ConfigBuilder.defineGene(f, "Chrom3", 2, "ATG", "TTA");
-		ConfigBuilder.defineGeneChance(f, "Chrom3", 2, 0.5F, 0.50F);
+		ConfigBuilder.defineGeneChance(f, "Chrom3", 2, 0.9F, 0.10F);
 		ConfigBuilder.defineGene(f, "Chrom3", 3, "GGC", "GGG");
-		ConfigBuilder.defineGeneChance(f, "Chrom3", 3, 0.5F, 0.50F);
+		ConfigBuilder.defineGeneChance(f, "Chrom3", 3, 0.9F, 0.10F);
 		ConfigBuilder.geneDinoHead(f, "Chrom3", 0);
 		ConfigBuilder.geneDinoBody(f, "Chrom3", 1);
 		ConfigBuilder.geneDinoWings(f, "Chrom3", 2);
@@ -46,9 +46,9 @@ public class ModConfig {
 		
 		ConfigBuilder.geneAmount(f, "Chrom4", 6);
 		ConfigBuilder.defineGene(f, "Chrom4", 0, "AAA", "CGA");
-		ConfigBuilder.defineGeneChance(f, "Chrom4", 0, 0.5F, 0.50F);
+		ConfigBuilder.defineGeneChance(f, "Chrom4", 0, 0.9F, 0.1F);
 		ConfigBuilder.defineGene(f, "Chrom4", 5, "ATA", "TTC");
-		ConfigBuilder.defineGeneChance(f, "Chrom4", 5, 0.5F, 0.50F);
+		ConfigBuilder.defineGeneChance(f, "Chrom4", 5, 0.9F, 0.10F);
 		ConfigBuilder.geneBig(f, "Chrom4", 0);
 		ConfigBuilder.geneStrange(f, "Chrom4", 5);
 				
