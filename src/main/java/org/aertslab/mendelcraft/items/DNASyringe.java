@@ -1,5 +1,7 @@
 package org.aertslab.mendelcraft.items;
 
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
 import org.aertslab.mendelcraft.capability.DNAProvider;
 
 import net.minecraft.nbt.CompoundTag;
@@ -48,12 +50,13 @@ public class DNASyringe extends Item{
 		});
 		return tag;
 	}
-	
+
 	@Override
 	public void readShareTag(ItemStack stack, CompoundTag nbt) {
+		CompoundTag tag = nbt == null ? new CompoundTag() : nbt;
 		stack.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
-			cap.deserializeNBT(nbt.getCompound("DNA"));
+			cap.deserializeNBT(tag.getCompound("DNA"));
 		});
-		super.readShareTag(stack, nbt);
+		super.readShareTag(stack, tag);
 	}
 }

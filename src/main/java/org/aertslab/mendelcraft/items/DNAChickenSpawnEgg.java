@@ -133,4 +133,22 @@ public class DNAChickenSpawnEgg extends ForgeSpawnEggItem{
 			}
 		}
 	}
+
+	@Override
+	public CompoundTag getShareTag(ItemStack stack) {
+		CompoundTag tag = super.getShareTag(stack)==null? stack.getOrCreateTag() : super.getShareTag(stack);
+		stack.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
+			tag.put("DNA", cap.serializeNBT());
+		});
+		return tag;
+	}
+
+	@Override
+	public void readShareTag(ItemStack stack, CompoundTag nbt) {
+		CompoundTag tag = nbt == null ? new CompoundTag() : nbt;
+		stack.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
+			cap.deserializeNBT(tag.getCompound("DNA"));
+		});
+		super.readShareTag(stack, tag);
+	}
 }
