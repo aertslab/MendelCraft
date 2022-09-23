@@ -3,6 +3,8 @@ package org.aertslab.mendelcraft.items;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
 import org.aertslab.mendelcraft.capability.DNAProvider;
 import org.aertslab.mendelcraft.entities.DNAChicken;
 
@@ -150,5 +152,17 @@ public class DNAChickenSpawnEgg extends ForgeSpawnEggItem{
 			cap.deserializeNBT(tag.getCompound("DNA"));
 		});
 		super.readShareTag(stack, tag);
+	}
+
+	@Override
+	public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
+		if (this.allowdedIn(p_41391_)) {
+			ItemStack stack = new ItemStack(this);
+			stack.getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
+				cap.setEmpty(true);
+				stack.getOrCreateTag().put("DNA", stack.serializeNBT());
+			});
+			p_41392_.add(stack);
+		}
 	}
 }

@@ -50,6 +50,9 @@ public class DNAStorage implements IDNAStorage{
 
 	@Override
 	public void deserializeNBT(CompoundTag nbt) {
+		if (nbt.isEmpty()) {
+			return;
+		}
 		this.empty = nbt.getBoolean("empty");
 		 Map<String,List<String>> chromosomes1 = new HashMap<>();
 		 CompoundTag tag = nbt.getCompound("chromosome1");

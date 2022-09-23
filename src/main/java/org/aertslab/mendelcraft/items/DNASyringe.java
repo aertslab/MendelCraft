@@ -1,7 +1,5 @@
 package org.aertslab.mendelcraft.items;
 
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.CreativeModeTab;
 import org.aertslab.mendelcraft.capability.DNAProvider;
 
 import net.minecraft.nbt.CompoundTag;

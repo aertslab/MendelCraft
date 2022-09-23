@@ -1,5 +1,6 @@
 package org.aertslab.mendelcraft;
 
+import net.minecraft.server.level.ServerPlayer;
 import org.aertslab.mendelcraft.blockentities.BlockEntityRegistry;
 import org.aertslab.mendelcraft.blocks.BlockRegistry;
 import org.aertslab.mendelcraft.capability.DNAProvider;
@@ -61,13 +62,12 @@ public class MendelCraft {
 		});
 		
 	}
-	
-	
+
 	@SubscribeEvent
 	static void track(PlayerEvent.StartTracking event) {
 		event.getTarget().getCapability(DNAProvider.DNASTORAGE).ifPresent(cap -> {
 			if (!event.getTarget().level.isClientSide) {
-				MendelCraftChannel.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> event.getTarget()),
+				MendelCraftChannel.INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()),
 						new UpdateDNAEntityPacket(event.getTarget().getId(), cap.serializeNBT()));
 			}
 		});
