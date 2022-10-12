@@ -175,7 +175,10 @@ public class DNAChickenModel<T extends Entity> extends AgeableListModel<T>{
 	@Override
 	public void renderToBuffer(PoseStack pMatrixStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
 		pMatrixStack.pushPose();
-		if (DNAUtil.isBig(chicken)) {
+		if (this.young) {
+			pMatrixStack.scale(0.5F, 0.5F, 0.5F);
+			pMatrixStack.translate(0.0D, 1.49D, 0);
+		} else if (DNAUtil.isBig(chicken)) {
 			chicken.setBoundingBox(box);
 			pMatrixStack.scale(3.7F, 3.7F, 3.7F);
 			pMatrixStack.translate(0, -1.1D, 0);

@@ -46,13 +46,13 @@ public class DNAChicken extends Chicken implements PlayerRideableJumping{
 	@Override
 	public void spawnChildFromBreeding(ServerLevel p_27564_, Animal p_27565_) {
 		super.spawnChildFromBreeding(p_27564_, p_27565_);
-		this.setAge(-3);
-		p_27565_.setAge(-3);
+		this.setAge(0);
+		p_27565_.setAge(0);
 	}
 	
 	@Override
 	public void setBaby(boolean p_146756_) {
-		this.setAge(p_146756_ ? -3 : 0);
+		this.setAge(p_146756_ ? -100 : 0);
 	}
 	
 	@Override
