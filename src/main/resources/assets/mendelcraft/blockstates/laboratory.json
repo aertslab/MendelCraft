@@ -1,7 +1,30 @@
+
 {
   "variants": {
-    "": {
-      "model": "mendelcraft:block/laboratory"
-    }
+    "facing=east,part=left": {
+      "model": "mendelcraft:block/laboratory",
+      "y": 90
+    },
+    "facing=north,part=left": {
+      "model": "mendelcraft:block/laboratory",
+      "y": 0
+    },
+    "facing=south,part=left": {
+      "model": "mendelcraft:block/laboratory",
+      "y": 180
+    },
+    "facing=west,part=left": {
+      "model": "mendelcraft:block/laboratory",
+      "y": 270
+    },
+	"part=right": {
+      "model": "mendelcraft:block/empty_laboratory"
+    },
+  "part=ns_upper": {
+      "model": "mendelcraft:block/empty_laboratory"
+    },
+  "part=ns_lower": {
+      "model": "mendelcraft:block/empty_laboratory"
+  }
   }
 }
