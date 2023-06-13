@@ -1,0 +1,20 @@
+{
+    "name": "Experiment 7",
+    "icon": "minecraft:paper",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 9,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Als laatste Experiment moet je met al je verworven kennis van een kip een DINO kunnen maken. Deze mag je dan loslaten binnen het terrein met de andere dino’s. Je mag hem ook een naam geven zodat hij hier voor altijd kan blijven met de naam die jij hem gegeven hebt." 
+       },
+       {
+        "type": "patchouli:text",
+        "text": "Hoe je de dino een naam kan geven vind je terug in MENDELCRAFT GUIDE: Het Aambeeld." 
+       },
+       {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/dino.png"]
+       }
+    ]
+}

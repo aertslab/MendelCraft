@@ -1,0 +1,20 @@
+{
+    "name": "Experiment 6",
+    "icon": "minecraft:paper",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 8,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Nu begint het echte werk, zelf DNA aanpassen. Lees eerst MENDELCRAFT GUIDE: Het Laboratorium voor je aan deze oefening begint. " 
+       },
+       {
+        "type": "patchouli:text",
+        "text": " Je mag het DNA van eender welke kip gebruiken om aan de slag te gaan. Deze staan buiten het labo, Je gaat opzoek in Chromosoom 4 naar het eerste gen dat je kan  aanpassen. Doe dit en neem je vergregen ei uit het labo, Spawn de kip door op rechtermuisknop te duwen en aanschouw je creatie." 
+       },
+       {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/reuze.png"]
+       }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "name": "Experiment 2",
+    "icon": "minecraft:paper",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 1,
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "Bij het volgende Experiment neem je opnieuw zaadjes indien nodig uit de grote kist. Er een kleine kist met een NET waar je telkens 1 kip met kunt vangen en ergens anders kan plaatsen door gebruik te maken van de rechtermuisknop. Deze zal je nodig hebben voor Experiment 2. Hier gaan we namelijk twee kippen die er hetzelfde uitzien 10 kuikentjes laten maken en dan ordenen op kleur in de daarvoor voorziende hokken."
+        },
+        {
+            "type": "patchouli:image",
+            "images": ["mendelcraft:textures/entries/experiment2.png"]
+        },
+        {
+            "type": "patchouli:text",
+            "text": "De twee grijze kippen waar je met gaat werken heten Mendel en Craft. Deze laat je in hun hok. Maak telkens een kuikentje zoals bij Experiment 1 en gebruik dan het NET en verplaats het kuiken naar de rode stip in het juiste hok. Hoeveel kippen heb jij er van elk? Noteer Je bevindingen. Maar hoe kan dat nu dat twee dezelfde kippen zoveel verschillende kleuren kuikentjes maken? Lees uitleg 1."
+        }
+    ]
+}

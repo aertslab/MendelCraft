@@ -1,0 +1,20 @@
+{
+    "name": "Experiment 5",
+    "icon": "minecraft:paper",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 7,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Je mag DNA onderzoek gebruiken om erachter te komen of het mogelijk is! Als je het antwoord weet, duw je met de rechtermuisknop op de knop van jouw keuze. Dit doe je door met een rechtermuisklik de knop in te duwen als je op het paarse platform staat. Doe je dit bij de Groene blok voor JUIST en de RODE blok voor FOUT. Gebruik de tabel om je vooruitgang bij te houden."       
+       },
+       {
+        "type": "patchouli:text",
+        "text": "Je mag DNA onderzoek gebruiken om erachter te komen of het mogelijk is! Als je het antwoord weet, duw je met de rechtermuisknop op de knop van jouw keuze. Dit doe je door met een rechtermuisklik de knop in te duwen als je op het paarse platform staat. Doe je dit bij de Groene blok voor JUIST en de RODE blok voor FOUT. Gebruik de tabel om je vooruitgang bij te houden."       
+       },
+       {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/quiz.png"]
+       }
+    ]
+}

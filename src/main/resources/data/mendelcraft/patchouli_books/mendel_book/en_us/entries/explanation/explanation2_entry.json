@@ -1,16 +1,12 @@
 {
-    "name": "Explanation 2",
+    "name": "Uitleg 2",
     "icon": "minecraft:writable_book",
     "category": "mendelcraft:experiment_category",
-    "sortnum": 6,
+    "sortnum": 4,
     "pages": [
       {
           "type": "patchouli:text",
-          "text": "You noticed that unlike the body, the head only can be black or white. This is because the combination of black and white genes does not give you gray, but white. Genes like the white gene are called dominant genes, while the black genes are called recessive genes."
-      },
-      {
-          "type": "patchouli:text",
-          "text": "This means that if a dominant gene is present, the trait will be that of the dominant gene. Or if we say it in therms of the recessive gene, you need to have 2 recessive genes to get its trait."
+          "text": "De kippen hun hoofdkleur wordt bepaald door gen 2 in chromosoom 1 van de kip. Zoals je gemerkt hebt heeft de kip een zwarte of hoofdkleur als de genen hetzelfde zijn net als bij Experiment 2. Hier is dus iets speciaal met de genen aan de hand. Het gen voor een wit hoofd te krijgen bij een kip moet maar 1 keer aanwezig zijn om er voor te zorgen dat de kip een wit hoofd krijgt. Zo een gen noemen we dominant. Het gen voor een zwart hoofd te krijgen noemen we recessief en heeft dus twee maal voorkomen om tot uiting te komen. Waarom je dan grijze kippen kan hebben kom je te weten bij Experiment 4."
       }
     ]
 }

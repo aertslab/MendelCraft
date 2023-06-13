@@ -6,19 +6,19 @@
     "pages": [
         {
             "type": "patchouli:text",
-            "text": "As a first experiment, we are going to breed some chickens. To breed a chicken, right click 2 chickens with $(item)seeds$(), they will make hearts appear and come closer, after which a new chicken is born. In the first enclosure you can find $(l)Black$() and $(l)White$() chickens. Try breeding 2 chickens of the $(l)same color$()? What color would you expect the child to have?"        
+            "text": "Neem zaadjes uit de kist bij de uitgang van de boerderij. Door zaadjes te geven aan twee kippen (met de rechtermuisknop) kan je ze verliefd laten e een kuikentje maken. Doe dit eerst tussen twee witte kippen. Daarna herhaal je dit, maar dan met twee zwarte kippen. Wat is de kleur telkens van hun kuiken? Zelfde kleur als de ouders/andere kleur als ouders. Als je nu een zwarte en een witte kip een kuikentje laat maken wat valt dan op? Noteer je antwoorden en ga verder naar Experiment 2."        
         },
         {
             "type": "patchouli:entity",
             "entity": "mendelcraft:dnachicken{'DNA':{'chromosome1':{'Chrom1':{'0':'GGC','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'AAA'},'Chrom3':{'0':'CAA','1':'CAA','2':'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'TTC'}},'chromosome2':{'Chrom1':{'0':'GGC','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'TTC'},'Chrom3':{'0':'CAA','1':'CAA',2:'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'ATA'}},'empty':'1b'}}",
         	"scale": 0.9,
-        	"text": "A White Chicken"
+        	"text": "Een witte kip"
         },
         {
             "type": "patchouli:entity",
             "entity": "mendelcraft:dnachicken{'DNA':{'chromosome1':{'Chrom1':{'0':'ACT','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'AAA'},'Chrom3':{'0':'CAA','1':'CAA','2':'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'TTC'}},'chromosome2':{'Chrom1':{'0':'ACT','1':'GCA','2':' ','3':' ','4':' '},'Chrom2':{'0':' ','1':' ','2':' ','3':'TTC'},'Chrom3':{'0':'CAA','1':'CAA',2:'ATG','3':'GGC','4':' ','5':' ','6':' '},'Chrom4':{'0':'AAA','1':' ','2':' ','3':' ','4':' ','5':'ATA'}},'empty':'1b'}}",
             "scale": 0.9,
-            "text": "A Black Chicken"
+            "text": "Een zwarte kip"
         }
     ]
 }

@@ -1,0 +1,16 @@
+{
+    "name": "Uitleg 3",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 6,
+    "pages": [
+      {
+          "type": "patchouli:text",
+          "text": "Dat de kippen grijs kunnen hebben komt doordat het gen voor de kleur van het lichaam voor wit en zwart even dominant zijn, de genen noemt men dan co-dominant. Als een kip beide genen heeft zullen ze dus ook beide tot uiting komen."
+      },
+      {
+        "type": "patchouli:text",
+        "text": "Bij het bloed zijn er twee dingen die gebeuren, zoals eerder is het duidelijk dat het blauwe bloed een co-dominant gen is met het gen voor geel bloed en dus samen groen bloed veroorzaken. Het verschil tussen blauw en geel bloed is dat er veel meer gen combinaties coderen voor de kleur van geel bloed."
+      }
+    ]
+}

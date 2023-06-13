@@ -1,12 +1,12 @@
 {
-    "name": "Viewing DNA",
+    "name": "DNA bekijken",
     "icon": "mendelcraft:dnasyringe",
     "category": "mendelcraft:laboratory_category",
     "sortnum": 0,
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "The laboratory is a block that is used to view and change DNA. First up, to be able to view the DNA of a chicken, we need a bloodsample of the chicken. For this we make use of a syringe. Using this on a chicken will draw its blood. This syringe can than be placed in the first (or second) slot of the laboratory."
+           "text": "Het laboratorium kan gebruikt worden om DNA te bekijken en te veranderen. Om het DNA van een kip te kunnen bekijken, hebben we allereerst een bloedmonster van de kip nodig. Hiervoor maken we gebruik van een injectiespuit. Deze vind je terug in elke kist naast een labotafel. Door met de rechtermuisknop op de kip de mikken met de spuit zal zijn bloed afgenomen worden. Deze spuit kan dan in de eerste (of tweede) gleuf van het laboratorium worden geplaatst."
        },
        {
            "type": "patchouli:image",
@@ -14,11 +14,7 @@
        },
        {
            "type": "patchouli:text",
-           "text": "In the second (or third) tab you can now see the DNA data of the chicken. The top row lists all the chromosones the chicken has. When you click on one, two new rows appear, repesenting the two DNA strands of the chromosome. You can see that these strands have multiple 'genes'. Some of those don't show anything when pressed,"
-       },
-       {
-           "type": "patchouli:text",
-           "text": "but this is because those genes are not relevant for this mod. Some of them do however show a sequence when selected, containing 'T', 'A', 'C' and 'G'. These are the four base that make up all DNA"
+           "text": "In het tweede (of derde) tabblad zie je nu de DNA-gegevens van de kip. De bovenste rij bevat alle chromosomen die de kip heeft. Als je op een ervan klikt, verschijnen er twee nieuwe rijen, die de twee DNA-strengen van het chromosoom vertegenwoordigen. Je kunt zien dat deze strengen meerdere genen hebben. Sommige laten niets zien als ze worden ingedrukt, maar dit komt omdat die genen niet relevant zijn voor ons in Mendelcraft. Sommigen van hen laten echter een reeks zien wanneer ze worden geselecteerd, met 'T', 'A', 'C' en G. Dit zijn de vier basen waaruit al het DNA bestaat en die coderen voor een eigenschap van de kip."
        },
        {
            "type": "patchouli:image",

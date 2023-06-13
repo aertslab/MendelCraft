@@ -1,0 +1,32 @@
+{
+    "name": "Experiment 4",
+    "icon": "minecraft:paper",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 4,
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "Bij Experiment 4 zal je nog harder moeten speuren naar de verschillen in genen bij de eerste twee chromosomen. In Experiment 2 werd al duidelijk welk gen er verantwoordelijk is voor de kleur van een kippen hoofd. Je zal verschillende eigenschappen moeten achterhalen."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "Je begint door van elke kip bloed te nemen en deze te vergelijken met elkaar door de tabel in te vullen. Zo ga je eerst op zoek naar welk gen de kleur van het lichaam van een kip bepaald. Vergelijk dus zwarte, witte en grijze kippen (lichaamskleur)."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "TIP: Je kan twee spuiten tegelijk analyseren door elk in een van de slotjes te plaatsen bij Het Laboratorium."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "Ten tweede ben je ook opzoek naar de verschillen in genen die verantwoordelijk zijn voor de verschillende kleuren bloed die een kip in Mendelcraft kan hebben. Noteer je bevindingen in de tabel."
+        },
+        {
+            "type": "patchouli:text",
+            "text": "Wat valt er op als je deze eigenschappen hun genen vergelijkt met die van de kleur van een kippen hoofd ? Weet je waarom je grijze kippen kan hebben en hoe 3 bloedkleuren kunnen bestaan?"
+        },
+        {
+            "type": "patchouli:text",
+            "text": "Vind het antwoord in Uitleg 3"
+        }
+    ]
+}
