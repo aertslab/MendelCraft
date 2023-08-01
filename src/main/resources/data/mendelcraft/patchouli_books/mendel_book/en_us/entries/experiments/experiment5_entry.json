@@ -6,11 +6,11 @@
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "Je mag DNA onderzoek gebruiken om erachter te komen of het mogelijk is! Als je het antwoord weet, duw je met de rechtermuisknop op de knop van jouw keuze. Dit doe je door met een rechtermuisklik de knop in te duwen als je op het paarse platform staat. Doe je dit bij de Groene blok voor JUIST en de RODE blok voor FOUT. Gebruik de tabel om je vooruitgang bij te houden."       
+           "text": "Experiment 5 will test your understanding of what you've done so far. There is an entry under each question mark. Here you will find rooms with three cages each, a cage with a papa chicken (dad), a mama chicken (mom) and a baby chick. In each room you have to find out if the chick can be a child of the mom and dad chicken. It starts easy, but gets more and more difficult."       
        },
        {
         "type": "patchouli:text",
-        "text": "Je mag DNA onderzoek gebruiken om erachter te komen of het mogelijk is! Als je het antwoord weet, duw je met de rechtermuisknop op de knop van jouw keuze. Dit doe je door met een rechtermuisklik de knop in te duwen als je op het paarse platform staat. Doe je dit bij de Groene blok voor JUIST en de RODE blok voor FOUT. Gebruik de tabel om je vooruitgang bij te houden."       
+        "text": "You may use DNA testing to find out if it's possible! When you know the answer, right-click the button of your choice. You do this by right-clicking the button when you are on the purple platform. Do this with the GREEN block for TRUE and the RED block for WRONG. Use the chart to track your progress."       
        },
        {
         "type": "patchouli:image",

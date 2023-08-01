@@ -1,12 +1,12 @@
 {
-    "name": "Uitleg 2",
+    "name": "Explanation 2",
     "icon": "minecraft:writable_book",
     "category": "mendelcraft:experiment_category",
     "sortnum": 4,
     "pages": [
       {
           "type": "patchouli:text",
-          "text": "De kippen hun hoofdkleur wordt bepaald door gen 2 in chromosoom 1 van de kip. Zoals je gemerkt hebt heeft de kip een zwarte of hoofdkleur als de genen hetzelfde zijn net als bij Experiment 2. Hier is dus iets speciaal met de genen aan de hand. Het gen voor een wit hoofd te krijgen bij een kip moet maar 1 keer aanwezig zijn om er voor te zorgen dat de kip een wit hoofd krijgt. Zo een gen noemen we dominant. Het gen voor een zwart hoofd te krijgen noemen we recessief en heeft dus twee maal voorkomen om tot uiting te komen. Waarom je dan grijze kippen kan hebben kom je te weten bij Experiment 4."
+          "text": "The chicken’s head colour is determined by gene 2 on chromosome 1. As you noticed, the chicken has a black or white head colour if the genes are the same on both chromosomes as in Experiment 2. However, when there are two different genes the head color is still white (instead of gray). So, there is something special going on with the genes here. The gene for getting a white head in a chicken must be present only once to ensure that the chicken gets a white head. We call such a gene dominant. The gene for getting a black head is called recessive and therefore has to occure twice to be expressed."
       }
     ]
 }

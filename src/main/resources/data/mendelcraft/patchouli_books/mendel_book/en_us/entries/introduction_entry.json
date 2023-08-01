@@ -1,11 +1,11 @@
 {
-    "name": "Introductie",
+    "name": "Introduction",
     "icon": "minecraft:writable_book",
     "category": "mendelcraft:introduction_category",
     "pages": [
         {
             "type": "patchouli:text",
-            "text": "Welkom in Mendelcraft, het Minecraft gebaseerde educatieve spel waar je meer te weten komt over genetica. Maar wat is dat nu net? Genetica of erfelijkheidsleer begon bij de wetenschapper Gregor Mendel die de grondlegger is van genetica zoals wij die kennen."
+            "text": "Welcome to Mendelcraft, the Minecraft based educational game where you learn about genetics. But what exactly is that? Genetics or heredity studies started with the scientist Gregor Mendel who is the founder of genetics as we know it today."
         },
         {
             "type": "patchouli:image",
@@ -13,7 +13,7 @@
         },
         { 
            "type": "patchouli:text",
-           "text": "Door zijn experimenten met planten kwam hij erachter hoe dat de planten hun kleur en vorm te danken hebben aan de 'ouders' van de plant. In Mendelcraft gaan we verder met zijn onderzoek, maar we gebruiken kippen."
+           "text": "Through his experiments with plants, he discovered how the plants owe their color and shape to the 'parents' of the plant. In Mendelcraft we continue his research using chickens."
        }
     ]
 }

@@ -1,0 +1,16 @@
+{
+    "name": "Het aambeeld",
+    "icon": "minecraft:anvil",
+    "category": "mendelcraft:anvil_category",
+    "sortnum": 0,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Voor je eigen Dino te benoemen kan je gebruik maken van het aambeeld. Neem eerst uit de kist naast het aambeeld een naamkaartje. Het aambeeld werkt gelijkaardig aan het laboratorium, je pakt namelijk een naamkaartje en plaatst het in het eerste slot. Hierna kan je het naamkaartje herbenoemen door te typen in de bruine zone en neem je het gemaakte naamkaartje."
+       },
+       {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/anvil.png"]
+       }
+    ]
+}

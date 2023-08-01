@@ -6,19 +6,19 @@
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "Voor het derde experiment gaan we voor het eerst aan de slag in het laboratorium. In elk labo staat er een kist waar je DNA spuiten kan vinden. Deze werkt ook weer met de rechtermuisknop. Met de DNA Spuit kan je bloed nemen bij de kippen en dit bekijken aan de labotafel. Meer info zie MENDELCRAFT GUIDE: Het Laboratorium."
+           "text": "For the third Experiment, we are going to work in the laboratory for the first time. In every laboratory there is a box where you can find DNA syringes. These also work using the right mouse button. With the DNA Syringe you can take blood from the chickens and examine it at the laboratory bench. More info see MENDELCRAFT GUIDE: The Laboratory: view DNA."
        },
        {
         "type": "patchouli:text",
-        "text": "Bij dit Experiment gaan we opzoek naar het gen dat verantwoordelijk is voor kleur van een kippen hoofd. Dit doe je door van kip 1, kip 2 en kip 3 een bloed staal te nemen en deze te bekijken en te vergelijken aan de labotafel."
+        "text": "In this Experiment we will look for the gene responsible for the colour of a chicken's head. You do this by taking a blood sample from chicken 1, chicken 2 and chicken 3 and by examining and comparing it on the laboratory bench."
        },
        {
         "type": "patchouli:text",
-        "text": "TIP: Let goed op de volgorde van de spuiten en vergeet ze niet terug te nemen van de labotafel na het analyseren."
+        "text": "TIP: Pay close attention to the order of the syringes and do not forget to take them back from the laboratory bench after the analysis."
        },
        {
         "type": "patchouli:text",
-        "text": "Bekijk chromosoom 1 en zoek de verschillen in de genen en dus baseparen en noteer je bevindingen. Hoe kan het dat de combinatie van twee genen toch maar 1 kleur hoofd krijgt bij de kip in plaats van een grijs hoofd ? Lees Uitleg 2."
+        "text": "Look at chromosome 1 and find the differences in the genes and write down your findings. How is it possible that the combination of two genes don’t result in a gray head color? Read explanation 2."
        },
        {
         "type": "patchouli:image",

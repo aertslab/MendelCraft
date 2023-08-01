@@ -6,11 +6,11 @@
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "Als laatste Experiment moet je met al je verworven kennis van een kip een DINO kunnen maken. Deze mag je dan loslaten binnen het terrein met de andere dino’s. Je mag hem ook een naam geven zodat hij hier voor altijd kan blijven met de naam die jij hem gegeven hebt." 
+           "text": "As a final Experiment, you can try to turn a chicken into a DINOSAUR with all your acquired knowledge. You can then release this within the terrain with the other dinosaurs. You may also name him so that he can stay here forever with the name you gave him." 
        },
        {
         "type": "patchouli:text",
-        "text": "Hoe je de dino een naam kan geven vind je terug in MENDELCRAFT GUIDE: Het Aambeeld." 
+        "text": "You can find out how to name the dinosaur in MENDELCRAFT GUIDE: The Anvil" 
        },
        {
         "type": "patchouli:image",

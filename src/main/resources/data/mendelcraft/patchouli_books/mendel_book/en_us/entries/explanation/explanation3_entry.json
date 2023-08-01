@@ -1,16 +1,16 @@
 {
-    "name": "Uitleg 3",
+    "name": "Explanation 3",
     "icon": "minecraft:writable_book",
     "category": "mendelcraft:experiment_category",
     "sortnum": 6,
     "pages": [
       {
           "type": "patchouli:text",
-          "text": "Dat de kippen grijs kunnen hebben komt doordat het gen voor de kleur van het lichaam voor wit en zwart even dominant zijn, de genen noemt men dan co-dominant. Als een kip beide genen heeft zullen ze dus ook beide tot uiting komen."
+          "text": "The fact that the chickens can have a gray body color is because the gene for the color of the body is equally dominant for white and black, the genes are then called co-dominant. If a chicken has both genes, they will both be expressed."
       },
       {
         "type": "patchouli:text",
-        "text": "Bij het bloed zijn er twee dingen die gebeuren, zoals eerder is het duidelijk dat het blauwe bloed een co-dominant gen is met het gen voor geel bloed en dus samen groen bloed veroorzaken. Het verschil tussen blauw en geel bloed is dat er veel meer gen combinaties coderen voor de kleur van geel bloed."
+        "text": "With the blood there are two things that happen, as before it is clear that the blue blood is a co-dominant gene with the gene for yellow blood and thus together cause green blood. The difference between blue and yellow blood is that there are many more gene combinations that code for the colour of yellow blood."
       }
     ]
 }

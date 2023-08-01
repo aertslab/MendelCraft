@@ -1,0 +1,24 @@
+{
+    "name": "DNA aanpassen",
+    "icon": "mendelcraft:dnachickenspawnegg",
+    "category": "mendelcraft:laboratory_category",
+    "sortnum": 1,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Nu kunnen we het DNA bekijken, de volgende stap is het veranderen. Als eerste gaan we een  nieuwe kip kunstmatig maken vanuit een bloed staal. Hiervoor heb je 1 (of 2) gevulde injectiespuiten nodig, en deze stop deze in slotje één (en twee) van het Laboratorium. Ga vervolgens naar het laatste tabblad."
+       },
+       {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/maak_spawn.png"]
+       },
+       {
+           "type": "patchouli:text",
+           "text": "Dan druk je op de Maak Spawn kip-knop om een kip te maken met dezelfde eigenschappen als de kippen waarvan je bloed had genomen. Nadat een ei is gemaakt, kun je het vinden in de derde sleuf van het eerste tabblad van het laboratorium. Hierna kun je de genen wijzigen in het laatste tabblad, waar je ook op de knop hebt gedrukt om het kind te maken. De lay-out is hetzelfde als voor het bekijken van het DNA, maar als je nu een 'gen' selecteert, kun je door gen mogelijkheden bladeren. Als er een potlood bij staat is het mogelijk om het gen aan te passen. Na het aanpassen ga je terug naar het eerste tabblad en neem je het ei. Door op je rechtermuisknop te duwen met het ei in handen zal je een kip doen verschijnen. Doe dit enkel in de daarvoor voorziende plaatsen/kooien."
+       },
+       {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/edit_dna.png"]
+       }
+    ]
+}

@@ -1,12 +1,12 @@
 {
-    "name": "DNA bekijken",
+    "name": "View DNA",
     "icon": "mendelcraft:dnasyringe",
     "category": "mendelcraft:laboratory_category",
     "sortnum": 0,
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "Het laboratorium kan gebruikt worden om DNA te bekijken en te veranderen. Om het DNA van een kip te kunnen bekijken, hebben we allereerst een bloedmonster van de kip nodig. Hiervoor maken we gebruik van een injectiespuit. Deze vind je terug in elke kist naast een labotafel. Door met de rechtermuisknop op de kip de mikken met de spuit zal zijn bloed afgenomen worden. Deze spuit kan dan in de eerste (of tweede) gleuf van het laboratorium worden geplaatst."
+           "text": "The laboratory can be used to view and change DNA. To view the DNA of a chicken, we first need a blood sample from the chicken. We use a syringe for this. You can find these in every box next to a lab table. Right-clicking on the chicken and aiming with the syringe will draw its blood. This syringe can then be placed in the first (or second) slot of the lab."
        },
        {
            "type": "patchouli:image",
@@ -14,7 +14,7 @@
        },
        {
            "type": "patchouli:text",
-           "text": "In het tweede (of derde) tabblad zie je nu de DNA-gegevens van de kip. De bovenste rij bevat alle chromosomen die de kip heeft. Als je op een ervan klikt, verschijnen er twee nieuwe rijen, die de twee DNA-strengen van het chromosoom vertegenwoordigen. Je kunt zien dat deze strengen meerdere genen hebben. Sommige laten niets zien als ze worden ingedrukt, maar dit komt omdat die genen niet relevant zijn voor ons in Mendelcraft. Sommigen van hen laten echter een reeks zien wanneer ze worden geselecteerd, met 'T', 'A', 'C' en G. Dit zijn de vier basen waaruit al het DNA bestaat en die coderen voor een eigenschap van de kip."
+           "text": "In the second (or third) tab you will now see the DNA data of the chicken. The top row contains all the chromosomes the chicken has. If you click on one of them, two new rows will appear, representing the two DNA copies of each chromosome. You can see that these copies have multiple genes. Some show nothing when pressed, but this is because those genes are irrelevant to us in Mendelcraft. However, some of them show a sequence when selected, with 'T', 'A', 'C' and G. These are the four bases that make up all DNA and code for a trait of the chicken."
        },
        {
            "type": "patchouli:image",

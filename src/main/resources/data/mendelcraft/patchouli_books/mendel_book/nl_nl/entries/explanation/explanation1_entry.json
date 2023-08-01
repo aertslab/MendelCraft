@@ -1,0 +1,36 @@
+{
+    "name": "Uitleg 1",
+    "icon": "minecraft:writable_book",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 2,
+    "pages": [
+      {
+          "type": "patchouli:text",
+          "text": "Zoals je nu hebt gezien, geeft het combineren van 2 zwarte of witte kippen een kuiken met dezelfde kleur. Door zwart en witte kippen te combineren, krijg je een grijze kip. Maar als je 2 grijze kippen combineert, kun je dus zwarte, witte en grijze kippen krijgen."
+      },
+      {
+          "type": "patchouli:text",
+          "text": "Waarom gebeurt dit? Hoe kunnen 2 grijze kippen je een zwarte of een witte geven?"
+      },
+      {
+          "type": "patchouli:text",
+          "text": "Elke kip heeft chromosomen, deze bevatten de code voor de eigenschappen van de kip, in dit geval de kleur van de kip. Elk chromosoom heeft twee kopieën, één kopie van de vader en één van de moeder. De chromosomes bevatten de genen die de kleur van de kip bepalen. De zwarte en witte kippen hebben telkens twee keer hetzelfde gen. De grijze kippen hebben zowel het zwarte als het witte gen."
+      },
+      {
+          "type": "patchouli:text",
+          "text": "Grijze kippen kunnen je zwarte, witte en grijze kippen geven. Grijze kippen kunnen dit omdat ze beiden typen genen hebben."
+      },
+      {
+        "type": "patchouli:text",
+        "text": "De kans dat een kuiken een bepaalde kleur krijgt wordt eenvoudiger voorgesteld in het 'Vierkant van Punnett'."
+      },
+      {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/punnet.png"]
+      },
+      {
+        "type": "patchouli:text",
+        "text": "Er is dus 50% kan op een grijs kuiken, en elk 25% op een wit of zwart kuiken. Kwam je dit ook ongeveer uit bij Experiment 2?"
+      }
+    ]
+}

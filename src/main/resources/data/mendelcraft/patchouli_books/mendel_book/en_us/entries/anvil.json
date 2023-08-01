@@ -1,12 +1,12 @@
 {
-    "name": "Het aambeeld",
+    "name": "The anvil",
     "icon": "minecraft:anvil",
     "category": "mendelcraft:anvil_category",
     "sortnum": 0,
     "pages": [
        {
            "type": "patchouli:text",
-           "text": "Voor je eigen Dino te benoemen kan je gebruik maken van het aambeeld. Neem eerst uit de kist naast het aambeeld een naamkaartje. Het aambeeld werkt gelijkaardig aan het laboratorium, je pakt namelijk een naamkaartje en plaatst het in het eerste slot. Hierna kan je het naamkaartje herbenoemen door te typen in de bruine zone en neem je het gemaakte naamkaartje."
+           "text": "You can use the anvil to name your own dinosaur. First take a name tag from the chest next to the anvil. The anvil works similar to the laboratory. You take a name card and place it in the first slot. After this you can rename the name card by typing in the brown zone and then take the created name card. By right clicking on the dinosaur with your freshly created name tag you can give it a name."
        },
        {
         "type": "patchouli:image",

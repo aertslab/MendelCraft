@@ -1,28 +1,28 @@
 {
-    "name": "Utleg 1",
+    "name": "explanation 1",
     "icon": "minecraft:writable_book",
     "category": "mendelcraft:experiment_category",
     "sortnum": 2,
     "pages": [
       {
           "type": "patchouli:text",
-          "text": "Zoals je nu hebt gezien, geeft het combineren van 2 zwarte of witte kippen een kuiken met dezelfde kleur. Door zwart en witte kippen te combineren, krijg je een grijze kip. Maar als je 2 grijze kippen combineert, kun je dus zwarte, witte en grijze kippen krijgen."
+          "text": "As you have now seen, combining 2 black or white chickens gives a chick of the same color. By combining black and white chickens, you get a gray chicken. But if you combine 2 gray chickens, you can get black, white and gray chickens."
       },
       {
           "type": "patchouli:text",
-          "text": "Waarom gebeurt dit? Hoe kunnen 2 grijze kippen je een zwarte of een witte geven?"
+          "text": "Why is this happening? How can 2 gray chickens give you a black or a white one?"
       },
       {
           "type": "patchouli:text",
-          "text": "Elke kip heeft chromosomen, deze bevatten de code voor de eigenschappen van de kip, in dit geval de kleur van de kip. Chromosomen zijn 2 DNA-strengen die genen bevatten. De ene streng komt van zijn vader en de andere van zijn moeder. Die strengen bevatten dus de genen die de kleur van de kip. Voor de zwarte en witte kippen hebben elk twee keer hetzelfde streng oftewel het zwarte dubbel of witte gen dubbel. De grijze kippen hebben zowel de zwarte als de witte genen hebben en zijn dus een combinatie."
+          "text": "Every chicken has chromosomes, which contain the code for the characteristics of the chicken, in this case the color of the chicken. There are two copies of each chromosome. One comes from the father and the other from the mother. Those chromosomes contain the genes that determine the color of the chicken. For the black and white chickens each have the same chromosome twice. Either two times a chromosome with the black gene or two times a chromosome with the white gene. The gray chickens have both a chromosome with a black and one with a white gene."
       },
       {
           "type": "patchouli:text",
-          "text": "Grijze kippen kunnen je zwarte, witte en grijze kippen geven. Grijze kippen kunnen dit omdat ze beiden typen genen hebben."
+          "text": "Gray chickens can give you black, white and gray chickens. Gray chickens can do this because they have both types of genes."
       },
       {
         "type": "patchouli:text",
-        "text": "De kans dat een kuiken een bepaalde kleur krijgt wordt eenvoudiger voorgesteld in het 'Vierkant van Punnett'."
+        "text": "The probability of a chick getting a certain color can be visually represented using the 'Punnett Square'."
       },
       {
         "type": "patchouli:image",
@@ -30,7 +30,7 @@
       },
       {
         "type": "patchouli:text",
-        "text": "Er is dus 50% kan op een grijs kuiken, en elk 25% op een wit of zwart kuiken. Kwam je dit ook ongeveer uit bij Experiment 2?"
+        "text": "So, there is 50% chance to get a gray chick, and 25% chance of getting either a white or black chick. How do these numbers compare to your findings in Experiment 2?"
       }
     ]
 }

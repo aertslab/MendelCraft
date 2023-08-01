@@ -1,0 +1,20 @@
+{
+    "name": "Experiment 5",
+    "icon": "minecraft:paper",
+    "category": "mendelcraft:experiment_category",
+    "sortnum": 7,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Opdracht 5 zal je testen of je begrijpt wat je tot nu toe gedaan hebt. Er bevindt zich onder elk vraagteken een ingang. Hier vind je kamers met steeds drie kooien, een kooi met een papa kip, een mama kip en een kuikentje. In iedere kamer moet jij uitzoeken of het kuiken een kind kan zijn van de mama en papa kip. Het begint gemakkelijk, maar wordt steeds moeilijker."       
+       },
+       {
+        "type": "patchouli:text",
+        "text": "Je mag DNA onderzoek gebruiken om erachter te komen of het mogelijk is! Als je het antwoord weet, duw je met de rechtermuisknop op de knop van jouw keuze. Dit doe je door met een rechtermuisklik de knop in te duwen als je op het paarse platform staat. Gebruik de GROENE blok voor JUIST en de RODE blok voor FOUT. Gebruik de tabel om je vooruitgang bij te houden."       
+       },
+       {
+        "type": "patchouli:image",
+        "images": ["mendelcraft:textures/entries/quiz.png"]
+       }
+    ]
+}

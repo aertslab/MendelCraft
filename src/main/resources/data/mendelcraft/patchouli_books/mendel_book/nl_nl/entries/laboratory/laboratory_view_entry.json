@@ -1,0 +1,24 @@
+{
+    "name": "DNA bekijken",
+    "icon": "mendelcraft:dnasyringe",
+    "category": "mendelcraft:laboratory_category",
+    "sortnum": 0,
+    "pages": [
+       {
+           "type": "patchouli:text",
+           "text": "Het laboratorium kan gebruikt worden om DNA te bekijken en te veranderen. Om het DNA van een kip te kunnen bekijken, hebben we allereerst een bloedmonster van de kip nodig. Hiervoor maken we gebruik van een injectiespuit. Deze vind je terug in elke kist naast een labotafel. Door met de rechtermuisknop op de kip te mikken met de spuit zal zijn bloed afgenomen worden. Deze spuit kan dan in de eerste (of tweede) gleuf van het laboratorium worden geplaatst."
+       },
+       {
+           "type": "patchouli:image",
+           "images": ["mendelcraft:textures/entries/syringetab2.png"]
+       },
+       {
+           "type": "patchouli:text",
+           "text": "In het tweede (of derde) tabblad zie je nu de DNA-gegevens van de kip. De bovenste rij bevat alle chromosomen die de kip heeft. Als je op een ervan klikt, verschijnen er twee nieuwe rijen, die de twee kopieën van het chromosoom voorstellen. Je kunt zien dat deze chromosomes meerdere genen hebben. Sommigen laten niets zien als ze worden ingedrukt, dit komt omdat die genen niet relevant zijn voor ons in Mendelcraft. Sommigen van hen laten echter een reeks letters (A, C, T of G) zien wanneer ze worden geselecteerd. Dit zijn de vier basen waaruit al het DNA bestaat en die coderen voor een eigenschap van de kip."
+       },
+       {
+           "type": "patchouli:image",
+           "images": ["mendelcraft:textures/entries/view_genes2.png"]
+       }
+    ]
+}

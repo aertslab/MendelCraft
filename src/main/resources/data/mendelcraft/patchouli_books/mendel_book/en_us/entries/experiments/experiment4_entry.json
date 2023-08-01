@@ -2,31 +2,31 @@
     "name": "Experiment 4",
     "icon": "minecraft:paper",
     "category": "mendelcraft:experiment_category",
-    "sortnum": 4,
+    "sortnum": 5,
     "pages": [
         {
             "type": "patchouli:text",
-            "text": "Bij Experiment 4 zal je nog harder moeten speuren naar de verschillen in genen bij de eerste twee chromosomen. In Experiment 2 werd al duidelijk welk gen er verantwoordelijk is voor de kleur van een kippen hoofd. Je zal verschillende eigenschappen moeten achterhalen."
+            "text": "In Experiment 4 you will have to look even harder for the differences in genes on the first two chromosomes. In Experiment 2 it already became clear which gene is responsible for the color of a chicken's head. Now, you will have to find out the genes for several other properties."
         },
         {
             "type": "patchouli:text",
-            "text": "Je begint door van elke kip bloed te nemen en deze te vergelijken met elkaar door de tabel in te vullen. Zo ga je eerst op zoek naar welk gen de kleur van het lichaam van een kip bepaald. Vergelijk dus zwarte, witte en grijze kippen (lichaamskleur)."
+            "text": "You start by taking blood from each chicken and comparing their features with the code of their genes by completing the table. For example, you first look for which gene determines the color of a chicken's body. So, compare black, white and grey chickens (body colour)."
         },
         {
             "type": "patchouli:text",
-            "text": "TIP: Je kan twee spuiten tegelijk analyseren door elk in een van de slotjes te plaatsen bij Het Laboratorium."
+            "text": "TIP:You can analyze two syringes at the same time by placing each in one of the slots at the Laboratory"
         },
         {
             "type": "patchouli:text",
-            "text": "Ten tweede ben je ook opzoek naar de verschillen in genen die verantwoordelijk zijn voor de verschillende kleuren bloed die een kip in Mendelcraft kan hebben. Noteer je bevindingen in de tabel."
+            "text": "Secondly, you are also looking for the differences in genes that are responsible for the different blood colors of the chickens in Mendelcraft. Record your findings in the table."
         },
         {
             "type": "patchouli:text",
-            "text": "Wat valt er op als je deze eigenschappen hun genen vergelijkt met die van de kleur van een kippen hoofd ? Weet je waarom je grijze kippen kan hebben en hoe 3 bloedkleuren kunnen bestaan?"
+            "text": "What stands out when you compare these traits and their genes with that of the color of a chicken's head? Do you know why you can have gray chickens and how 3 blood colors can exist?"
         },
         {
             "type": "patchouli:text",
-            "text": "Vind het antwoord in Uitleg 3"
+            "text": "Find the answer in Explanation 3."
         }
     ]
 }
